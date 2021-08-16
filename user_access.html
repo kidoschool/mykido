@@ -1,0 +1,75 @@
+<div class="page-wrapper">
+    <div class="page-breadcrumb bg-white">
+        <div class="row align-items-center">
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="page-title">My Access</h4>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-lg-4 col-md-12">
+                <div class="white-box analytics-info">
+                    
+                    <span class="navigate" link="user_inspection" >
+                        <h3>Checkout Inspections</h3>
+                    </span>
+
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row justify-content-center" id="access_list">
+
+            <div class="col-lg-4 col-md-12 access_card">
+                <div class="white-box analytics-info">
+                    <a href="http://gmail.com" target="_blank" rel="noopener noreferrer" class="access_link">
+                        <h3 class="box-title">
+                            <img src="images/gm_logo.png" alt="user-img" width="36" class="access_logo">&emsp;
+                             <span class="access_name">Gmail</span>
+                        </h3>
+                    </a>
+                </div>
+            </div>
+
+
+        </div>
+        
+    </div>
+ 
+</div>
+
+<script>
+
+    var access_card = $('.access_card:first');
+    $('#access_list').empty();
+
+    var user =  local_get("logged_user");
+
+    // console.log(user);
+    var filter = JSON.stringify({"user_id":user.id});
+    var access_cards = JSON.parse(requester(server,"POST",{'api':'get_users_access','filter':filter}));
+
+    $.each(access_cards, function (k, i) {
+        // var v = i[Object.keys(i)[0]];var img_bw = "";
+        // console.log(i);
+        var access  = access_card.clone();
+        access.find('.access_logo').attr("src",i.logo);
+        access.find('.access_name').text(i.access_name);
+        access.find('.access_link').attr("href",i.link);
+        
+        // item.attr('item_id',v.id);
+        // console.log(v.sub_cat_id);
+        // item.attr('sub_cat_id',v.sub_cat_id);
+        // (v.is_veg == 0) ? item.find('.veg_nv').attr("src","images/icons/nveg.png") : false;
+        // item.find('.item_count').attr('item_id',v.id);
+        $('#access_list').append(access);
+    });
+
+
+
+
+</script>

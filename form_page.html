@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords"
+        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
+    <meta name="description"
+        content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Ample Admin Lite Template by WrapPixel</title>
+    <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
+    <!-- Custom CSS -->
+   <link href="css/style.min.css" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/form-builder.min.js"></script>
+    <script src="js/form-render.min.js"></script>
+    
+</head>
+<body>
+ 
+    <center >
+        <br><br>
+        <h3 id="title"></h3><br><br>
+        <div id="form_section" style="width: max-content;text-align: left;"></div>
+        <button class="btn btn-primary">Submit</button>
+    </center>
+    <script src="js/custom.js"></script>
+    <script>
+
+            //-------------------------------------EDIT FORM / NEW FORM----------------------------------            
+            var url = new URL(window.location.href);
+            if (url.searchParams.get('form_id')) {
+                var form_id = url.searchParams.get("form_id");
+                var filter = JSON.stringify({"id":form_id});
+                var inspects = JSON.parse(requester(server,"POST",{'api':'get_inspect','filter':filter}));
+                console.log(inspects);
+                var formRenderOpts = {
+                    dataType: 'json',
+                    formData: inspects[0]['content']
+                };
+                // fbuilder = $('#fb-editor').formBuilder(formRenderOpts);
+                // $("#inspect_title").val(inspects[0]['title']);
+                // $("#inspect_title").attr("form_id",form_id);
+                // var formRenderOpts = inspects[0]['content'];
+                // http://localhost/ample-admin/form_page.html?form_id=2
+                $("#title").text(inspects[0]['title']);
+                var renderedForm = $('<div>');
+                renderedForm.formRender(formRenderOpts);
+                $("#form_section").html(renderedForm.html());
+
+            }
+
+
+
+
+
+            // console.log(renderedForm.html());
+            // $('#fb-editor').formBuilder(opts);
+            // var fbEditor = document.getElementById('build-wrap');
+            // $(fbEditor).formBuilder(opts);
+
+
+
+
+    </script>
+</body>

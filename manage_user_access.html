@@ -1,0 +1,54 @@
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <div class="row"> 
+            <div class="col-lg-6">
+
+
+                <div class="table-responsive">
+                    <table class="table text-nowrap" id="user_list">
+                        <thead>
+                            <tr>
+                                <th class="border-top-0">Nursery</th>
+                                <th class="border-top-0">Email</th>
+                                <th class="border-top-0">Sent Before</th>
+                                <th class="border-top-0">Select All</th>
+                            </tr>
+                        </thead>
+                        <tbody id="user_trs">
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var access_portals = [
+        {
+            "name": "Gmail",
+            "link": "https://gmail.com",
+            "logo": "images/gm_logo.png",
+        },
+        {
+            "name": "HubSpot",
+            "link": "https://app.hubspot.com/login",
+            "logo": "images/hs_logo.svg",
+        },
+        {
+            "name": "LeadSquared",
+            "link": "https://login.leadsquared.com",
+            "logo": "images/lsq_logo.png",
+        }
+    ];
+
+    
+    updt_usr_tbl();
+
+
+</script>

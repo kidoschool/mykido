@@ -1,0 +1,188 @@
+
+<style>
+    .chip{
+        background-color: #ddd;
+        padding: 0 15px;
+        margin: 0 5px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+    }
+</style>
+
+<div class="page-wrapper" style="min-height: 250px;">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="page-breadcrumb bg-white">
+        <div class="row align-items-center">
+            <div class="col-lg-12 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="page-title">Form Details</h4>
+                <!-- <span class="page-title">Create New Inspection</span> -->
+                <span><input type="text" name="" id="inspect_title" placeholder="Title" /></span>
+
+                <span>
+                    <label for="due_date">Due date</label>
+                    <input type="text" id="due_date" name="due_date"/>
+                </span>
+                    <!-- <input type='text' class="form-control" id='datetimepicker4' /> -->
+
+                    <span >
+                        Allow Submittion after due date
+                        <input type="checkbox" name="allow_after_dd" id="allow_after_dd">
+                    </span>
+
+
+
+            </div>
+            <div id="edit-form"></div>
+            <br>
+            <div id="temp"></div>
+            <!-- <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                <div class="d-md-flex">
+                    <ol class="breadcrumb ms-auto">
+                        <li><a href="#" class="fw-normal">Dashboard</a></li>
+                    </ol>
+                    <a href="https://www.wrappixel.com/templates/ampleadmin/" target="_blank"
+                        class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">Upgrade
+                        to Pro</a>
+                </div>
+            </div> -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <!-- <div class="col-md-12">
+                <div class="white-box">
+                    <h3 class="box-title">Blank Page</h3>
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+    <!-- Modal Code -->
+    <!-- ============================================================== -->
+
+    <button type="button" hidden class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="modal_btn">
+        Launch demo modal
+    </button>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Send Inspection over email</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <!---------------------------EMAIL ADD SECTION--------------------
+                 &nbsp;<input type="text" size="35" placeholder="Comma separated email" name="" id="email_bx">
+                <span id="inv_email" style="color: red;display: none;">Invalid email</span>
+                <br><br>
+                <div id="email_chips">
+                </div> -->
+                <div class="table-responsive">
+                    <table class="table text-nowrap" id="user_list">
+                        <thead>
+                            <tr>
+                                <th class="border-top-0">Nursery</th>
+                                <th class="border-top-0">Email</th>
+                                <th class="border-top-0">Sent Before</th>
+                                <th class="border-top-0">Select All <input type="checkbox" class="sel_all" > </th>
+                            </tr>
+                        </thead>
+                        <tbody id="user_trs">
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="assign_users" class="btn btn-primary">Send</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <footer class="footer text-center"> 2021 © Ample Admin brought to you by <a
+            href="https://www.wrappixel.com/">wrappixel.com</a>
+    </footer>
+
+</div>
+
+
+<script>
+
+var fbuilder = null;
+// fbuilder = $('#edit-form').formBuilder();
+$( "#due_date" ).datepicker({
+    minDate: new Date(),
+    dateFormat:"dd-mm-yy"
+});
+
+
+$(document).ready(function($) {
+    // $(document).on('keydown','#email_bx',function(event){
+    //     $("#inv_email").css("display","none");
+    //     // console.log(event.which);
+    //     if(event.which == 188){
+    //         if(valid_email($(this).val())){
+    //             var chip = "<span class='mail_chip chip'>"+$(this).val()+"</span>";
+    //             $("#email_chips").append(chip);
+    //             $(this).val("");
+    //         }else{
+    //             $("#inv_email").css("display","initial");
+    //         }
+    //         return false;
+    //     }
+    // });
+
+    updt_usr_tbl();
+    // $('#user_list').DataTable();
+
+   });
+
+
+    //-------------------------------------EDIT FORM / NEW FORM----------------------------------            
+
+    // var url = new URL(window.location.href);
+    // console.log(form_id);
+    if (form_id) {
+        // var form_id = url.searchParams.get("form_id");
+        var filter = JSON.stringify({"id":form_id});
+        var inspects = JSON.parse(requester(server,"POST",{'api':'get_inspect','filter':filter}));
+        var formRenderOpts = {
+            dataType: 'json',
+            formData: inspects[0]['content']
+        };
+        fbuilder = $('#edit-form').formBuilder(formRenderOpts);
+        $("#inspect_title").val(inspects[0]['title']);
+        $("#due_date").val(inspects[0]['due_date']);
+
+        $.each(inspects[0]['users'], function (k, v) {
+            // console.log($("td[usr='"+v.email+"']").text());
+            $("td[usr='"+v.email+"']").html("Yes");
+        });
+
+        parseInt(inspects[0]['submit_after_due_date']) ? $('#allow_after_dd').prop('checked', true) : false;
+
+        $("#inspect_title").attr("form_id",form_id);
+        $('#user_list').DataTable();
+
+    }else{
+        fbuilder = $('#edit-form').formBuilder();
+    }
+// });
+</script>

@@ -19,6 +19,7 @@ $apis = [
             'assign_users'=>'assign_users',
             'get_users'=>'get_users',
             'get_users_access'=>'get_users_access',
+            'save_users_access'=>'save_users_access',
         ];
 //----------------------INVALID API ENDPINT CHECK---------------
 if(!in_array($_POST['api'],$apis)){return print_r("Api name is not defined.");}
@@ -55,7 +56,7 @@ function get_inspect($post){
 
 
 function get_users_access($post){
-  
+
   $filter = count(json_decode($post['filter'],true)) ? json_decode($post['filter'],true) : [];
   $filter['status'] = ['1'];
   $fields = ["*"];
@@ -68,6 +69,21 @@ function get_users_access($post){
 
 }
 
+function save_users_access($post){
+
+  $data = count(json_decode($post['user_access'],true)) ? json_decode($post['user_access'],true) : [];
+  // foreach ($post["users"] as $k => $v) {
+  //   $data[] = ["inspection_id"=> $post["form_id"],"email"=>$v ];
+  // }
+
+  $cols = ["user_id","access_name","link","logo","status"];
+
+  $resp = save_batch('user_access',$cols,$data);
+
+  echo json_encode($resp);die;
+
+}
+
 
 function get_users($post){
   $filter = [];
@@ -75,7 +91,7 @@ function get_users($post){
     $filter = count(json_decode($post['filter'],true)) ? json_decode($post['filter'],true) : [];
   }
   $filter['status'] = ['1','2'];
-  $fields = ['id','name','updated_on','email'];
+  $fields = ['id','name','updated_on','email','is_admin','team'];
   if(isset($filter['id'])){
     $fields = ["*"];
   }

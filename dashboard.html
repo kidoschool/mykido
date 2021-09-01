@@ -11,6 +11,7 @@
     <meta name="description"
         content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
+    <!-- <meta name="google-signin-client_id" content="370065775488-fsei8ulmvihhrutk3d77a97d3765gcft.apps.googleusercontent.com"> -->
     <title>Ample Admin Lite Template by WrapPixel</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
     <!-- Favicon icon -->
@@ -19,6 +20,7 @@
     <link href="plugins/bower_components/chartist/dist/chartist.min.css" rel="stylesheet">
     <link rel="stylesheet" href="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css">
     <!-- Custom CSS -->
+    <script src="https://apis.google.com/js/platform.js"  ></script>
     <link href="css/style.min.css" rel="stylesheet">
     <link href="css/jquery.dataTables.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/datepicker.css">
@@ -31,7 +33,7 @@
     <script src="js/form-builder.min.js"></script>
     <script src="js/form-render.min.js"></script>
     <script src="js/jquery.dataTables.min.js"></script>
-    
+
 </head>
 
 <body>
@@ -48,16 +50,17 @@
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin6">
                     <!-- Logo -->
+                    <h1 style="color: #2cabe3;text-align: center;">MyKido <span style="font-size: 2vh;color: #ccc;">admin</span> </h1>
                     <span class="navbar-brand navigate" link="home">
                         <!-- Logo icon -->
-                        <b class="logo-icon">
+                        <!-- <b class="logo-icon"> -->
                             <!-- Dark Logo icon -->
-                            <img src="plugins/images/logo-icon.png" alt="homepage" />
-                        </b>
+                            <!-- <img src="plugins/images/logo-icon.png" alt="homepage" /> -->
+                        <!-- </b> -->
                         <!-- Logo text -->
-                        <span class="logo-text">
+                        <!-- <span class="logo-text">
                             <img src="plugins/images/logo-text.png" alt="homepage" />
-                        </span>
+                        </span> -->
                     </span>
                     <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
                         href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
@@ -74,9 +77,9 @@
                             </form>
                         </li>
                         <li>
-                            <a class="profile-pic" href="/kido-audit">
+                            <a class="profile-pic" id="logout_btn" >
                                 <!-- <img src="plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle"> -->
-                                <span class="text-white font-medium">Logout</span></a>
+                                <span class="text-white font-medium"></span></a>
                             </li>
                     </ul>
                 </div>
@@ -147,6 +150,15 @@
                             </span>
                         </li>
 
+                        <li class="sidebar-item">
+                            <span class="sidebar-link waves-effect waves-dark sidebar-link navigate" link="not-found"
+                                aria-expanded="false">
+                                <i class="fas fa-plus-circle" aria-hidden="true"></i>
+                                <span class="hide-menu">Create / Update User</span>
+                            </span>
+                        </li>
+
+
 
                         <!-- <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="404.html"
@@ -165,6 +177,7 @@
             </div>
         </aside>
         <!-- Main Content -->
+
         <div id="main_container">
 
 
@@ -184,34 +197,79 @@
     <script src="js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="js/custom.js"></script>
+
+
     <script>
+    // function appStart(){
+    //     // var appStart = function() {
+    //     gapi.load('auth2', initSigninV2);
+    // };
+
+    var initSigninV2 = function() {
+        auth2 = gapi.auth2.init({
+            client_id: '370065775488-fsei8ulmvihhrutk3d77a97d3765gcft.apps.googleusercontent.com',
+            scope: 'profile'
+        }).then(function () {
+            var auth3 = gapi.auth2.getAuthInstance();
+            // console.log(auth3.isSignedIn.get());
+            setInterval(function(){
+                console.log(auth3.isSignedIn.get()); 
+                if(!auth3.isSignedIn.get()){
+                    window.location = "./";
+                }
+            }, 1000);
+        });
+        // auth2 = gapi.auth2.getAuthInstance();
+        // if(!auth2.isSignedIn.get()){
+        //     setInterval(function(){
+        //         console.log(auth2.isSignedIn.get()); 
+        //         if(!auth2.isSignedIn.get()){
+        //             // window.location = "./";
+        //         }
+        //     }, 1000);
+        // }
+        // $(document).on('click','#logout_btn',function(){
+        //     console.log("test----");
+        //     auth2.signOut().then(function () {
+        //         auth2.disconnect();
+        //     });
+        // });
+    }
+    // appStart();
+    gapi.load('auth2', initSigninV2);
+    // function signOut() {
+        // var auth2 = gapi.auth2.getAuthInstance();
+        // console.log(auth2);
+        // auth2.signOut();
+        // auth2.signOut().then(function () {
+        //     auth2.disconnect();
+        // });
+        // window.location = "./";
+    // }
+    // var auth2 = gapi.auth2.init({
+    //         client_id: '370065775488-fsei8ulmvihhrutk3d77a97d3765gcft.apps.googleusercontent.com',
+    //         scope: 'profile'
+    //     });
+    // console.log(auth2);
+    // setInterval(function(){ console.log(gapi); }, 1000);
     $(document).ready(function() {
         // window.addEventListener('load', function() {
-            // navto('admin');
-            // logout();
-            // if (uri.indexOf("?") > 0) {
-            //     var clean_uri = uri.substring(0, uri.indexOf("?"));
-            //     window.history.replaceState({}, document.title, clean_uri);
-            // }
-            clearInterval();
-            // navto('product');
-            // navto('home');
-            // navto('cart');
-            // navto('item');
-            var link = (document.location.hash).replace(/#/g,"");
-            console.log((link != ""));
-            (link != "") ? navigator(link) : navigator("home");
-            // navto('home');
-            // function playAudio() {
-            // }
-            // document.location.hash = "";
-            // navto('cart');
+        // navto('admin');
+        // logout();
+        // if (uri.indexOf("?") > 0) {
+        //     var clean_uri = uri.substring(0, uri.indexOf("?"));
+        //     window.history.replaceState({}, document.title, clean_uri);
+        // }
+        // onSignIn();
+        // clearInterval();
+        // navto('product');
+        // navto('item');
+        var link = (document.location.hash).replace(/#/g,"");
+        // console.log((link != ""));
+        (link != "") ? cust_navigate(link) : cust_navigate("home");
         // });
     });
     </script>
-    
-
-
 
 </body>
 

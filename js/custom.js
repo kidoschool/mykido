@@ -1,6 +1,4 @@
-let form_id = null;
-
-
+// let form_id = null;
 //-------------------------------COMMON FUNCTIONS----------------------
 function local_get(var_name) {
     try {
@@ -188,7 +186,82 @@ function updt_usr_tbl() {
 }
 
 
-function navigator(view_name) {
+
+function updt_usr_list_tbl() {
+    var filter = JSON.stringify({});
+    var inspects = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
+    $("#user_trs").empty();
+    var trs = "";
+    $.each(inspects, function (k, v) {
+        // trs += '<tr><td>'+v.name+'</td> <td>'+v.email+'</td><td usr="'+v.email+'" >No</td><td><input type="checkbox" value="'+v.email+'"></td></tr>';
+        var team = (v.team).replaceAll("-"," ");
+        trs += '<tr uid="'+v.id+'" class="user_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+v.email+'</td><td>'+team+'</td></tr>';
+        // trs += '<tr class="user_list_tr"><td>'+v.name+'</td> <td>'+v.email+'</td></tr>';
+    });
+    $("#user_trs").append(trs);
+    $('#user_list').DataTable();
+
+    var lis = "";
+
+    $.each(access_portals_list, function (k1, v1) {
+
+        lis += '<li><input obj_ind="'+k1+'" class="access_cb" name="'+v1.name+'" type="checkbox" value="'+k1+'">&emsp;<span>'+v1.name+'</span></li>';
+
+    });
+
+    $("#access_portals").empty().append(lis);
+
+}
+
+
+$(document).on('click','.user_list_tr',function(){
+
+    var uid = $(this).attr("uid");
+    $(".user_list_tr.active").removeClass("active");
+    $(this).addClass("active");
+    $("#selected_user").text($(this).find(".name").text());
+
+    var filter = JSON.stringify({"user_id":uid});
+    var access_cards = JSON.parse(requester(server,"POST",{'api':'get_users_access','filter':filter}));
+    // console.log(access_cards);
+    $(".access_cb").prop('checked', false);
+
+    $("#save_user_access").attr("uid",uid);
+
+    $.each(access_cards, function (k1, v1) {
+        // console.log();
+        $("input[name="+v1.access_name+"]").prop('checked', true);
+    });
+
+});
+
+
+$(document).on('click','#save_user_access',function(){
+
+    var uid = $(this).attr("uid");
+    var data = [];
+
+    // $('input.access_cb[type=checkbox]').each(function () {
+
+    $("input.access_cb").each(function () {
+
+        var aces_sts = ($(this).prop('checked')) ? 1 : 0;
+        var acces_det = access_portals_list[$(this).attr("obj_ind")];
+        data.push([uid,acces_det.name,acces_det.link,acces_det.logo,aces_sts]);
+
+    });
+
+    // console.log(JSON.stringify(data));
+
+    if(data.length){
+        // var filter = JSON.stringify(data);
+        var access_cards = JSON.parse(requester(server,"POST",{'api':'save_users_access','user_access':JSON.stringify(data)}));
+        alert("Saved");
+    }
+
+});
+
+function cust_navigate(view_name) {
     clearInterval();
     $.ajax({
         url:view_name+".html",
@@ -215,6 +288,6 @@ $(document).on('click','.navigate',function(){
 
 window.onhashchange = function() {
     var link = (document.location.hash).replace(/#/g,"");
-    (link != "") ? navigator(link) : false;
+    (link != "") ? cust_navigate(link) : false;
 }
     

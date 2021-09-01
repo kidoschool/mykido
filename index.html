@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="370065775488-fsei8ulmvihhrutk3d77a97d3765gcft.apps.googleusercontent.com">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords"
@@ -15,11 +17,12 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
     <!-- Custom CSS -->
-   <link href="css/style.min.css" rel="stylesheet">
+    <link href="css/style.min.css" rel="stylesheet">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
     <script src="js/jquery.min.js"></script>
     <script src="js/custom.js"></script>
 
-    
 </head>
 <body style="background-image: url(back_img.jpg);">
     <center>
@@ -27,40 +30,167 @@
             <br><br><br>
             <div class="col-md-offset-5 col-md-3">
                 <div class="form-login">
-                <h3 style="color: white;">Kido Audit Admin</h3>
-                <input type="text" value="sayyed@kido.school" id="userName" class="form-control input-sm chat-input" placeholder="username" />
+                <h3 style="color: white;">MyKido</h3><br>   
+                <!-- <input type="text" value="sayyed@kido.school" id="userName" class="form-control input-sm chat-input" placeholder="username" /> -->
                 </br>
-                <input type="password" id="userPassword" class="form-control input-sm chat-input" placeholder="password" />
+                <!-- <input type="password" id="userPassword" class="form-control input-sm chat-input" placeholder="password" /> -->
                 </br>
                 <div class="wrapper">
-                <span class="group-btn">     
+                <!-- <span class="group-btn">     
                     <a href="#" onclick="login()" class="btn btn-primary btn-md">login <i class="fa fa-sign-in"></i></a>
-                </span>
+                </span> -->
+                <div>
+                    <div id="my-signin2" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+                </div>
                 </div>
                 </div>
             </div>
         <!-- </div> -->
     </center>
 
+    <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
+    <!-- <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script> -->
+
     <script>
-        function login() {
-            var user = $("#userName").val();
-            if(user == "admin@mail.com"){
-                window.location = "dashboard.html"
-            }else{
-                var filter = JSON.stringify({"email":user});
-                var user_det = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
-                console.log(user_det[0]);
-                if(user_det.length){
-                    local_set("logged_user",user_det[0]);
-                    window.location = "user_dashboard.html";
-                }else{
-                    alert("Not authorized");
-                }
-            }
-        }
+
+    // function onSuccess(googleUser) {
+    //   console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    // }
+
+    // function onSuccess1(googleUser) {
+    //   console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    // }
+
+    // function onFailure(error) {
+    //   console.log(error);
+    // }
+    
+    // function renderButton() {
+    //   console.log(gapi.signin2);
+    //   gapi.signin2.render('my-signin2', {
+    //     'scope': 'profile email',
+    //     'width': 240,
+    //     'height': 50,
+    //     'longtitle': true,
+    //     'theme': 'dark',
+    //     'onsuccess': onSuccess,
+    //     'oncomplete': onSuccess1,
+    //     'onfailure': onFailure
+    //   });
+    // }
+
+
+        // function login() {
+        //     var user = $("#userName").val();
+        //     if(user == "admin@mail.com"){
+        //         window.location = "dashboard.html"
+        //     }else{
+        //         var filter = JSON.stringify({"email":user});
+        //         var user_det = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
+        //         console.log(user_det[0]);
+        //         if(user_det.length){
+        //             local_set("logged_user",user_det[0]);
+        //             window.location = "user_dashboard.html";
+        //         }else{
+        //             alert("Not authorized");
+        //         }
+        //     }
+        // }
         // dashboard.html
-    console.log("---------------------");
+    // console.log("---------------------");
+
+
+    // signOut();
+    function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        var id_token = googleUser.getAuthResponse().id_token;
+        localStorage.setItem("profile", JSON.stringify(profile));
+        // localStorage.setItem("token", JSON.stringify(id_token));
+        // console.log(profile);
+        // window.location = "dashboard.html";
+        // console.log(googleUser.getAuthResponse());
+        // console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        // console.log('Full Name: ' + profile.getName());
+
+        var filter = JSON.stringify({"email":profile.getEmail()});
+        var user_det = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
+        // console.log(user_det[0]);
+        if(user_det[0]){
+            local_set("logged_user",user_det[0]);
+            console.log( parseInt(user_det[0]["is_admin"]));
+            parseInt(user_det[0]["is_admin"]) ? window.location = "dashboard.html" : window.location = "user_dashboard.html";
+        }else{
+            alert("No registered with kido");
+        }
+        // console.log('Given Name: ' + profile.getGivenName());
+        // console.log('Family Name: ' + profile.getFamilyName());
+        // console.log("Image URL: " + profile.getImageUrl());
+        // console.log("Email: " + profile.getEmail());
+
+        // The ID token you need to pass to your backend:
+        // console.log("ID Token: " + id_token);
+      }
+
+
+
+    //   function onSignOut(googleUser) {
+
+    //   }
+    // console.log(googleUser);
+    // var auth2 = gapi.auth2.getAuthInstance();
+    // auth2.signOut().then(function () {console.log('User signed out.');});
+
+    // Signed in
+
+
+
+// $(document).ready(function() {
+//     window.onLoadCallback = function(){
+//         var aut = gapi.auth2.getAuthInstance();
+//         //     auth2.signOut().then(function () {
+//         // });
+//         console.log(aut);
+//     }
+// });
+
+
+    // function startApp() {
+        // console.log(gapi.auth2.AuthResponse);
+        // property 'load' of undefined
+        // console.log(gapi.auth2.getAuthInstance());
+        // console.log(gapi.auth2.getAuthInstance().currentUser.Td);
+        // console.log((gapi.auth2.getAuthInstance().currentUser.Td)["Zb"]);
+        // console.log(gapi.auth2.authorize);
+
+
+        // gapi.load('auth2', function() {
+        //     // console.log(temp);
+        //     gapi.client.load('plus','v1').then(function() {
+        //     gapi.signin2.render('signin-button', {
+        //         scope: 'profile',
+        //         fetch_basic_profile: false });
+        //     gapi.auth2.init({fetch_basic_profile: false,
+        //         scope:'profile'}).then(
+        //             function (){
+        //             console.log('init');
+        //             auth2 = gapi.auth2.getAuthInstance();
+        //             auth2.isSignedIn.listen( function() {
+        //                 console.log(auth2.currentUser.get());
+        //                 });
+        //             auth2.then(function(resp){
+        //                 console.log(auth2.currentUser.get());
+        //                 });
+        //             });
+        //     });
+        // });
+    // }
+
+    // startApp();
+
+
+
     </script>
+
 
 </body>

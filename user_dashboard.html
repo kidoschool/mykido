@@ -42,22 +42,25 @@
         data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
         <header class="topbar" data-navbarbg="skin5">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                
                 <div class="navbar-header" data-logobg="skin6">
                     <!-- Logo -->
+                    <h1 style="color: #2cabe3;text-align: center;">MyKido <span style="font-size: 2vh;color: #ccc;">admin</span> </h1>
                     <span class="navbar-brand navigate" link="home">
                         <!-- Logo icon -->
-                        <b class="logo-icon">
+                        <!-- <b class="logo-icon"> -->
                             <!-- Dark Logo icon -->
-                            <img src="plugins/images/logo-icon.png" alt="homepage" />
-                        </b>
+                            <!-- <img src="plugins/images/logo-icon.png" alt="homepage" /> -->
+                        <!-- </b> -->
                         <!-- Logo text -->
-                        <span class="logo-text">
+                        <!-- <span class="logo-text">
                             <img src="plugins/images/logo-text.png" alt="homepage" />
-                        </span>
+                        </span> -->
                     </span>
                     <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
                         href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-                </div>
+                </div>                
+
                 <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
                     <!-- Right side toggle and nav items -->
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
@@ -174,7 +177,7 @@
                 // navto('item');
                 var link = (document.location.hash).replace(/#/g,"");
                 console.log((link != ""));
-                (link != "") ? navigator(link) : navigator("user_access");
+                (link != "") ? cust_navigate(link) : cust_navigate("user_access");
                 // navto('home');
                 // function playAudio() {
                 // }

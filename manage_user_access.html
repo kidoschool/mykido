@@ -8,10 +8,11 @@
                     <table class="table text-nowrap" id="user_list">
                         <thead>
                             <tr>
-                                <th class="border-top-0">Nursery</th>
+                                <th class="border-top-0">User</th>
                                 <th class="border-top-0">Email</th>
-                                <th class="border-top-0">Sent Before</th>
-                                <th class="border-top-0">Select All</th>
+                                <th class="border-top-0">Team</th>
+                                <!-- <th class="border-top-0">Sent Before</th>
+                                <th class="border-top-0">Select All</th> -->
                             </tr>
                         </thead>
                         <tbody id="user_trs">
@@ -21,15 +22,26 @@
                 </div>
 
 
+            </div>
+            <div class="col-lg-1">
 
             </div>
+
+            <div class="col-lg-3">
+
+                <h5 id="selected_user" >No user selected</h5>
+                <ul id="access_portals"></ul>
+                <button id="save_user_access">Save</button>
+
+            </div>
+
         </div>
     </div>
 </div>
 
 <script>
 
-    var access_portals = [
+    var access_portals_list = [
         {
             "name": "Gmail",
             "link": "https://gmail.com",
@@ -41,14 +53,23 @@
             "logo": "images/hs_logo.svg",
         },
         {
+            "name": "GoogleDrive",
+            "link": "https://drive.google.com/",
+            "logo": "images/gd.png",
+        },
+        {
+            "name": "Manula",
+            "link": "https://admin.manula.com/login.php?action=login",
+            "logo": "images/manula-icon.png",
+        },
+        {
             "name": "LeadSquared",
             "link": "https://login.leadsquared.com",
             "logo": "images/lsq_logo.png",
         }
     ];
 
-    
-    updt_usr_tbl();
+    updt_usr_list_tbl();
 
 
 </script>

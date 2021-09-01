@@ -128,7 +128,7 @@ function format_date2(str) {
     return dateObject;
 }
 
-var server = "http://localhost/kido-audit-api/api.php";
+var server = ((document.location.host).indexOf("localhost") !== -1) ? "http://localhost/kido-audit-api/api.php" : 'https://shop.kidovillage.com/kido-audit-api/api.php';
 
 function requester(end_point, req_type, params) {
     // var authToken = 'Bearer ' + local_get('access_token');

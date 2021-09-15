@@ -211,14 +211,15 @@
             scope: 'profile'
         }).then(function () {
             var auth3 = gapi.auth2.getAuthInstance();
-            // console.log(auth3.isSignedIn.get());
+            console.log(auth3.isSignedIn.get());
             setInterval(function(){
-                console.log(auth3.isSignedIn.get()); 
+                // console.log(auth3.isSignedIn.get()); 
                 if(!auth3.isSignedIn.get()){
                     window.location = "./";
                 }
             }, 1000);
         });
+        
         // auth2 = gapi.auth2.getAuthInstance();
         // if(!auth2.isSignedIn.get()){
         //     setInterval(function(){

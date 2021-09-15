@@ -32,6 +32,7 @@
                              <span class="access_name">Gmail</span>
                         </h3>
                     </a>
+                    <span class="access_desc">Test</span>
                 </div>
             </div>
 
@@ -53,6 +54,17 @@
     var filter = JSON.stringify({"user_id":user.id});
     var access_cards = JSON.parse(requester(server,"POST",{'api':'get_users_access','filter':filter}));
 
+
+
+    var access_portals_list_by_name = {};
+
+    $.each(access_portals_list, function (k, i) {
+        access_portals_list_by_name[i.name] = i ;
+    });
+
+    // console.log(access_portals_list_by_name);
+
+
     $.each(access_cards, function (k, i) {
         // var v = i[Object.keys(i)[0]];var img_bw = "";
         // console.log(i);
@@ -60,7 +72,8 @@
         access.find('.access_logo').attr("src",i.logo);
         access.find('.access_name').text(i.access_name);
         access.find('.access_link').attr("href",i.link);
-        
+        access.find('.access_desc').text(access_portals_list_by_name[i.access_name]["desc"]);
+        // console.log();
         // item.attr('item_id',v.id);
         // console.log(v.sub_cat_id);
         // item.attr('sub_cat_id',v.sub_cat_id);

@@ -11,6 +11,50 @@ function local_get(var_name) {
 
 function local_set(var_name, value) { localStorage.setItem(var_name, JSON.stringify(value)); }
 
+var access_portals_list = [
+    {
+        "name": "Gmail",
+        "link": "https://gmail.com",
+        "logo": "images/gm_logo.png",
+        "desc": "Gmail is a free email service provided by Google. A user typically accesses Gmail in a web browser or the official mobile app.",
+    },
+    {
+        "name": "HubSpot",
+        "link": "https://app.hubspot.com/login",
+        "logo": "images/hs_logo.svg",
+        "desc": "HubSpot is an American developer and marketer of software products for inbound marketing, sales, and customer service.",
+    },
+    {
+        "name": "GoogleDrive",
+        "link": "https://drive.google.com/",
+        "logo": "images/gd.png",
+        "desc": "Google Drive is a file storage and synchronization service developed by Google.",
+    },
+    {
+        "name": "Manula",
+        "link": "https://admin.manula.com/login.php?action=login",
+        "logo": "images/manula-icon.png",
+        "desc": "Manula is super-easy to use manual creation software, for writing, formatting and publishing online instruction manuals.",
+    },
+    {
+        "name": "LeadSquared",
+        "link": "https://login.leadsquared.com",
+        "logo": "images/lsq_logo.png",
+        "desc": "CRM software for businesses. Organize your lead capture, lead management, sales management & analytics in one platform.",
+    },
+    {
+        "name": "Cipher",
+        "link": "https://kido.myciphr247.com/",
+        "logo": "images/kido_logo.jpg",
+        "desc": "Manage nursery details and upload images, video & documents. Easy & flexible to use.",
+    },
+    {
+        "name": "Iauditor",
+        "link": "https://app.safetyculture.com/login.html?lang=en-US",
+        "logo": "images/iauditor.png",
+        "desc": "iAuditor is an inspection app used to empower your workers in the field.",
+    }
+];
 
 $(function() {
     "use strict";

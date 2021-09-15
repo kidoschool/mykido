@@ -220,6 +220,10 @@ ul{
     background-color: #bcdbf3;
 }
 
+.access_desc{
+    color: #bacbe6;
+}
+
 dt {
     font-weight: 700
 }

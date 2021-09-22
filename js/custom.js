@@ -32,7 +32,7 @@ var access_portals_list = [
     },
     {
         "name": "Manula",
-        "link": "https://admin.manula.com/login.php?action=login",
+        "link": "https://admin.manula.com/login.php?action=login_google",
         "logo": "images/manula-icon.png",
         "desc": "Manula is super-easy to use manual creation software, for writing, formatting and publishing online instruction manuals.",
     },

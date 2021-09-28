@@ -280,6 +280,30 @@ $(document).on('click','.user_list_tr',function(){
 });
 
 
+
+$(document).on('click','#save_profile',function(){
+
+    var user = local_get("logged_user");
+    var name = $(".first_name").val();
+    var email = $(".user_email").val();
+    var pass = $("#user_password").val();
+    var err = "";
+
+    valid_email(email) ? true : err += " Please privde valid email. " ;
+    name.length ? true : err += " Please privde valid name. " ;
+    pass.length > 2 ? true : err += " Please privde valid password. " ;
+
+    if(!err.length){
+        var data = JSON.stringify({"id":user.id,"name":name,"email":email,"password":pass});
+        var user_det = JSON.parse(requester(server,"POST",{'api':'update_password','data':data}));
+    }else{
+        alert(err);
+    }
+
+
+});
+
+
 $(document).on('click','#save_user_access',function(){
 
     var uid = $(this).attr("uid");

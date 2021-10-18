@@ -9725,6 +9725,10 @@ Topbar Responsive
       color: #ced4da;
       font-size: 11px; }
 
+.form-login{
+  visibility: hidden;
+}
+
 /*******************
 Main sidebar
 ******************/

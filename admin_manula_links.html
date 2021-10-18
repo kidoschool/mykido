@@ -1,0 +1,94 @@
+<style>
+.ls1,.ls2,.ls3,.ls4,.ls5{width: max-content;display: none;cursor: pointer;padding: 0.5%;}
+.ls1{display: block;}
+.ls1{color: #2cabe3;padding-left: 3%;}
+.ls2{color: #e45355;padding-left: 6%;}
+.ls3{color: darkblue;padding-left: 9%;}
+.ls4{color: darkorchid;padding-left: 4%;}
+#added_manuals div{display: initial;display: block;}
+
+</style>
+
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <div class="row"> 
+            <h3>Test</h3>
+        </div>
+
+        <div class="row"> 
+            <div class="col-lg-6">
+
+                <div class="table-responsive">
+                    <table class="table text-nowrap" id="user_list">
+                        <thead>
+                            <tr>
+                                <th class="border-top-0">User</th>
+                                <th class="border-top-0">Email</th>
+                                <th class="border-top-0">Team</th>
+                                <!-- <th class="border-top-0">Sent Before</th>
+                                <th class="border-top-0">Select All</th> -->
+                            </tr>
+                        </thead>
+                        <tbody id="user_trs">
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-3">
+
+                <h5 id="selected_user" >No user selected</h5>
+
+                <div id="manuals">
+
+                </div>
+                <!-- <ul id="access_portals"></ul> -->
+                <button id="save_user_manula_links">Save</button>
+            </div>
+
+            <div class="col-lg-3">
+
+                <h5> Manuals assigned</h5>
+
+                <div id="added_manuals">
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+
+updt_usr_list_tbl();
+
+var struc_obj = {};
+$.getJSON( "manula_links.json", function(manuals) {
+
+    // structured_accordian(manuals,"manuals");
+
+    struc_obj = structured_accordian(manuals,"manuals",true);
+
+    $.each(struc_obj, function (k, v) {
+        var elem = $("[ind='" + k + "']");
+        var curr_txt = (elem.text()).replace(" > "," ");
+        elem.text(curr_txt);
+        var elem_chk = '<input type="checkbox" class="ls_val" ind="'+k+'" lnk="'+v.value+'" >';
+        elem.prepend(elem_chk);
+    });
+
+
+
+});
+
+
+
+
+
+</script>
+

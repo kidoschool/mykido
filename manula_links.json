@@ -1,0 +1,97 @@
+{
+    "Kido Operations Manual":
+    {
+        "Child Welfare":"kido-education-ltd-operations-child-welfare",
+        "Health and Safety":"kido-education-ltd-operations-health-and-safety",
+        "Communications":"kido-education-ltd-operations-manual-communications",
+        "Marketing":"kido-education-ltd-operations-marketing",
+        "Safeguarding":"kido-education-ltd-operations-manual-safeguarding",
+        "School Administration":"kido-education-ltd-operations-manual-school-administration",
+        "Forms":"operations-forms"
+    },
+    "Kido Franchisee Information":{
+        "Franchisee Information":"kido-education-ltd-franchisee-information",
+        "Franchise school support teacher documents":"key-franchise-school-teacher-support"
+    },
+    "KEY - Lesson Plans":
+    {
+        "Cycle 1": {
+            "Discoverers": "kido-discoverers-cycle-1",
+            "Adventurers": "kido-adventurers-cycle-1",
+            "Experimenters": "kido-experimenters-cycle-1",
+            "Pathfinders": "kido-pathfinders-cycle-1",
+            "Seekers": "kido-seekers-cycle-1",
+            "Pioneers": "key-pioneers-cycle-1"
+        },
+        "Cycle 2": {
+            "Discoverers": "kido-discoverers-cycle-2",
+            "Adventurers": "kido-adventurers-cycle-2",
+            "Experimenters": "kido-experimenters-cycle-2",
+            "Pathfinders": "kido-pathfinders-cycle-2",
+            "Seekers": "kido-seekers-cycle-2",
+            "Pioneers": "kido-pioneers-cycle-2"
+        },
+        "Cycle 3": {
+            "Discoverers": "kido-discoverers-cycle-3",
+            "Adventurers": "kido-adventurers-cycle-3",
+            "Experimenters": "kido-skills-day-cycle-3",
+            "Pathfinders": "kido-pathfinders-cycle-3",
+            "Seekers": "kido-seekers-cycle-3"
+        },
+        "Cycle 4": {
+            "Discoverers": "kido-discoverers-cycle-4",
+            "Adventurers": "kido-adventurers-cycle-4",
+            "Experimenters": "kido-experimenters-cycle-4",
+            "Pathfinders": "kido-pathfinders-cycle-4",
+            "Seekers": "kido-seekers-cycle-4"
+        },
+        "Cycle 5": {
+            "Discoverers": "kido-discoverers-cycle-5",
+            "Adventurers": "kido-adventurers-cycle-5",
+            "Experimenters": "kido-experimenters-cycle-5",
+            "Pathfinders": "kido-pathfinders-cycle-5",
+            "Seekers": "kido-seekers-cycle-5"
+        },
+        "Cycle 6": {
+            "Discoverers": "kido-discoverers-cycle-6",
+            "Adventurers": "kido-adventurers-cycle-6",
+            "Experimenters": "kido-experimenters-cycle-6",
+            "Pathfinders": "kido-pathfinders-cycle-6",
+            "Seekers": "kido-seekers-cycle-6"
+        },
+        "K-STEM": {
+            "Beebot": "bee-bot",
+            "Cubetto": "bee-bots"
+        },
+        "Physical Development": {
+            "Term 1": "cycle-1-cycle-2",
+            "Term 2": "physical-development-cycle-3"
+        },
+        "Additional Explorer Days":"key-additional-explorer-day-projects"
+    },
+    "KEY - Training, Development, and Teacher Support": {
+        "Train the trainer":"key-curriculum-train-the-trainer-sessions",
+        "Professional Development Program":"key-professional-development-program",
+        "Additional Files":"key-editing-tutorial-for-teachers",
+        "KEY Curriculum Resources":{
+            "KEY - Teacher Guidance for Curriculum Implementation":"key-teacher-guidance-for-curriculum-implementation",
+            "Resource Activities":"resources-activities",
+            "Literacy":"literacy",
+            "Maths":"maths"
+        }
+    },
+    "KEY - Additional Languages":{
+        "Mandarin - Traditional Chinese":{
+            "Adventurers":"key-lesson-plan-mandarin-traditional-chinese",
+            "Experimenters":"experimenters",
+            "Pathfinders":"kido-lesson-plan-mandarin-traditional-chinese-pathfinders",
+            "Seekers":"kido-lesson-plan-mandarin-traditional-chinese-seekers"
+        },
+        "Mandarin - Simplified Chinese":{
+            "Adventurers":"adventurers-mandarin",
+            "Experimenters":"k1",
+            "Pathfinders":"k2",
+            "Seekers":"k3"
+        }
+    }
+}

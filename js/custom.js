@@ -1,4 +1,6 @@
 // let form_id = null;
+var server = ((document.location.host).indexOf("localhost") !== -1) ? "http://localhost/kido-audit-api/api.php" : 'https://shop.kidovillage.com/kido-audit-api/api.php';
+
 //-------------------------------COMMON FUNCTIONS----------------------
 function local_get(var_name) {
     try {
@@ -172,8 +174,6 @@ function format_date2(str) {
     return dateObject;
 }
 
-var server = ((document.location.host).indexOf("localhost") !== -1) ? "http://localhost/kido-audit-api/api.php" : 'https://shop.kidovillage.com/kido-audit-api/api.php';
-
 function requester(end_point, req_type, params) {
     // var authToken = 'Bearer ' + local_get('access_token');
     return $.ajax({
@@ -244,18 +244,101 @@ function updt_usr_list_tbl() {
     });
     $("#user_trs").append(trs);
     $('#user_list').DataTable();
-
-    var lis = "";
-
-    $.each(access_portals_list, function (k1, v1) {
-
-        lis += '<li><input obj_ind="'+k1+'" class="access_cb" name="'+v1.name+'" type="checkbox" value="'+k1+'">&emsp;<span>'+v1.name+'</span></li>';
-
-    });
-
-    $("#access_portals").empty().append(lis);
-
 }
+
+function structured_accordian(obj,div_id,end_arrow_show) {
+    var out = '';var j = 0;
+    var mnul_vals = {};
+    var arw = end_arrow_show ? ">" : "";
+    $.each(obj, function (k, v) {
+        var i = 1;j++;
+        out += "<div ind="+j+" class='ls"+i+"'>"+k+'  '+arw+' </div>';
+        if(v instanceof Object){
+            x = 0;
+            $.each(v, function (k1, v1) {
+                i = 2;x++;
+                out += "<div ind="+j+x+" class='ls"+i+"'>"+k1+'  '+arw+' </div>';
+                if(v1 instanceof Object){
+                    y = 0;
+                    $.each(v1, function (k2, v2) {
+                        i = 3;y++;
+                        out += "<div ind="+j+x+y+" class='ls"+i+"'>"+k2+'  '+arw+' </div>';
+                        if(v2 instanceof Object){
+                            $.each(v2, function (k3, v3) {
+                                i = 4;z++;                            
+                                out += "<div ind="+j+x+y+z+" class='ls"+i+"'>"+v3+'  '+arw+' </div>';
+                                mnul_vals[""+j+x+y+z] = {"value":v3,"keys":[k,k1,k2,k3]};
+                            });
+                        }else{
+                            mnul_vals[""+j+x+y] = {"value":v2,"keys":[k,k1,k2]};
+                        }
+                    });
+                }else{
+                    mnul_vals[""+j+x] = {"value":v1,"keys":[k,k1]};
+                }
+            });
+        }else{
+            mnul_vals[""+j] = {"value":v,"keys":[k]};
+        }
+    });
+    document.getElementById(div_id).innerHTML = out;
+    return mnul_vals;
+}
+
+
+$(document).on('click','#manuals .ls1',function(){
+    $("#manuals").find(".ls2,.ls3,.ls4,.ls5").css("display","none");
+    if($(this).hasClass("active")){
+        $(this).nextUntil(".ls1").filter(".ls2").css("display","none");
+        $(".ls1.active").removeClass("active");
+    }else{
+        $(".ls1.active").removeClass("active");
+        $(this).addClass("active");
+        $(this).nextUntil(".ls1").filter(".ls2").css("display","block");
+    }
+});
+
+$(document).on('click','#manuals .ls2',function(){
+    $("#manuals").find(".ls3,.ls4,.ls5").css("display","none");
+    if($(this).hasClass("active")){
+        $(".ls2.active").removeClass("active");
+        $(this).nextUntil(".ls2").filter(".ls3").css("display","none");
+    }else{
+        $(".ls2.active").removeClass("active");
+        $(this).nextUntil(".ls2").filter(".ls3").css("display","block");
+        $(this).addClass("active");
+    }
+});
+
+$(document).on('click','.ls_val',function(){
+    var out_obj = {};
+    $("input.ls_val:checked").each(function() {
+        var ind  = $(this).attr("ind");
+        var sel_obj = struc_obj[ind]["keys"];
+        $.each(sel_obj, function (k, v) {
+
+            var fin_val = {};
+            if (k == (sel_obj.length - 1)) {
+                fin_val = struc_obj[ind]["value"];
+            }
+
+            if(k == 0){ !(out_obj[v]) ? out_obj[v] = fin_val : true};
+
+            if(k == 1){
+                !(out_obj[sel_obj[0]][v]) ? out_obj[sel_obj[0]][v] = fin_val : true
+            }
+            if(k == 2){
+                !(out_obj[sel_obj[0]][sel_obj[1]][v]) ? out_obj[sel_obj[0]][sel_obj[1]][v] = fin_val : true
+            }
+            if(k == 3){
+                !(out_obj[sel_obj[0]][sel_obj[1]][sel_obj[2]][v]) ? out_obj[sel_obj[0]][sel_obj[1]][sel_obj[2]][v] = fin_val : true
+            }
+        });
+    });
+    structured_accordian(out_obj,"added_manuals",false);
+    local_set("user_manula_links",out_obj);
+    // console.log(out_obj);
+});
 
 
 $(document).on('click','.user_list_tr',function(){
@@ -291,16 +374,18 @@ $(document).on('click','#save_profile',function(){
 
     valid_email(email) ? true : err += " Please privde valid email. " ;
     name.length ? true : err += " Please privde valid name. " ;
-    pass.length > 2 ? true : err += " Please privde valid password. " ;
+    pass.length > 2 ? true : err += " Please privde password. " ;
 
     if(!err.length){
         var data = JSON.stringify({"id":user.id,"name":name,"email":email,"password":pass});
         var user_det = JSON.parse(requester(server,"POST",{'api':'update_password','data':data}));
+        // console.log(user_det);
+        if(parseInt(user_det)){
+            alert("Profile Updated.");
+        }
     }else{
         alert(err);
     }
-
-
 });
 
 
@@ -326,6 +411,18 @@ $(document).on('click','#save_user_access',function(){
         var access_cards = JSON.parse(requester(server,"POST",{'api':'save_users_access','user_access':JSON.stringify(data)}));
         alert("Saved");
     }
+
+});
+
+$(document).on('click','#save_user_manula_links',function(){
+    var user_manula_links =  local_get("user_manula_links");
+    var user = local_get("logged_user");
+    var data = {"manula_links":user_manula_links};
+    var filter = {"id":user.id};
+
+    var user_det = JSON.parse(requester(server,"POST",{'api':'update_user_manula_links','data':JSON.stringify(data)}));
+
+    console.log(user_det);
 
 });
 

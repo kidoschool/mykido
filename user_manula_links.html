@@ -1,0 +1,78 @@
+<style>
+.ls1,.ls2,.ls3,.ls4,.ls5{width: max-content;display: none;cursor: pointer;padding: 0.5%;}
+.uls1,.uls2,.uls3,.uls4,.uls5{width: max-content;display: none;cursor: pointer;padding: 0.5%;}
+.ls1{display: block;}
+.ls1,.uls1{color: #2cabe3;padding-left: 3%;}
+.ls2,.uls2{color: #e45355;padding-left: 6%;}
+.ls3,.uls3{color: darkblue;padding-left: 9%;}
+.ls4,.uls4{color: darkorchid;padding-left: 4%;}
+.undrln{  text-decoration: underline;}
+#manuals div{display: initial;display: block;}
+small a{color: #bbb;}
+</style>
+
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <div id="manuals">
+
+            
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var user = local_get("logged_user");
+
+    // var open_lnk = $('.opn_lnk:first');
+    // $('.opn_lnk').remove();
+
+    // console.log(open_lnk);
+
+    // console.log(JSON.parse(user.manula_links));
+
+    var out_obj = JSON.parse(user.manula_links);
+
+    var mnul_vals =  structured_accordian(out_obj,"manuals",false);
+
+
+    $.each(mnul_vals, function (k, v) {
+
+        var elem = $("[ind='" + k + "']");
+        var lnk_val = "https://quarkz.co/"+v.value;
+        // var o_lnk  = open_lnk.clone();
+        // console.log(o_lnk);
+        // o_lnk.find('a').attr("href",lnk_val);
+        var str = '<small><a href="'+lnk_val+'" target="_blank">Open link</a></small>';
+        // html(string).contents();
+        var tml = $.parseHTML( str );
+        elem.addClass("undrln");
+        // var lnk = $();
+        // var lnk = $($.parseHTML(''));
+        elem.append(tml).contents();
+        // console.log(elem[0]);
+    });
+
+
+    $(".ls1").addClass("uls1").removeClass("ls1");
+    $(".ls2").addClass("uls2").removeClass("ls2");
+    $(".ls3").addClass("uls3").removeClass("ls3");
+
+    // console.log(mnul_vals);
+
+    // var access_cards = JSON.parse(requester(server,"POST",{'api':'get_user_manula_links','filter':filter}));
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+

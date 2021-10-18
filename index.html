@@ -28,19 +28,22 @@
             <br><br><br>
             <div class="col-md-offset-5 col-md-3">
                 <div class="form-login">
-                    <h3 style="color: white;">MyKido</h3><br>   
-                    <input type="text" value="ziauddin.sayyed@kido.school" id="userName" class="form-control input-sm chat-input" placeholder="username" />
-                    </br>
-                    <input type="password" id="userPassword" class="form-control input-sm chat-input" placeholder="password" />
-                    </br>
-                    <div class="wrapper">
-                        <span class="group-btn">     
-                            <a href="#" onclick="login()" class="btn btn-primary btn-md">login <i class="fa fa-sign-in"></i></a>
-                        </span>
-                        <div>
-                            <div id="my-signin2" class="g-signin2" style="visibility: hidden;" data-onsuccess="onSignIn" data-theme="dark"></div>
+                    <h3 style="color: white;">MyKido</h3><br>
+                    <small id="login-load">Loading ...</small><br>
+                    <div id="login-section" style="visibility: hidden;">
+                        <input type="text" value="ziauddin.sayyed@kido.school" id="userName" class="form-control input-sm chat-input" placeholder="username" />
+                        </br>
+                        <input type="password" id="userPassword" class="form-control input-sm chat-input" placeholder="password" />
+                        </br>
+                        <div class="wrapper">
+                            <span class="group-btn">     
+                                <a href="#" onclick="login()" class="btn btn-primary btn-md">login <i class="fa fa-sign-in"></i></a>
+                            </span>
+                            <div>
+                                <div id="my-signin2" class="g-signin2" style="visibility: hidden;" data-onsuccess="onSignIn" data-theme="dark"></div>
+                            </div>
                         </div>
-                    </div>
+                    </div>                    
                 </div>
             </div>
         <!-- </div> -->
@@ -119,6 +122,8 @@
         }else{
             // alert("User not added. Please contact admin.");
             console.log("Not registered with gmail.");
+            $("#login-section").css("visibility","visible");
+            $("#login-load").css("visibility","hidden");
         }
         // console.log('Given Name: ' + profile.getGivenName());
         // console.log('Family Name: ' + profile.getFamilyName());

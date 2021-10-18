@@ -347,6 +347,7 @@ $(document).on('click','.user_list_tr',function(){
     $(".user_list_tr.active").removeClass("active");
     $(this).addClass("active");
     $("#selected_user").text($(this).find(".name").text());
+    $("#selected_user").attr("user_id",uid);
 
     var filter = JSON.stringify({"user_id":uid});
     var access_cards = JSON.parse(requester(server,"POST",{'api':'get_users_access','filter':filter}));
@@ -416,10 +417,9 @@ $(document).on('click','#save_user_access',function(){
 
 $(document).on('click','#save_user_manula_links',function(){
     var user_manula_links =  local_get("user_manula_links");
-    var user = local_get("logged_user");
-    var data = {"manula_links":user_manula_links};
-    var filter = {"id":user.id};
-
+    // var user = local_get("logged_user");    
+    var data = {"manula_links":user_manula_links,"id":$("#selected_user").attr("user_id")};
+    // var filter = {"id":user.id};
     var user_det = JSON.parse(requester(server,"POST",{'api':'update_user_manula_links','data':JSON.stringify(data)}));
 
     console.log(user_det);

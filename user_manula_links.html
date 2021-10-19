@@ -22,7 +22,8 @@ small a{color: #bbb;}
 
 <script>
 
-    var user = local_get("logged_user");
+    var logged_user = local_get("logged_user");
+    var user = JSON.parse(requester(server,"POST",{'api':'get_users','filter':{"id":logged_user.id}}));
 
     // var open_lnk = $('.opn_lnk:first');
     // $('.opn_lnk').remove();

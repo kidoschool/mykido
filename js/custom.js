@@ -417,13 +417,17 @@ $(document).on('click','#save_user_access',function(){
 
 $(document).on('click','#save_user_manula_links',function(){
     var user_manula_links =  local_get("user_manula_links");
-    // var user = local_get("logged_user");    
-    var data = {"manula_links":user_manula_links,"id":$("#selected_user").attr("user_id")};
-    // var filter = {"id":user.id};
-    var user_det = JSON.parse(requester(server,"POST",{'api':'update_user_manula_links','data':JSON.stringify(data)}));
-
-    console.log(user_det);
-
+    var user_id = $("#selected_user").attr("user_id");
+    var errs = "";
+    !(user_id) ? errs += " Please select User. " : true;
+    if(errs.length){
+        var data = {"manula_links":user_manula_links,"id":user_id};
+        // var filter = {"id":user.id};
+        var user_det = JSON.parse(requester(server,"POST",{'api':'update_user_manula_links','data':JSON.stringify(data)}));
+        console.log(user_det);
+    }else{
+        alert(errs);
+    }
 });
 
 function cust_navigate(view_name) {

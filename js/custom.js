@@ -441,9 +441,10 @@ $(document).on('click','.check_link',function(){
 
     // var lnk = $(this).attr("lnk");
 
-    var temp = $("#target_out").contents().find(".navbar navbar-fixed-top").html();
+    // var temp = $("#target_out").contents().find(".navbar navbar-fixed-top").html();
+    // $('#target_out').contents().find('html').html("<h1 style='text-align: center;'>This IS an iframe</h1>");
 
-    console.log(temp);
+    console.log($('#target_out').contents().find('html').length);
 
     // $('#link_content').load('https://quarkz.co/key-additional-explorer-day-projects');
 

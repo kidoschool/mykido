@@ -439,9 +439,13 @@ $(document).on('click','#save_user_manula_links',function(){
 
 $(document).on('click','.check_link',function(){
 
-    var lnk = $(this).attr("lnk");
+    // var lnk = $(this).attr("lnk");
 
-    $('#link_content').load('https://quarkz.co/key-additional-explorer-day-projects #content');
+    var temp = $("#target_out").contents().find(".navbar navbar-fixed-top").html();
+
+    console.log(temp);
+
+    // $('#link_content').load('https://quarkz.co/key-additional-explorer-day-projects');
 
     // $("#target_out").attr("src",lnk);
 
@@ -451,7 +455,9 @@ $(document).on('click','.check_link',function(){
 
     // $.get(lnk).success(function(data){
 
-    //     console.log(data);
+        // console.log(data);
+
+        // $('#target_out').html(data);
 
     // });
 

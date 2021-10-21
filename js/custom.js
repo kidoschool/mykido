@@ -429,9 +429,32 @@ $(document).on('click','#save_user_manula_links',function(){
             alert(" Links assigned. ");
         }
         // console.log(user_det);
+        // var ifrm = $("#enquireModal").find("iframe").contents();
+
     }else{
         alert(errs);
     }
+});
+
+
+$(document).on('click','.check_link',function(){
+
+    var lnk = $(this).attr("lnk");
+
+    $('#link_content').load('https://quarkz.co/key-additional-explorer-day-projects #content');
+
+    // $("#target_out").attr("src",lnk);
+
+    // var ifrm = $("#target_out").contents();
+
+    // console.log(ifrm.find("div").length);
+
+    // $.get(lnk).success(function(data){
+
+    //     console.log(data);
+
+    // });
+
 });
 
 function cust_navigate(view_name) {

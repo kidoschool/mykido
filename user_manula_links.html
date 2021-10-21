@@ -8,42 +8,42 @@
 .ls4,.uls4{color: darkorchid;padding-left: 4%;}
 .undrln{  text-decoration: underline;}
 #manuals div{display: initial;display: block;}
-small a{color: #bbb;}
+small{color: #bbb;}
+#target_out{height: 100%;width: 100%;}
 </style>
 
 <div class="page-wrapper">
-    <div class="container-fluid">
-        <div id="manuals">
+    <div class="container-fluid row">
+        <div id="manuals" class="col-lg-3">
 
-            
+        </div>
+        <div id="link_content" class="col-lg-9">
+            <!-- <iframe id="target_out" src="https://quarkz.co/key-additional-explorer-day-projects" frameborder="0">
+
+            </iframe> -->
+
         </div>
     </div>
 </div>
 
 <script>
-
     var logged_user = local_get("logged_user");
     var user = (JSON.parse(requester(server,"POST",{'api':'get_users','filter':JSON.stringify({"id":logged_user.id})})))[0];
     // var open_lnk = $('.opn_lnk:first');
     // $('.opn_lnk').remove();
-
     // console.log(open_lnk);
-
     // console.log(JSON.parse(user.manula_links));
-
     var out_obj = JSON.parse(user.manula_links);
 
     var mnul_vals =  structured_accordian(out_obj,"manuals",false);
 
-
     $.each(mnul_vals, function (k, v) {
-
         var elem = $("[ind='" + k + "']");
         var lnk_val = "https://quarkz.co/"+v.value;
         // var o_lnk  = open_lnk.clone();
         // console.log(o_lnk);
         // o_lnk.find('a').attr("href",lnk_val);
-        var str = '<small><a href="'+lnk_val+'" target="_blank">Open link</a></small>';
+        var str = '<small class="check_link" lnk="'+lnk_val+'" >Check link</small>';
         // html(string).contents();
         var tml = $.parseHTML( str );
         elem.addClass("undrln");
@@ -52,27 +52,13 @@ small a{color: #bbb;}
         elem.append(tml).contents();
         // console.log(elem[0]);
     });
-
-
     $(".ls1").addClass("uls1").removeClass("ls1");
     $(".ls2").addClass("uls2").removeClass("ls2");
     $(".ls3").addClass("uls3").removeClass("ls3");
-
     // console.log(mnul_vals);
-
     // var access_cards = JSON.parse(requester(server,"POST",{'api':'get_user_manula_links','filter':filter}));
-
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
+
+
+
 

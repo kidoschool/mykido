@@ -29,7 +29,7 @@
                                 <th class="border-top-0">Select All</th> -->
                             </tr>
                         </thead>
-                        <tbody id="user_trs">
+                        <tbody id="manula_user_trs">
 
                         </tbody>
                     </table>
@@ -65,7 +65,7 @@
 
 <script>
 
-updt_usr_list_tbl();
+updt_usr_list_tbl("user_list");
 
 var struc_obj = {};
 $.getJSON( "manula_links.json", function(manuals) {
@@ -82,11 +82,7 @@ $.getJSON( "manula_links.json", function(manuals) {
         elem.prepend(elem_chk);
     });
 
-
-
 });
-
-
 
 
 

@@ -231,7 +231,7 @@ function updt_usr_tbl() {
 
 
 
-function updt_usr_list_tbl() {
+function updt_usr_list_tbl(tabl_id) {
     var filter = JSON.stringify({});
     var inspects = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
     $("#user_trs").empty();
@@ -242,8 +242,9 @@ function updt_usr_list_tbl() {
         trs += '<tr uid="'+v.id+'" class="user_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+v.email+'</td><td>'+team+'</td></tr>';
         // trs += '<tr class="user_list_tr"><td>'+v.name+'</td> <td>'+v.email+'</td></tr>';
     });
-    $("#user_trs").append(trs);
-    $('#user_list').DataTable();
+    var tbody = $('#'+tabl_id).find("tbody");
+    tbody.append(trs);
+    $('#'+tabl_id).DataTable();
 }
 
 function structured_accordian(obj,div_id,end_arrow_show) {
@@ -341,7 +342,7 @@ $(document).on('click','.ls_val',function(){
 });
 
 
-$(document).on('click','.user_list_tr',function(){
+$(document).on('click','#user_trs .user_list_tr',function(){
 
     var uid = $(this).attr("uid");
     $(".user_list_tr.active").removeClass("active");
@@ -364,6 +365,28 @@ $(document).on('click','.user_list_tr',function(){
 });
 
 
+$(document).on('click','#manula_user_trs .user_list_tr',function(){
+
+    var uid = $(this).attr("uid");
+    $(".user_list_tr.active").removeClass("active");
+    $(this).addClass("active");
+    $("#selected_user").text($(this).find(".name").text());
+    $("#selected_user").attr("user_id",uid);
+
+    // $("#manuals input[type='" + v.value + "']").prop('checked', false);
+    $('#manuals input[type=checkbox]').prop('checked', false);
+
+    $("#added_manuals").empty();
+
+    var filter = JSON.stringify({"id":uid});
+    var user_det = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
+    var mnulnks = JSON.parse(user_det[0]["manula_links"]);
+
+    var mnul_vals =  structured_accordian(mnulnks,"added_manuals",false);
+    $.each(mnul_vals, function (k, v) {
+        $("#manuals input[lnk='" + v.value + "']").prop('checked', true);
+    });
+});
 
 $(document).on('click','#save_profile',function(){
 

@@ -439,16 +439,17 @@ $(document).on('click','#save_user_manula_links',function(){
 
 $(document).on('click','.check_link',function(){
 
-    // var lnk = $(this).attr("lnk");
+    var lnk = $(this).attr("lnk");
 
     // var temp = $("#target_out").contents().find(".navbar navbar-fixed-top").html();
     // $('#target_out').contents().find('html').html("<h1 style='text-align: center;'>This IS an iframe</h1>");
+    $("#target_out").empty();
 
-    console.log($('#target_out').contents().find('html').length);
+    // console.log($('#target_out').contents().find('html').length);
 
     // $('#link_content').load('https://quarkz.co/key-additional-explorer-day-projects');
 
-    // $("#target_out").attr("src",lnk);
+    $("#target_out").attr("src",lnk);
 
     // var ifrm = $("#target_out").contents();
 

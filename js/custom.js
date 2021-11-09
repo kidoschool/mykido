@@ -223,7 +223,7 @@ function updt_usr_tbl() {
     $("#user_trs").empty();
     var trs = "";
     $.each(inspects, function (k, v) {
-        trs += '<tr><td>'+v.name+'</td> <td>'+v.email+'</td><td usr="'+v.email+'" >No</td><td><input type="checkbox" value="'+v.email+'"></td></tr>';
+        trs += '<tr><td>'+v.name+'</td> <td>'+v.email+'</td><td usr="'+v.id+'" >No</td><td><input type="checkbox" value="'+v.email+'"></td></tr>';
     });
     $("#user_trs").append(trs);
     $('#user_list').DataTable();

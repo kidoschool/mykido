@@ -158,11 +158,12 @@ $(document).ready(function($) {
     //-------------------------------------EDIT FORM / NEW FORM----------------------------------            
 
     // var url = new URL(window.location.href);
-    // console.log(form_id);
+    console.log(form_id);
     if (form_id) {
         // var form_id = url.searchParams.get("form_id");
         var filter = JSON.stringify({"id":form_id});
         var inspects = JSON.parse(requester(server,"POST",{'api':'get_inspect','filter':filter}));
+        console.log(inspects);
         var formRenderOpts = {
             dataType: 'json',
             formData: inspects[0]['content']
@@ -173,7 +174,7 @@ $(document).ready(function($) {
 
         $.each(inspects[0]['users'], function (k, v) {
             // console.log($("td[usr='"+v.email+"']").text());
-            $("td[usr='"+v.email+"']").html("Yes");
+            $("td[usr='"+v.user_id+"']").html("Yes");
         });
 
         parseInt(inspects[0]['submit_after_due_date']) ? $('#allow_after_dd').prop('checked', true) : false;

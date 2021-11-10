@@ -2,6 +2,7 @@
 var server = ((document.location.host).indexOf("localhost") !== -1) ? "http://localhost/kido-audit-api/api.php" : 'https://shop.kidovillage.com/kido-audit-api/api.php';
 
 //-------------------------------COMMON FUNCTIONS----------------------
+
 function local_get(var_name) {
     try {
         var out = JSON.parse(localStorage.getItem(var_name));
@@ -47,8 +48,20 @@ var access_portals_list = [
     {
         "name": "Cipher",
         "link": "https://kido.myciphr247.com/",
-        "logo": "images/kido_logo.jpg",
+        "logo": "images/kido_logo.png",
         "desc": "Manage nursery details and upload images, video & documents. Easy & flexible to use.",
+    },
+    {
+        "name": "Facebook",
+        "link": "https://www.facebook.com/",
+        "logo": "images/fb.png",
+        "desc": "Connect with friends, family and other people you know. Share photos and videos, send messages and get updates.",
+    },
+    {
+        "name": "Instagram",
+        "link": "https://www.facebook.com/",
+        "logo": "images/instagram.png",
+        "desc": "Create an account or log in to Instagram - A simple, fun & creative way to capture, edit & share photos, videos & messages with friends & family.",
     },
     {
         "name": "Iauditor",
@@ -424,7 +437,7 @@ $(document).on('click','#save_user_access',function(){
 
         var aces_sts = ($(this).prop('checked')) ? 1 : 0;
         var acces_det = access_portals_list[$(this).attr("obj_ind")];
-        data.push([uid,acces_det.name,acces_det.link,acces_det.logo,aces_sts]);
+        data.push([uid,acces_det.name,acces_det.link,aces_sts]);
 
     });
 

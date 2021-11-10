@@ -69,7 +69,7 @@
         // var v = i[Object.keys(i)[0]];var img_bw = "";
         // console.log(i);
         var access  = access_card.clone();
-        access.find('.access_logo').attr("src",i.logo);
+        access.find('.access_logo').attr("src",access_portals_list_by_name[i.access_name]["logo"]);
         access.find('.access_name').text(i.access_name);
         access.find('.access_link').attr("href",i.link);
         access.find('.access_desc').text(access_portals_list_by_name[i.access_name]["desc"]);

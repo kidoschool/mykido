@@ -40,7 +40,7 @@
                                 <a href="#" onclick="login()" class="btn btn-primary btn-md">login <i class="fa fa-sign-in"></i></a>
                             </span>
                             <div>
-                                <div id="my-signin2" class="g-signin2" style="visibility: hidden;" data-onsuccess="onSignIn" data-theme="dark"></div>
+                                <div id="my-signin2" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
                             </div>
                         </div>
                     </div>                    
@@ -62,10 +62,12 @@
     //   console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
     // }
 
-    // function onFailure(error) {
-    //   console.log(error);
+    // function onFailure() {
+    //   console.log("error");
     // }
-    
+
+    // console.log(googleUser);
+
     // function renderButton() {
     //   console.log(gapi.signin2);
     //   gapi.signin2.render('my-signin2', {
@@ -114,7 +116,7 @@
 
         var filter = JSON.stringify({"email":profile.getEmail()});
         var user_det = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
-        // console.log(user_det[0]);
+        console.log(user_det[0]);
         if(user_det[0]){
             local_set("logged_user",user_det[0]);
             // console.log( parseInt(user_det[0]["is_admin"]));
@@ -145,12 +147,12 @@
 
 
 // $(document).ready(function() {
-//     window.onLoadCallback = function(){
+//     // window.onLoadCallback = function(){
 //         var aut = gapi.auth2.getAuthInstance();
 //         //     auth2.signOut().then(function () {
 //         // });
 //         console.log(aut);
-//     }
+//     // }
 // });
 
 

@@ -404,9 +404,10 @@ $(document).on('click','#manula_user_trs .user_list_tr',function(){
 $(document).on('click','#save_profile',function(){
 
     var user = local_get("logged_user");
-    var name = $(".first_name").val();
-    var email = $(".user_email").val();
+    var name = $(".first-name").text();
+    var email = $(".user-email").text();
     var pass = $("#user_password").val();
+    // var team = $(".user_team").text();
     var err = "";
 
     valid_email(email) ? true : err += " Please privde valid email. " ;

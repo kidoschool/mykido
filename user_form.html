@@ -11,20 +11,27 @@
 
 
 <script>
-    //-------------------------------------EDIT FORM / NEW FORM----------------------------------            
-    if (form_id) {
-        // var form_id = url.searchParams.get("form_id");
-        var filter = JSON.stringify({"id":form_id});
-        var inspects = JSON.parse(requester(server,"POST",{'api':'get_inspect','filter':filter}));
-        // console.log(inspects);
-        var formRenderOpts = {
-            dataType: 'json',
-            formData: inspects[0]['content']
-        };
-        $("#title").text(inspects[0]['title']);
-        var renderedForm = $('<div>');
-        renderedForm.formRender(formRenderOpts);
-        console.log(renderedForm[0].innerHTML);
-        $("#form_div").html(renderedForm[0].innerHTML);
+
+    //-------------------------------------EDIT FORM / NEW FORM----------------------------------
+
+    try{
+        if (form_id){
+            // var form_id = url.searchParams.get("form_id");
+            var filter = JSON.stringify({"id":form_id});
+            var inspects = JSON.parse(requester(server,"POST",{'api':'get_inspect','filter':filter}));
+            // console.log(inspects);
+            var formRenderOpts = {
+                dataType: 'json',
+                formData: inspects[0]['content']
+            };
+            $("#title").text(inspects[0]['title']);
+            var renderedForm = $('<div>');
+            renderedForm.formRender(formRenderOpts);
+            console.log(renderedForm[0].innerHTML);
+            $("#form_div").html(renderedForm[0].innerHTML);
+        }
+    }catch(error){
+        // console.log(error);
+        cust_navigate("user_inspection");
     }
 </script>

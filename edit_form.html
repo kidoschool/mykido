@@ -133,31 +133,30 @@ $( "#due_date" ).datepicker({
 });
 
 
-$(document).ready(function($) {
-    // $(document).on('keydown','#email_bx',function(event){
-    //     $("#inv_email").css("display","none");
-    //     // console.log(event.which);
-    //     if(event.which == 188){
-    //         if(valid_email($(this).val())){
-    //             var chip = "<span class='mail_chip chip'>"+$(this).val()+"</span>";
-    //             $("#email_chips").append(chip);
-    //             $(this).val("");
-    //         }else{
-    //             $("#inv_email").css("display","initial");
-    //         }
-    //         return false;
-    //     }
-    // });
+    $(document).ready(function($) {
+        // $(document).on('keydown','#email_bx',function(event){
+        //     $("#inv_email").css("display","none");
+        //     // console.log(event.which);
+        //     if(event.which == 188){
+        //         if(valid_email($(this).val())){
+        //             var chip = "<span class='mail_chip chip'>"+$(this).val()+"</span>";
+        //             $("#email_chips").append(chip);
+        //             $(this).val("");
+        //         }else{
+        //             $("#inv_email").css("display","initial");
+        //         }
+        //         return false;
+        //     }
+        // });
 
-    updt_usr_tbl();
-    // $('#user_list').DataTable();
-
+        updt_usr_tbl();
+        // $('#user_list').DataTable();
    });
-
 
     //-------------------------------------EDIT FORM / NEW FORM----------------------------------            
 
     // var url = new URL(window.location.href);
+   try {
     console.log(form_id);
     if (form_id) {
         // var form_id = url.searchParams.get("form_id");
@@ -185,5 +184,10 @@ $(document).ready(function($) {
     }else{
         fbuilder = $('#edit-form').formBuilder();
     }
+
+   } catch (error) {
+    cust_navigate("basic-table");
+   }
+
 // });
 </script>

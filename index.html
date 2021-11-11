@@ -29,8 +29,8 @@
             <div class="col-md-offset-5 col-md-3">
                 <div class="form-login">
                     <h3 style="color: white;">MyKido</h3><br>
-                    <small id="login-load">Loading ...</small><br>
-                    <div id="login-section" style="visibility: hidden;">
+                    <!-- <small id="login-load">Loading ...</small><br> -->
+                    <div id="login-section" style="visibility: visible;">
                         <input type="text" value="" id="userName" class="form-control input-sm chat-input" placeholder="username" />
                         </br>
                         <input type="password" id="userPassword" class="form-control input-sm chat-input" placeholder="password" />
@@ -39,7 +39,10 @@
                             <span class="group-btn">     
                                 <a href="#" onclick="login()" class="btn btn-primary btn-md">login <i class="fa fa-sign-in"></i></a>
                             </span>
-                            <div>
+                            </br></br></br>
+                            <div id="gm-signin-div">
+                                <h5>OR</h5>
+                                </br></br></br>
                                 <div id="my-signin2" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
                             </div>
                         </div>
@@ -124,8 +127,9 @@
         }else{
             // alert("User not added. Please contact admin.");
             console.log("Not registered with gmail.");
-            $("#login-section").css("visibility","visible");
-            $("#login-load").css("visibility","hidden");
+            $("#gm-signin-div").css("visibility","hidden");
+            // $("#login-section").css("visibility","visible");
+            // $("#login-load").css("visibility","hidden");
         }
         // console.log('Given Name: ' + profile.getGivenName());
         // console.log('Family Name: ' + profile.getFamilyName());

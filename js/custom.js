@@ -59,9 +59,21 @@ var access_portals_list = [
     },
     {
         "name": "Instagram",
-        "link": "https://www.facebook.com/",
+        "link": "https://www.instagram.com/accounts/login/",
         "logo": "images/instagram.png",
         "desc": "Create an account or log in to Instagram - A simple, fun & creative way to capture, edit & share photos, videos & messages with friends & family.",
+    },
+    {
+        "name": "Webmail",
+        "link": "http://webmail.kidovillage.in/",
+        "logo": "images/webmail.png",
+        "desc": "Enterprise Email Solutions Redefined.",
+    },
+    {
+        "name": "KidovillageBOT",
+        "link": "https://kidovillage.gyde.ai/user/login/login",
+        "logo": "images/gyde.png",
+        "desc": "The Perfect Training Platform for your hybrid workforce across software.",
     },
     {
         "name": "Iauditor",
@@ -138,6 +150,13 @@ $(function() {
         // });
         // console.log(users);
         var inspects = requester(server,"POST",{'api':'assign_users','users':users,'form_id':form_id});
+        if(parseInt(inspects)){
+            alert("Saved");
+            $(".modal-content button.close").trigger("click");
+            cust_navigate("basic-table");
+        }else{
+            alert("Not saved.");
+        }
     });
 
 
@@ -236,7 +255,7 @@ function updt_usr_tbl() {
     $("#user_trs").empty();
     var trs = "";
     $.each(inspects, function (k, v) {
-        trs += '<tr><td>'+v.name+'</td> <td>'+v.email+'</td><td usr="'+v.id+'" >No</td><td><input type="checkbox" value="'+v.email+'"></td></tr>';
+        trs += '<tr><td>'+v.name+'</td> <td>'+v.email+'</td><td usr="'+v.id+'" >No</td><td><input type="checkbox" value="'+v.id+'"></td></tr>';
     });
     $("#user_trs").append(trs);
     $('#user_list').DataTable();
@@ -515,7 +534,7 @@ function cust_navigate(view_name) {
 }
 
 function navto(page) {
-    $('#main_container').empty().html('<img style="margin-top:45vh" src="images/loading.gif" alt="Loading" />');   
+    $('#main_container').empty().html('<center> <img src="images/loading.gif" alt="Loading" /></center>');
     document.location.hash = page;
 }
 

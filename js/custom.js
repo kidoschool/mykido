@@ -471,6 +471,35 @@ $(document).on('click','#save_user_access',function(){
 
 });
 
+$(document).on('click','.save_user_detail',function(){
+    var userId = local_get("logged_user");
+    var data = [];
+    var mytr = $(this).closest("tr");
+    // $('input.access_cb[type=checkbox]').each(function () {
+
+    // $("tr.access_card").each(function () {
+        var userName = mytr.find(".username").val();
+        var password = mytr.find(".password").val();
+        var name = mytr.find(".access_name").text();
+        var link = mytr.find(".access_link").attr("href");
+        if(userName === "" || password === ""){
+            alert("plz enter username and password");
+        }else{
+            data.push([userId.id,name,link,userName,password]);
+        };
+
+    // });
+
+    // console.log(JSON.stringify(data));
+
+    if(data.length){
+        // var filter = JSON.stringify(data);
+        var access_cards = JSON.parse(requester(server,"POST",{'api':'save_users_creds','user_access':JSON.stringify(data)}));
+        alert("Saved");
+    }
+
+});
+
 $(document).on('click','#save_user_manula_links',function(){
     var user_manula_links =  local_get("user_manula_links");
     var user_id = $("#selected_user").attr("user_id");

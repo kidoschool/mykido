@@ -1,6 +1,16 @@
 // let form_id = null;
 var server = ((document.location.host).indexOf("localhost") !== -1) ? "http://localhost/kido-audit-api/api.php" : 'https://shop.kidovillage.com/kido-audit-api/api.php';
 
+var teamTypes = {
+    "kido" : 1,
+    "kido-village" : 2
+}
+
+
+var teamTypesRev = {
+    1 : "kido",
+    2 : "kido-village" 
+}
 //-------------------------------COMMON FUNCTIONS----------------------
 
 function local_get(var_name) {
@@ -167,13 +177,15 @@ $(function() {
         var title = $("#inspect_title").val();
         var due_date = format_date(format_date2($( "#due_date" ).val()));
         var allow_after_dd = $('#allow_after_dd').is(":checked") ? 1 : 0;
+        var schedule = $("#inspect_schedule").val();
+        var team = teamTypes[$("#user_team").text()];
         var err = "";
         (title.length == 0) ? err += " Title cannot be empty. " : false;
         JSON.parse(fbuilder.formData).length == 0 ? err += " No fields added. " : false;
         if(err.length){
             alert(err);
         }else{
-            var data = {'api':'save_inspect','content':fbuilder.formData,"title":title,"due_date":due_date,"submit_after_due_date":allow_after_dd};
+            var data = {'api':'save_inspect','content':fbuilder.formData,"title":title,"due_date":due_date,"submit_after_due_date":allow_after_dd,"schedule":schedule,"team":team,};
             if($("#inspect_title").attr("form_id")){
                 data["id"] = $("#inspect_title").attr("form_id");
             }
@@ -565,6 +577,35 @@ $(document).on('click','#save_user_access',function(){
     if(data.length){
         // var filter = JSON.stringify(data);
         var access_cards = JSON.parse(requester(server,"POST",{'api':'save_users_access','user_access':JSON.stringify(data)}));
+        alert("Saved");
+    }
+
+});
+
+$(document).on('click','.save_user_detail',function(){
+    var userId = local_get("logged_user");
+    var data = [];
+    var mytr = $(this).closest("tr");
+    // $('input.access_cb[type=checkbox]').each(function () {
+
+    // $("tr.access_card").each(function () {
+        var userName = mytr.find(".username").val();
+        var password = mytr.find(".password").val();
+        var name = mytr.find(".access_name").text();
+        var link = mytr.find(".access_link").attr("href");
+        if(userName === "" || password === ""){
+            alert("plz enter username and password");
+        }else{
+            data.push([userId.id,name,link,userName,password]);
+        };
+
+    // });
+
+    // console.log(JSON.stringify(data));
+
+    if(data.length){
+        // var filter = JSON.stringify(data);
+        var access_cards = JSON.parse(requester(server,"POST",{'api':'save_users_creds','user_access':JSON.stringify(data)}));
         alert("Saved");
     }
 

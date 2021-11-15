@@ -5,30 +5,156 @@
 
     </div>
 
-    <button>Submit</button>
+    <button id="user_inspect_submit">Submit</button>
+    <button id="prev_submitted">View submission</button>
+
 </div>
 
 
 
 <script>
-
     //-------------------------------------EDIT FORM / NEW FORM----------------------------------
+    var user = local_get("logged_user");
 
+//     var tmp = 
+// [
+//     {
+//         "type": "number",
+//         "required": false,
+//         "label": "Number",
+//         "className": "form-control",
+//         "name": "number-1621085223719",
+//         "access": false,
+//         "userData": [
+//             ""
+//         ]
+//     },
+//     {
+//         "type": "select",
+//         "required": false,
+//         "label": "Select",
+//         "className": "form-control",
+//         "name": "select-1636966466193",
+//         "access": false,
+//         "multiple": false,
+//         "values": [
+//             {
+//                 "label": "Option 1",
+//                 "value": "option-1",
+//                 "selected": true
+//             },
+//             {
+//                 "label": "Option 2",
+//                 "value": "option-2",
+//                 "selected": false
+//             },
+//             {
+//                 "label": "Option 3",
+//                 "value": "option-3",
+//                 "selected": false
+//             }
+//         ],
+//         "userData": [
+//             "option-3"
+//         ]
+//     },
+//     {
+//         "type": "file",
+//         "required": false,
+//         "label": "File Upload",
+//         "className": "form-control",
+//         "name": "file-1636966449378",
+//         "access": false,
+//         "subtype": "file",
+//         "multiple": false,
+//         "url": "http://localhost/mykido/back_img.jpg",
+//     },
+//     {
+//         "type": "checkbox-group",
+//         "required": false,
+//         "label": "Checkbox Group",
+//         "toggle": false,
+//         "inline": false,
+//         "name": "checkbox-group-1636966490725",
+//         "access": false,
+//         "other": false,
+//         "values": [
+//             {
+//                 "label": "Option 1",
+//                 "value": "option-1",
+//                 "selected": false
+//             },
+//             {
+//                 "label": "Option 2",
+//                 "value": "option-2",
+//                 "selected": false
+//             }
+//         ],
+//         "userData": [
+//             "option-1"
+//         ]
+//     },
+//     {
+//         "type": "radio-group",
+//         "required": false,
+//         "label": "Radio Group",
+//         "inline": true,
+//         "name": "radio-group-1636966532096",
+//         "access": false,
+//         "other": false,
+//         "values": [
+//             {
+//                 "label": "Option 1",
+//                 "value": "option-1",
+//                 "selected": false
+//             },
+//             {
+//                 "label": "Option 2",
+//                 "value": "option-2",
+//                 "selected": false
+//             },
+//             {
+//                 "label": "Option 3",
+//                 "value": "option-3",
+//                 "selected": false
+//             }
+//         ],
+//         "userData": [
+//             "option-1"
+//         ]
+//     },
+//     {
+//         "type": "date",
+//         "required": false,
+//         "label": "Date Field",
+//         "className": "form-control",
+//         "name": "date-1623148593028",
+//         "access": false,
+//         "userData": [
+//             "2021-11-03"
+//         ]
+//     }
+// ];
     try{
-        if (form_id){
+        if(form_id){
             // var form_id = url.searchParams.get("form_id");
             var filter = JSON.stringify({"id":form_id});
             var inspects = JSON.parse(requester(server,"POST",{'api':'get_inspect','filter':filter}));
             // console.log(inspects);
+            var tmp = JSON.parse(inspects[0]['content']);
             var formRenderOpts = {
                 dataType: 'json',
-                formData: inspects[0]['content']
+                formData: tmp
             };
             $("#title").text(inspects[0]['title']);
-            var renderedForm = $('<div>');
-            renderedForm.formRender(formRenderOpts);
-            console.log(renderedForm[0].innerHTML);
-            $("#form_div").html(renderedForm[0].innerHTML);
+            // var renderedForm = $('<div>');
+            // renderedForm.formRender(formRenderOpts);
+            // $("#form_div").formRender(formRenderOpts);
+            var formRenderInstance = $('#form_div').formRender(formRenderOpts);
+            // console.log($(".form-control[type='file']").length);
+            // var formRenderInstance = $('#render-container').formRender(formRenderOptions);
+            // console.log(renderedForm[0].innerHTML);
+            // $("#form_div").html(renderedForm[0].innerHTML);
         }
     }catch(error){
         // console.log(error);

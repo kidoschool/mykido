@@ -32,7 +32,7 @@
                     </span>
 
                     <span class="view_sub_lnk">
-                        <a href="#coming-soon" >  View submittions </a>
+                        <a href="#view_submittions" >  View submittions </a>
                     </span>
 
             </div>
@@ -118,9 +118,7 @@
         </div>
     </div>
 
-    <footer class="footer text-center"> 2021 © Ample Admin brought to you by <a
-            href="https://www.wrappixel.com/">wrappixel.com</a>
-    </footer>
+    <!-- <footer class="footer text-center"> 2021 © Kido Ample Admin</footer> -->
 
 </div>
 
@@ -159,12 +157,12 @@ $( "#due_date" ).datepicker({
 
     // var url = new URL(window.location.href);
    try {
-    console.log(form_id);
+    // console.log(form_id);
     if (form_id) {
         // var form_id = url.searchParams.get("form_id");
         var filter = JSON.stringify({"id":form_id});
         var inspects = JSON.parse(requester(server,"POST",{'api':'get_inspect','filter':filter}));
-        console.log(inspects);
+        // console.log(inspects);
         var formRenderOpts = {
             dataType: 'json',
             formData: inspects[0]['content']
@@ -177,6 +175,8 @@ $( "#due_date" ).datepicker({
             // console.log($("td[usr='"+v.email+"']").text());
             $("td[usr='"+v.user_id+"']").html("Yes");
         });
+
+        local_set("submitted_users",inspects[0]['users']);
 
         parseInt(inspects[0]['submit_after_due_date']) ? $('#allow_after_dd').prop('checked', true) : false;
 

@@ -331,6 +331,50 @@ $(document).on('click','#manuals .ls1',function(){
     }
 });
 
+
+$(document).on('click','#user_inspect_submit',function(){
+
+    // console.log("formRenderInstance");
+    // // console.log(formRenderInstance);
+    // // form_id
+    // console.log(formRenderInstance.userData);
+    // var filter = JSON.stringify({"id":form_id});
+    // var inspects = JSON.parse(requester(server,"POST",{'api':'get_inspect','filter':filter}));
+    // $res = save_batch('inspection_assign',$cols,$data);2021-11-15 13:18:38
+    // var someDate = new Date().toISOString();
+    // var team = (v.team).replaceAll("-"," ");
+    // document.writeln();
+    var timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    var cols = JSON.stringify(["inspection_id","user_id","status","submission","submitted_on","updated_on"]);
+    var submission = JSON.stringify(formRenderInstance.userData);
+    var data = [];
+    data.push([form_id,user.id,"1",submission,timestamp,timestamp]);
+    // myDate.toLocaleString()
+    var inspects = requester(server,"POST",{'api':'save_tab',"tbl_name":"inspection_assign",'cols':cols,'data':JSON.stringify(data)});
+
+    console.log(inspects);
+
+    // console.log(formRenderInstance.userData);
+
+});
+
+
+
+$(document).on('click','#user_view_prev_submitted',function(){
+
+    
+    console.log(user.id,form_id);
+    console.log(formRenderInstance.userData);
+    // console.log(formRenderInstance);
+    // form_id
+    // console.log(formRenderInstance.userData);
+
+});
+
+
+
+
+
 $(document).on('click','#manuals .ls2',function(){
     $("#manuals").find(".ls3,.ls4,.ls5").css("display","none");
     if($(this).hasClass("active")){
@@ -419,6 +463,61 @@ $(document).on('click','#manula_user_trs .user_list_tr',function(){
         $("#manuals input[lnk='" + v.value + "']").prop('checked', true);
     });
 });
+
+
+
+$(document).on('click','#user_submission_trs .user_list_tr',function(){
+
+    var uid = $(this).attr("uid");
+    $(".user_list_tr.active").removeClass("active");
+    $(this).addClass("active");
+    $("#selected_user").text($(this).find(".name").text());
+    $("#selected_user").attr("user_id",uid);
+
+
+    // var form_id = url.searchParams.get("form_id");
+    var filter = JSON.stringify({"inspection_id":form_id,"user_id":uid});
+    var inspects = JSON.parse(requester(server,"POST",{'api':'submitted_get_users','filter':filter}));
+    console.log(inspects);
+    var tmp = JSON.parse(inspects[0]['submission']);
+    var formRenderOpts = {
+        dataType: 'json',
+        formData: tmp
+    };
+    // $("#title").text(inspects[0]['title']);
+    // var renderedForm = $('<div>');
+    // renderedForm.formRender(formRenderOpts);
+    // $("#form_div").formRender(formRenderOpts);
+    $('#form_div').empty();
+    var formRenderInstance = $('#form_div').formRender(formRenderOpts);
+    // console.log($(".form-control[type='file']").length);
+    // var formRenderInstance = $('#render-container').formRender(formRenderOptions);
+    // console.log(renderedForm[0].innerHTML);
+    // $("#form_div").html(renderedForm[0].innerHTML);
+
+
+
+
+
+    // $("#manuals input[type='" + v.value + "']").prop('checked', false);
+    // $('#manuals input[type=checkbox]').prop('checked', false);
+
+    // $("#added_manuals").empty();
+
+    // var filter = JSON.stringify({"id":uid});
+    // var user_det = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
+    // var mnulnks = JSON.parse(user_det[0]["manula_links"]);
+
+    // var mnul_vals =  structured_accordian(mnulnks,"added_manuals",false);
+    // $.each(mnul_vals, function (k, v) {
+    //     $("#manuals input[lnk='" + v.value + "']").prop('checked', true);
+    // });
+});
+
+
+
+
+
 
 $(document).on('click','#save_profile',function(){
 

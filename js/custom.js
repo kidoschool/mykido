@@ -284,8 +284,10 @@ function updt_usr_list_tbl(tabl_id) {
     $.each(inspects, function (k, v) {
         // trs += '<tr><td>'+v.name+'</td> <td>'+v.email+'</td><td usr="'+v.email+'" >No</td><td><input type="checkbox" value="'+v.email+'"></td></tr>';
         var team = (v.team).replaceAll("-"," ");
-        trs += '<tr uid="'+v.id+'" class="user_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+v.email+'</td><td>'+team+'</td></tr>';
+        var status = v.status == 1 ? '<span class="text-success">Active</span>' : '<span class="text-danger">InActive</span>';
+        trs += '<tr uid="'+v.id+'" class="user_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+v.email+'</td><td>'+status+'</td></tr>';
         // trs += '<tr class="user_list_tr"><td>'+v.name+'</td> <td>'+v.email+'</td></tr>';
+        // console.log(v)
     });
     var tbody = $('#'+tabl_id).find("tbody");
     tbody.append(trs);
@@ -473,6 +475,44 @@ $(document).on('click','#user_trs .user_list_tr',function(){
 
 });
 
+$(document).on('click','#created_user_trs .user_list_tr',function(){
+
+    var uid = $(this).attr("uid");
+    $(".user_list_tr.active").removeClass("active");
+    $(this).addClass("active");
+    $("#selected_user").text($(this).find(".name").text());
+    $("#selected_user").attr("user_id",uid);
+
+    var filter = JSON.stringify({"id":uid});
+    var access_cards = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
+    // console.log(access_cards);
+
+    var email = access_cards[0].email;
+    var name = access_cards[0].name;
+    var team = access_cards[0].team;
+    var password = access_cards[0].password;
+    var manula_links = access_cards[0].manula_links;
+    var status = access_cards[0].status;
+
+    $("#name").val(name);
+    $("#email").val(email);
+    $("#team").val(team);
+    $("#password").val(password);
+    $("#manula_link").val(manula_links);
+    $("#status").val(status);
+
+    $(".access_cb").prop('checked', false);
+
+    $("#save_user_access").attr("uid",uid);
+
+    $.each(access_cards, function (k1, v1) {
+        // console.log();
+        $("input[name="+v1.access_name+"]").prop('checked', true);
+    });
+
+});
+
+
 
 $(document).on('click','#manula_user_trs .user_list_tr',function(){
 
@@ -568,6 +608,51 @@ $(document).on('click','#save_profile',function(){
         // console.log(user_det);
         if(parseInt(user_det)){
             alert("Profile Updated.");
+        }
+    }else{
+        alert(err);
+    }
+});
+
+$(document).on('click','#create_new_user',function(){
+
+    var user = local_get("logged_user");
+    var name = $("#name").val();
+    var email = $("#email").val();
+    var is_admin = 0;
+    var team = $("#team").val();
+    // var password = $("#password").val();
+    // var manula_link = $("#manula_link").val();
+    var status = $("#status").val();
+    var err = "";
+
+    valid_email(email) ? true : err += " Please privde valid email. " ;
+    name.length ? true : err += " Please privde valid name. " ;
+    // password.length > 2 ? true : err += " Please privde password. " ;
+    // is_admin.length ? true : err += " Please select admin status. " ;
+    // manula_link.length ? true : err += " Please privde manula link. " ;
+    status.length ? true : err += " Please select status. " ;
+
+    if(!err.length){
+
+        var data = {"name":name,"email":email,"is_admin":is_admin,"team":team,"status":status};
+        var cols = ["name","email","is_admin","team","status"];
+
+        if($("#created_user_trs .user_list_tr.active").length){
+            data["id"] = $("#created_user_trs .user_list_tr.active").attr("uid");
+            cols.push("id");
+        }else{
+            data["password"] = "123";
+            cols.push("password");
+        }
+
+        // var data = JSON.stringify({"id":user.id,"name":name,"email":email,"is_admin":is_admin,"team":team,"status":status});
+        // var cols = JSON.stringify(["id","name","email","is_admin","team","status"]);
+        var user_det = JSON.parse(requester(server,"POST",{'api':'create_new_user','data':JSON.stringify(data),'cols':JSON.stringify(cols)}));
+        console.log(user_det);
+        if(parseInt(user_det)){
+            alert("New User Created.");
+            window.location.reload();
         }
     }else{
         alert(err);

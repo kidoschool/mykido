@@ -1,8 +1,60 @@
-<div class="error-box">
+<!-- <div class="error-box">
     <div class="error-body text-center">
         <h1 class="error-title text-danger">404</h1>
         <h3 class="text-uppercase error-subtitle">PAGE NOT FOUND !</h3>
         <p class="text-muted mt-4 mb-4">YOU SEEM TO BE TRYING TO FIND HIS WAY HOME</p>
         <a href="dashboard.html" class="btn btn-danger btn-rounded waves-effect waves-light mb-5 text-white">Back to home</a>
     </div>
+</div> -->
+<div class="page-wrapper">
+<section class="create-form py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-11 bg-white p-4">
+                <h2 class="mb-3">Create User</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" class="name">
+                    </div>
+                    <div class="form-group">
+                      <label for="email">Email address</label>
+                      <input type="email" class="form-control" id="email" class="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="is_admin">Is Admin</label>
+                        <select class="form-control" id="is_admin" class="is_admin">
+                          <option value="">Select Is Admin Status</option>
+                          <option value="1">True</option>
+                          <option value="0">False</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="team">team</label>
+                        <input type="text" class="form-control" id="team" class="team">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" class="password">
+                    </div>
+                    <div class="form-group">
+                        <label for="manula_link">Manula Link</label>
+                        <input type="text" class="form-control" id="manula_link" class="manula_link">
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select class="form-control" id="status" class="status">
+                          <option value="" selected>Select Status</option>
+                          <option value="1">Active</option>
+                          <option value="0">Inactive</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-outline-info" id="create_new_user">Submit</button>
+                  </form>
+            </div>
+        </div>
+    </div>
+</section>
 </div>
+
+<script src="js/custom.js"></script>

@@ -457,6 +457,37 @@ $(document).on('click','#save_profile',function(){
     }
 });
 
+$(document).on('click','#create_new_user',function(){
+
+    var user = local_get("logged_user");
+    var name = $("#name").val();
+    var email = $("#email").val();
+    var is_admin = $("#is_admin").val();
+    var team = $("#team").val();
+    var password = $("#password").val();
+    var manula_link = $("#manula_link").val();
+    var status = $("#status").val();
+    var err = "";
+
+    valid_email(email) ? true : err += " Please privde valid email. " ;
+    name.length ? true : err += " Please privde valid name. " ;
+    password.length > 2 ? true : err += " Please privde password. " ;
+    is_admin.length ? true : err += " Please select admin status. " ;
+    manula_link.length ? true : err += " Please privde manula link. " ;
+    status.length ? true : err += " Please select status. " ;
+
+    if(!err.length){
+        var data = JSON.stringify({"id":user.id,"name":name,"email":email,"is_admin":is_admin,"team":team,"password":password,"manula_link":manula_link,"status":status});
+        var user_det = JSON.parse(requester(server,"POST",{'api':'create_new_user','data':data}));
+        console.log(user_det);
+        if(parseInt(user_det)){
+            alert("New User Created.");
+        }
+    }else{
+        alert(err);
+    }
+});
+
 
 $(document).on('click','#save_user_access',function(){
 

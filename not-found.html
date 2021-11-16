@@ -21,14 +21,10 @@
                       <label for="email">Email address</label>
                       <input type="email" class="form-control" id="email" class="email">
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="is_admin">Is Admin</label>
-                        <select class="form-control" id="is_admin" class="is_admin">
-                          <option value="">Select Is Admin Status</option>
-                          <option value="1">True</option>
-                          <option value="0">False</option>
-                        </select>
-                    </div>
+                        <input type="hidden" class="form-control" id="is_admin" class="is_admin">
+                    </div> -->
                     <div class="form-group">
                         <label for="team">team</label>
                         <input type="text" class="form-control" id="team" class="team">
@@ -49,12 +45,12 @@
                           <option value="0">Inactive</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-sm btn-outline-info" id="create_new_user">Submit</button>
+                    <button type="submit" class="btn btn-sm btn-outline-info" id="create_new_user">Save</button>
                   </form>
             </div>
             <div class="col-lg-6">
                 <div class="table-responsive">
-                    <table class="table text-nowrap" id="user_list">
+                    <table class="table text-nowrap" id="created_user_list">
                         <thead>
                             <tr>
                                 <th class="border-top-0">User</th>
@@ -64,7 +60,7 @@
                                 <th class="border-top-0">Select All</th> -->
                             </tr>
                         </thead>
-                        <tbody id="user_trs">
+                        <tbody id="created_user_trs">
 
                         </tbody>
                     </table>
@@ -77,11 +73,16 @@
 
 <script src="js/custom.js"></script>
 <script>
-      updt_usr_list_tbl("user_list");
+      updt_usr_list_tbl("created_user_list");
     var lis = "";
     $.each(access_portals_list, function (k1, v1) {
         lis += '<li><input obj_ind="'+k1+'" class="access_cb" name="'+v1.name+'" type="checkbox" value="'+k1+'">&emsp;<span>'+v1.name+'</span></li>';
     });
     $("#access_portals").empty().append(lis);
+
+    
+    
+    var user = local_get("logged_user");
+    $("#team").val(user.team);
 
 </script>

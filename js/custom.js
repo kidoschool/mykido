@@ -83,7 +83,7 @@ var access_portals_list = [
     {
         "name": "KidovillageBOT",
         "link": "https://kidovillage.gyde.ai/user/login/login",
-        "logo": "images/gyde.png",
+        "logo": "images/kv.png",
         "desc": "The Perfect Training Platform for your hybrid workforce across software.",
     },
     {
@@ -91,7 +91,13 @@ var access_portals_list = [
         "link": "https://app.safetyculture.com/login.html?lang=en-US",
         "logo": "images/iauditor.png",
         "desc": "iAuditor is an inspection app used to empower your workers in the field.",
-    }
+    },
+    {
+        "name": "SChool Diary",
+        "link": "https://kido.schooldiary.me/Login",
+        "logo": "images/iauditor.png",
+        "desc": "iAuditor is an inspection app used to empower your workers in the field.",
+    }    
 ];
 
 $(function() {
@@ -374,11 +380,13 @@ $(document).on('click','#user_inspect_submit',function(){
     data.push([form_id,user.id,"1",submission,timestamp,timestamp]);
     // myDate.toLocaleString()
     var inspects = requester(server,"POST",{'api':'save_tab',"tbl_name":"inspection_assign",'cols':cols,'data':JSON.stringify(data)});
-
     // console.log(inspects);
-
+    if (parseInt(inspects)) {
+        alert("Submitted.");
+    }else{
+        alert("Not Submitted.");
+    }
     // console.log(formRenderInstance.userData);
-
 });
 
 $(document).on('click','#user_view_prev_submitted',function(){

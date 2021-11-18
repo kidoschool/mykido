@@ -146,8 +146,10 @@ $(function() {
             alert(err);
         }else{
             var due_date = $( "#due_date" ).val().substring(0,10);
+            var inspect_schedule = $("#inspect_schedule").val();
             var allow_after_dd = $('#allow_after_dd').is(":checked") ? 1 : 0;
-            var data = {'api':'save_inspect','content':fbuilder.formData,"title":title,"due_date":due_date,"submit_after_due_date":allow_after_dd};
+            var team = teamTypes[$("#user_team").text()];
+            var data = {'api':'save_inspect','content':fbuilder.formData,"title":title,"due_date":due_date,"submit_after_due_date":allow_after_dd,"schedule":inspect_schedule,"team":team};
             if($("#inspect_title").attr("form_id")){
                 data["id"] = $("#inspect_title").attr("form_id");
             }
@@ -169,7 +171,7 @@ $(function() {
         var inspects = requester(server,"POST",{'api':'assign_users','users':users,'form_id':form_id});
         if(parseInt(inspects)){
             alert("Saved");
-            $(".modal-content button.close").trigger("click");
+            // $(".modal-content button.close").trigger("click");
             cust_navigate("basic-table");
         }else{
             alert("Not saved.");
@@ -378,7 +380,7 @@ $(document).on('click','#user_inspect_submit',function(){
     var submission = JSON.stringify(obj);
     var data = [];
     data.push([form_id,user.id,"1",submission,timestamp,timestamp]);
-    // myDate.toLocaleString()
+    // console.log(submission);
     var inspects = requester(server,"POST",{'api':'save_tab',"tbl_name":"inspection_assign",'cols':cols,'data':JSON.stringify(data)});
     // console.log(inspects);
     if (parseInt(inspects)) {
@@ -397,23 +399,65 @@ $(document).on('click','#user_view_prev_submitted',function(){
     $("#selected_user").attr("user_id",uid);
     // var form_id = url.searchParams.get("form_id");
     var filter = JSON.stringify({"inspection_id":form_id,"user_id":user.id});
-    var inspects = JSON.parse(requester(server,"POST",{'api':'submitted_get_users','filter':filter}));
-    // console.log(inspects);
-    // var renderedForm = $('<div>');
-    // renderedForm.formRender(formRenderOpts);
-    // $("#form_div").formRender(formRenderOpts);
-    if(inspects[0]['submission']){
-        var tmp = JSON.parse(inspects[0]['submission']);
+    var out = JSON.parse(requester(server,"POST",{'api':'submitted_get_users','filter':filter,'limit':0}));
+    if(out.length){
+        var inspects = {}, last_sub_dt = "", date_selector = "<select id='user_sub_dates'><option>Previous submission</option>";
+        $.each(out, function (k, v) {
+            inspects[v.submitted_on] =  v;
+            last_sub_dt = v.submitted_on;
+            date_selector += "<option value='"+v.submitted_on+"'>"+v.submitted_on+"</option>";
+        });
+        date_selector += "</select>";
+        user_submitted = inspects;
+    
+        var subs = JSON.parse(inspects[last_sub_dt]['submission']);
         $('#form_div').empty();
-        var formRenderInstance = $('#form_div').formRender({dataType: 'json',formData: tmp});
-        $.each(tmp, function (k, v) {
+        // console.log(subs);
+        var formRenderInstance = $('#form_div').formRender({dataType: 'json',formData: subs});
+        $.each(subs, function (k, v) {
             if(v.type == "file"){
-                $("#"+v.name).parent().append("<a href="+dwnld_url+v.url+" download>Download</a>");
+                if(v.url){
+                  $("#"+v.name).parent().append("<a href="+dwnld_url+v.url+" download>Download</a>");
+                }else{
+                  $("#"+v.name).parent().append("<a href='#' >File Not Uploaded.</a>");
+                }
                 $("#"+v.name).remove();
             }
         });
+        $('#form_div').before(date_selector);
+        $('#form_div').before("<span id='selected_date'>&emsp;&emsp;Submitted on : "+last_sub_dt+"</span>");
+        // console.log(date_selector);
     }else{
-        alert("Not submitted.");
+        alert("Not yet submitted.");
+    }
+});
+
+
+$(document).on('change','#user_sub_dates',function(){
+
+    // alert($(this).val());
+    console.log(user_submitted[$(this).val()]);
+
+    var sub_obj = user_submitted[$(this).val()];
+
+    if(sub_obj["submission"]){
+        var subs = JSON.parse(sub_obj["submission"]);
+        $('#form_div').empty();
+        // console.log(subs);
+        var formRenderInstance = $('#form_div').formRender({dataType: 'json',formData: subs});
+        $.each(subs, function (k, v) {
+            if(v.type == "file"){
+                if(v.url){
+                  $("#"+v.name).parent().append("<a href="+dwnld_url+v.url+" download>Download</a>");
+                }else{
+                  $("#"+v.name).parent().append("<a href='#' >File Not Uploaded.</a>");
+                }
+                $("#"+v.name).remove();
+            }
+        });
+        $('#selected_date').html("&emsp;&emsp;Submitted on : "+$(this).val());
+        // $('#form_div').before("<span>&emsp;&emsp;Submitted on : "+last_sub_dt+"</span>");
+        // console.log(date_selector);
     }
 });
 
@@ -774,7 +818,7 @@ $(document).on('change','input.form-control[type=file]',function(){
         "data": form,
         success: function (response) {
             // console.log(response);
-            elem.attr("value",response);
+            elem.attr("url",response);
             console.log(formRenderInstance.userData);
             upld.text("File Uploaded.");
         }

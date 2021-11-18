@@ -36,7 +36,6 @@
                     </div>
                     <div class='col-lg-2'>
                         <select class="form-control" id="inspect_schedule">
-                            <option value="">Select schedule</option>
                             <option value="1">Once</option>
                             <option value="2">Daily</option>
                             <option value="3">Weekly</option>
@@ -188,7 +187,7 @@ $( "#due_date" ).datepicker({
         fbuilder = $('#edit-form').formBuilder(formRenderOpts);
         $("#inspect_title").val(inspects[0]['title']);
         $("#due_date").val(inspects[0]['due_date']);
-        $("#inspect_schedule").val(inspects[0]['schedule']);
+        $("#inspect_schedule").val( (parseInt(inspects[0]['schedule']) || 1) );
         $("#user_team").text(teamTypesRev[inspects[0]['team']]);
 
 

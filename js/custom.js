@@ -146,8 +146,10 @@ $(function() {
             alert(err);
         }else{
             var due_date = $( "#due_date" ).val().substring(0,10);
+            var inspect_schedule = $("#inspect_schedule").val();
             var allow_after_dd = $('#allow_after_dd').is(":checked") ? 1 : 0;
-            var data = {'api':'save_inspect','content':fbuilder.formData,"title":title,"due_date":due_date,"submit_after_due_date":allow_after_dd};
+            var team = teamTypes[$("#user_team").text()];
+            var data = {'api':'save_inspect','content':fbuilder.formData,"title":title,"due_date":due_date,"submit_after_due_date":allow_after_dd,"schedule":inspect_schedule,"team":team};
             if($("#inspect_title").attr("form_id")){
                 data["id"] = $("#inspect_title").attr("form_id");
             }

@@ -1,5 +1,6 @@
 // let form_id = null;
 var server = ((document.location.host).indexOf("localhost") !== -1) ? "http://localhost/kido-audit-api/api.php" : 'https://shop.kidovillage.com/kido-audit-api/api.php';
+var dwnld_url = ((document.location.host).indexOf("localhost") !== -1) ? "http://localhost/kido-audit-api/" : 'https://shop.kidovillage.com/kido-audit-api/';
 
 var teamTypes = {
     "kido" : 1,
@@ -82,7 +83,7 @@ var access_portals_list = [
     {
         "name": "KidovillageBOT",
         "link": "https://kidovillage.gyde.ai/user/login/login",
-        "logo": "images/gyde.png",
+        "logo": "images/kv.png",
         "desc": "The Perfect Training Platform for your hybrid workforce across software.",
     },
     {
@@ -90,7 +91,13 @@ var access_portals_list = [
         "link": "https://app.safetyculture.com/login.html?lang=en-US",
         "logo": "images/iauditor.png",
         "desc": "iAuditor is an inspection app used to empower your workers in the field.",
-    }
+    },
+    {
+        "name": "SChool Diary",
+        "link": "https://kido.schooldiary.me/Login",
+        "logo": "images/iauditor.png",
+        "desc": "iAuditor is an inspection app used to empower your workers in the field.",
+    }    
 ];
 
 $(function() {
@@ -358,35 +365,57 @@ $(document).on('click','#user_inspect_submit',function(){
     // var someDate = new Date().toISOString();
     // var team = (v.team).replaceAll("-"," ");
     // document.writeln();
+    var obj = formRenderInstance.userData;
+    $.each(obj, function (k, v) {
+        if(v.type == "file"){
+            // .parent().append("<a href="+dwnld_url+v.url+" download>Download</a>");
+            obj[k]["url"] = $("#"+v.name).attr("url");
+        }
+    });
+
     var timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
     var cols = JSON.stringify(["inspection_id","user_id","status","submission","submitted_on","updated_on"]);
-    var submission = JSON.stringify(formRenderInstance.userData);
+    var submission = JSON.stringify(obj);
     var data = [];
     data.push([form_id,user.id,"1",submission,timestamp,timestamp]);
     // myDate.toLocaleString()
     var inspects = requester(server,"POST",{'api':'save_tab',"tbl_name":"inspection_assign",'cols':cols,'data':JSON.stringify(data)});
-
-    console.log(inspects);
-
+    // console.log(inspects);
+    if (parseInt(inspects)) {
+        alert("Submitted.");
+    }else{
+        alert("Not Submitted.");
+    }
     // console.log(formRenderInstance.userData);
-
 });
-
-
 
 $(document).on('click','#user_view_prev_submitted',function(){
-
-    
-    console.log(user.id,form_id);
-    console.log(formRenderInstance.userData);
-    // console.log(formRenderInstance);
-    // form_id
-    // console.log(formRenderInstance.userData);
-
+    var uid = $(this).attr("uid");
+    $(".user_list_tr.active").removeClass("active");
+    $(this).addClass("active");
+    $("#selected_user").text($(this).find(".name").text());
+    $("#selected_user").attr("user_id",uid);
+    // var form_id = url.searchParams.get("form_id");
+    var filter = JSON.stringify({"inspection_id":form_id,"user_id":user.id});
+    var inspects = JSON.parse(requester(server,"POST",{'api':'submitted_get_users','filter':filter}));
+    // console.log(inspects);
+    // var renderedForm = $('<div>');
+    // renderedForm.formRender(formRenderOpts);
+    // $("#form_div").formRender(formRenderOpts);
+    if(inspects[0]['submission']){
+        var tmp = JSON.parse(inspects[0]['submission']);
+        $('#form_div').empty();
+        var formRenderInstance = $('#form_div').formRender({dataType: 'json',formData: tmp});
+        $.each(tmp, function (k, v) {
+            if(v.type == "file"){
+                $("#"+v.name).parent().append("<a href="+dwnld_url+v.url+" download>Download</a>");
+                $("#"+v.name).remove();
+            }
+        });
+    }else{
+        alert("Not submitted.");
+    }
 });
-
-
-
 
 
 $(document).on('click','#manuals .ls2',function(){
@@ -521,18 +550,15 @@ $(document).on('click','#manula_user_trs .user_list_tr',function(){
 
 
 $(document).on('click','#user_submission_trs .user_list_tr',function(){
-
     var uid = $(this).attr("uid");
     $(".user_list_tr.active").removeClass("active");
     $(this).addClass("active");
     $("#selected_user").text($(this).find(".name").text());
     $("#selected_user").attr("user_id",uid);
-
-
     // var form_id = url.searchParams.get("form_id");
     var filter = JSON.stringify({"inspection_id":form_id,"user_id":uid});
     var inspects = JSON.parse(requester(server,"POST",{'api':'submitted_get_users','filter':filter}));
-    console.log(inspects);
+    // console.log(inspects);
     var tmp = JSON.parse(inspects[0]['submission']);
     var formRenderOpts = {
         dataType: 'json',
@@ -544,24 +570,24 @@ $(document).on('click','#user_submission_trs .user_list_tr',function(){
     // $("#form_div").formRender(formRenderOpts);
     $('#form_div').empty();
     var formRenderInstance = $('#form_div').formRender(formRenderOpts);
+    $.each(tmp, function (k, v) {
+        // file-1636966449378
+        if(v.type == "file"){
+            $("#"+v.name).parent().append("<a href="+dwnld_url+v.url+" download>Download</a>");
+            $("#"+v.name).remove();
+            // obj[k]["url"] = "uploads/1/banner.png";
+        }
+    });
     // console.log($(".form-control[type='file']").length);
     // var formRenderInstance = $('#render-container').formRender(formRenderOptions);
     // console.log(renderedForm[0].innerHTML);
     // $("#form_div").html(renderedForm[0].innerHTML);
-
-
-
-
-
     // $("#manuals input[type='" + v.value + "']").prop('checked', false);
     // $('#manuals input[type=checkbox]').prop('checked', false);
-
     // $("#added_manuals").empty();
-
     // var filter = JSON.stringify({"id":uid});
     // var user_det = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
     // var mnulnks = JSON.parse(user_det[0]["manula_links"]);
-
     // var mnul_vals =  structured_accordian(mnulnks,"added_manuals",false);
     // $.each(mnul_vals, function (k, v) {
     //     $("#manuals input[lnk='" + v.value + "']").prop('checked', true);
@@ -717,6 +743,42 @@ $(document).on('click','#save_user_manula_links',function(){
     }else{
         alert(errs);
     }
+});
+
+
+
+$(document).on('change','input.form-control[type=file]',function(){
+
+    // console.log($(this));
+    // console.log();
+    var elem = $(this);
+    var upld = $("<span>Uploading File...</span>");
+    elem.after(upld);
+    var form = new FormData();
+    form.append("api", "upload_file");
+    // $("#upload_image")[0].files.length ? form.append("image", $(this).files[0]) : false;
+    // $(this)
+    form.append("file", elem[0].files[0]);
+    var user = local_get('logged_user');
+    form.append("user_id", user.id);
+    var settings = {
+        "url": server,
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form,
+        success: function (response) {
+            // console.log(response);
+            elem.attr("value",response);
+            console.log(formRenderInstance.userData);
+            upld.text("File Uploaded.");
+        }
+    };
+
+    $.ajax(settings);
+
 });
 
 

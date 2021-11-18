@@ -14774,3 +14774,8 @@ html body .waves-notransition {
 .ti-menu{font-size:230%;}
 #main_container{background-color: #f1f2f3;}
 .view_sub_lnk{margin: 5%;color: #007bb6;cursor: pointer;}
+
+input.form-control[type=file]{
+    width: 50%;
+    display:inline;
+}

@@ -138,6 +138,7 @@
     try{
         if(form_id){
             // var form_id = url.searchParams.get("form_id");
+            var user_submitted = {};
             var filter = JSON.stringify({"id":form_id});
             var inspects = JSON.parse(requester(server,"POST",{'api':'get_inspect','filter':filter}));
             // console.log(inspects);

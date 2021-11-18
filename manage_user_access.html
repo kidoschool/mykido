@@ -5,12 +5,12 @@
 
 
                 <div class="table-responsive">
-                    <table class="table text-nowrap" id="user_list">
-                        <thead>
+                    <table class="table border bg-white text-nowrap" id="user_list">
+                        <thead  class="thead-light bg-light">
                             <tr>
                                 <th class="border-top-0">User</th>
                                 <th class="border-top-0">Email</th>
-                                <th class="border-top-0">Team</th>
+                                <th class="border-top-0">Status</th>
                                 <!-- <th class="border-top-0">Sent Before</th>
                                 <th class="border-top-0">Select All</th> -->
                             </tr>
@@ -20,23 +20,30 @@
                         </tbody>
                     </table>
                 </div>
-
-
-            </div>
-            <div class="col-lg-1">
-
             </div>
 
-            <div class="col-lg-3">
 
-                <h5 id="selected_user" >No user selected</h5>
-                <ul id="access_portals"></ul>
-                <button id="save_user_access">Save</button>
+            <div class="col-lg-6">
 
+                <h5 id="selected_user my-3" >No user selected</h5>
+                <!-- <ul id="access_portals"></ul> -->
+                <table class="table border bg-white">
+                    <thead class="thead-light bg-light">
+                    <tr>
+                        <th scope="col" style="width: 35%;">Access</th>
+                        <th scope="col">UserName</th>
+                        <th scope="col">Password</th>
+                        <!-- <th scope="col">Action</th> -->
+                    </tr>
+                    </thead>
+                    <tbody id="access_portals">
+                    </tbody>
+                </table>
+                <button id="save_user_access" class="btn btn-sm btn-outline-info">Save</button>
             </div>
-
         </div>
     </div>
+
 </div>
 
 <script>
@@ -44,7 +51,7 @@
     updt_usr_list_tbl("user_list");
     var lis = "";
     $.each(access_portals_list, function (k1, v1) {
-        lis += '<li><input obj_ind="'+k1+'" class="access_cb" name="'+v1.name+'" type="checkbox" value="'+k1+'">&emsp;<span>'+v1.name+'</span></li>';
+        lis += '  <tr access_tr="'+v1.name+'"><td><a href="'+v1.link+'" target="_blank" rel="noopener noreferrer" class="access_link"><h5 class="box-title"><input obj_ind="'+k1+'" class="access_cb" name="'+v1.name+'" type="checkbox" value="'+k1+'">&emsp;<img src="'+v1.logo+'" alt="user-img" width="20" class="access_logo">&emsp;<small class="access_name">'+v1.name+'</small></h5></a></td><td><input type="text" class="form-control username access_uname"></td><td><input type="text" class="form-control password access_upass"></td></tr>';
     });
     $("#access_portals").empty().append(lis);
 

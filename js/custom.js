@@ -400,16 +400,19 @@ $(document).on('click','#user_view_prev_submitted',function(){
     // var form_id = url.searchParams.get("form_id");
     var filter = JSON.stringify({"inspection_id":form_id,"user_id":user.id});
     var out = JSON.parse(requester(server,"POST",{'api':'submitted_get_users','filter':filter,'limit':0}));
-    if(out.length){
-        var inspects = {}, last_sub_dt = "", date_selector = "<select id='user_sub_dates'><option>Previous submission</option>";
-        $.each(out, function (k, v) {
-            inspects[v.submitted_on] =  v;
-            last_sub_dt = v.submitted_on;
-            date_selector += "<option value='"+v.submitted_on+"'>"+v.submitted_on+"</option>";
-        });
-        date_selector += "</select>";
-        user_submitted = inspects;
-    
+    var sub_prev = false;
+
+    var inspects = {}, last_sub_dt = "", date_selector = "<select id='user_sub_dates'><option>Previous submission</option>";
+    $.each(out, function (k, v) {
+        inspects[v.submitted_on] =  v;
+        last_sub_dt = v.submitted_on;
+        date_selector += "<option value='"+v.submitted_on+"'>"+v.submitted_on+"</option>";
+        (v.submission) ? sub_prev = true : false;
+    });
+    date_selector += "</select>";
+    user_submitted = inspects;
+
+    if(sub_prev){
         var subs = JSON.parse(inspects[last_sub_dt]['submission']);
         $('#form_div').empty();
         // console.log(subs);
@@ -436,13 +439,14 @@ $(document).on('click','#user_view_prev_submitted',function(){
 $(document).on('change','#user_sub_dates',function(){
 
     // alert($(this).val());
-    console.log(user_submitted[$(this).val()]);
+
+    // console.log(user_submitted[$(this).val()]);
 
     var sub_obj = user_submitted[$(this).val()];
+    $('#form_div').empty();
 
     if(sub_obj["submission"]){
         var subs = JSON.parse(sub_obj["submission"]);
-        $('#form_div').empty();
         // console.log(subs);
         var formRenderInstance = $('#form_div').formRender({dataType: 'json',formData: subs});
         $.each(subs, function (k, v) {
@@ -458,6 +462,8 @@ $(document).on('change','#user_sub_dates',function(){
         $('#selected_date').html("&emsp;&emsp;Submitted on : "+$(this).val());
         // $('#form_div').before("<span>&emsp;&emsp;Submitted on : "+last_sub_dt+"</span>");
         // console.log(date_selector);
+    }else{
+        $('#form_div').html("<h3>Not submitted on :"+$(this).val()+".</h3>");
     }
 });
 

@@ -728,10 +728,13 @@ $(document).on('click','#save_user_access',function(){
     // $('input.access_cb[type=checkbox]').each(function () {
 
     $("input.access_cb").each(function () {
+        var mymanageusertr = $(this).closest("tr");
 
+        var userName = mymanageusertr.find(".username").val();
+        var password = mymanageusertr.find(".password").val();
         var aces_sts = ($(this).prop('checked')) ? 1 : 0;
         var acces_det = access_portals_list[$(this).attr("obj_ind")];
-        data.push([uid,acces_det.name,acces_det.link,aces_sts]);
+        data.push([uid,acces_det.name,acces_det.link,aces_sts,userName,password]);
 
     });
 

@@ -12,6 +12,15 @@ var teamTypesRev = {
     1 : "kido",
     2 : "kido-village" 
 }
+
+var scheduleType = {
+    1 : "once",
+    2 : "daily",
+    3 : "weekly",
+    4 : "monthly",
+    5 : "half yearly",
+    6 : "yearly"
+}
 //-------------------------------COMMON FUNCTIONS----------------------
 
 function local_get(var_name) {

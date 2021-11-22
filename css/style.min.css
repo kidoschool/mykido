@@ -14779,3 +14779,7 @@ input.form-control[type=file]{
     width: 50%;
     display:inline;
 }
+
+.access_logo{
+    width : 20%
+}

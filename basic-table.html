@@ -76,19 +76,6 @@
 <script>
     // var statuses = {'1':'Active','2':'Completed'};
 
-    function updt_insp_tbl() {
-        var filter = JSON.stringify({});
-        var inspects = JSON.parse(requester(server,"POST",{'api':'get_inspect','filter':filter}));
-        $("#inspect_trs").empty();
-        var i = 1;
-        var trs = "";
-        $.each(inspects, function (k, v) {
-            var stat = new Date(v.due_date) < new Date() ? "Missed" : "Active";
-            trs += '<tr><td>'+i+'</td> <td>'+v.title+'</td> <td>'+v.due_date+'</td> <td>'+v.assigned_to+'</td> <td>'+stat+'</td><td>'+scheduleType[v.schedule]+'</td><td> <a href="#edit_form" onclick="function hi(){form_id='+v.id+'};hi()" >  view </a></td> </tr>';
-            i++;
-        });
-        $("#inspect_trs").append(trs);
-    }
 
     $(document).ready( function () {
         // $("body").on('click','#inspect_trs .fa-pencil-alt',function(){

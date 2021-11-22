@@ -4,13 +4,13 @@ var dwnld_url = ((document.location.host).indexOf("localhost") !== -1) ? "http:/
 
 var teamTypes = {
     "kido" : 1,
-    "kido-village" : 2
+    "kidovillage" : 2
 }
 
 
 var teamTypesRev = {
     1 : "kido",
-    2 : "kido-village" 
+    2 : "kidovillage" 
 }
 
 var scheduleType = {
@@ -280,7 +280,8 @@ function valid_email(tstr) {
 }
 
 function updt_usr_tbl() {
-    var filter = JSON.stringify({});
+    var user = local_get('logged_user');
+    var filter = JSON.stringify({"team":user.team});
     var inspects = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
     $("#user_trs").empty();
     var trs = "";
@@ -294,7 +295,8 @@ function updt_usr_tbl() {
 
 
 function updt_usr_list_tbl(tabl_id) {
-    var filter = JSON.stringify({});
+    var user = local_get('logged_user');
+    var filter = JSON.stringify({"team":user.team});
     var inspects = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
     $("#user_trs").empty();
     var trs = "";
@@ -309,6 +311,22 @@ function updt_usr_list_tbl(tabl_id) {
     var tbody = $('#'+tabl_id).find("tbody");
     tbody.append(trs);
     $('#'+tabl_id).DataTable();
+}
+
+function updt_insp_tbl() {
+    var user = local_get('logged_user');
+    console.log(teamTypes[user.team]);
+    var filter = JSON.stringify({"team": teamTypes[user.team]});
+    var inspects = JSON.parse(requester(server,"POST",{'api':'get_inspect','filter':filter}));
+    $("#inspect_trs").empty();
+    var i = 1;
+    var trs = "";
+    $.each(inspects, function (k, v) {
+        var stat = new Date(v.due_date) < new Date() ? "Missed" : "Active";
+        trs += '<tr><td>'+i+'</td> <td>'+v.title+'</td> <td>'+v.due_date+'</td> <td>'+v.assigned_to+'</td> <td>'+stat+'</td><td>'+scheduleType[v.schedule]+'</td><td> <a href="#edit_form" onclick="function hi(){form_id='+v.id+'};hi()" >  view </a></td> </tr>';
+        i++;
+    });
+    $("#inspect_trs").append(trs);
 }
 
 function structured_accordian(obj,div_id,end_arrow_show) {

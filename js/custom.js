@@ -171,8 +171,8 @@ $(function() {
         var inspects = requester(server,"POST",{'api':'assign_users','users':users,'form_id':form_id});
         if(parseInt(inspects)){
             alert("Saved");
-            // $(".modal-content button.close").trigger("click");
-            cust_navigate("basic-table");
+            $(".modal-content button.close").trigger("click");
+            // cust_navigate("basic-table");
         }else{
             alert("Not saved.");
         }

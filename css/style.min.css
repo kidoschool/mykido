@@ -14783,3 +14783,7 @@ input.form-control[type=file]{
 .access_logo{
     width : 10%
 }
+
+.hiddenRow {
+    padding: 0 !important;
+}

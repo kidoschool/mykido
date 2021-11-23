@@ -1,0 +1,179 @@
+{
+    "Activity Bank - Life Skills and Creative Role Play":
+    {
+        "Activity Bank - Life Skills and Creative Role Play - Playgroup (Below 2 Years)":"activity-bank-life-skills-and-creative-role-play-playgroup",
+        "Activity Bank - Life Skills and Creative Role Play -Nursery (2 - 3 Years)":"activity-bank-life-skills-and-creative-role-play-nursery",
+        "Activity Bank - Life Skills and Creative Role Play - LKG (3 - 4 Years)":"activity-bank-life-skills-and-creative-role-play-lkg",
+        "Activity Bank - Life Skills and Creative Role Play - UKG (4 - 6 Years)":"activity-bank-life-skills-and-creative-role-play-ukg"
+    },
+    "Additional Files":{
+        "Child Development Milestones":"kido-village-eresource-child-development",
+        "Frequently Asked Questions":"frequently-asked-questions",
+        "Kido App Manual":"kido-app-manual",
+        "Kïdo Village - Operations Best Practice Guides":"kido-village-operations-best-practice-guides",
+        "Marketing Files":"marketing-files",
+        "Pre-Evaluation Questions":"pre-evaluation-questions",
+        "Sample Resources":"sample-resources"
+    },
+    "KEY - Training Development and Teacher Support":{
+        "Train the trainer":"key-curriculum-train-the-trainer-sessions",
+        "Professional Development Program":"key-professional-development-program",
+        "Additional Files":"key-editing-tutorial-for-teachers",
+        "KEY Curriculum Resources":{
+            "KEY - Teacher Guidance for Curriculum Implementation":{
+                "Resource Activities":"resources-activities",
+                "Literacy":"literacy",
+                "Maths":"maths"
+            }
+        }
+    },
+    "KEY - Additional languages":
+    {
+        "Spanish":{
+            "Cycle 1": {
+                "Discoverers": "descubridores-discoverers-cycle-1",
+                "Adventurers": "aventureros-adventurers-cycle-1",
+                "Experimenters": "experimenters-exploradores-cycle-1",
+                "Pathfinders": "pathfinders-buscadores-de-caminos-cycle-1",
+                "Seekers": "seekers-spanish-cycle-1",
+                "Pioneers": "pioneers-cycle-1",
+                "Spanish Culture": "spanish-culture-cycle-1"
+            },
+            "Cycle 2": {
+                "Discoverers": "",
+                "Adventurers": "aventureros-adventurers2",
+                "Experimenters": "",
+                "Pathfinders": "",
+                "Seekers": "",
+                "Pioneers": "",
+                "Spanish Culture": "spanish-culture-cycle-2"
+            },
+            "Cycle 3": {
+                "Discoverers": "descubridores-discoverers-cycle-3",
+                "Adventurers": "aventureros-adventurers-cycle-3",
+                "Experimenters": "experimenters-exploradores-cycle-3",
+                "Pathfinders": "pathfinders-buscadores-de-caminos-cycle-3",
+                "Seekers": "seekers-cycle-3",
+                "Pioneers": "pioneers-cycle-3",
+                "Spanish Culture": ""
+            },
+            "Cycle 4": {
+                "Discoverers": "descubridores-discoverers-cycle-4",
+                "Adventurers": "aventureros-adventurers-cycle-4",
+                "Experimenters": "experimenters-exploradores-cycle-4",
+                "Pathfinders": "pathfinders-buscadores-de-caminos-cycle-4",
+                "Seekers": "seekers-investigadors-cycle-4",
+                "Pioneers": "pioneers-pioneros-cycle-4",
+                "Spanish Culture": ""
+            },
+            "Cycle 5": {
+                "Discoverers": "descubridores-discoverers-cycle-5",
+                "Adventurers": "aventureros-adventurers-cycle-5",
+                "Experimenters": "experimenters-exploradores-cycle-5",
+                "Pathfinders": "pathfinders-buscadores-de-caminos-cycle-5",
+                "Seekers": "seekers-investigadors-cycle-5",
+                "Pioneers": "",
+                "Spanish Culture": ""
+            },
+            "Cycle 6": {
+                "Discoverers": "descubridores-discoverers-cycle-6",
+                "Adventurers": "aventureros-adventurers-cycle-6",
+                "Experimenters": "exploradores-experimenters-cycle-6",
+                "Pathfinders": "buscadores-de-caminos-pathfinders-cycle-6",
+                "Seekers": "seekers-investigadors-cycle-6"
+            },
+            "Mandarin - Traditional Chinese": {
+                "Adventurers": "key-lesson-plan-mandarin-traditional-chinese",
+                "Experimenters": "experimenters",
+                "Pathfinders": "kido-lesson-plan-mandarin-traditional-chinese-pathfinders",
+                "Seekers": "kido-lesson-plan-mandarin-traditional-chinese-seekers"
+            },
+            "Mandarin - Simplified Chinese": {
+                "Adventurers": "adventurers-mandarin",
+                "Experimenters": "k1",
+                "Pathfinders": "k2",
+                "Seekers": "k3"
+            },
+            "Arabic":"key-arabic-lesson-plans",
+            "French": {
+                "International": "key-french-lesson-plans",
+                "UK": "french-lesson-plans-uk"
+            }
+        }
+        
+    },
+    "Camp Lesson Plans": {
+        "Camp Lesson Plans - Lower KG and Upper KG":"summer-camp-lesson-plans-3-years-to-6-years",
+        "Camp Lesson Plans - Playgroup and Nursery":"summer-camp-lesson-plans-week-1"
+    },
+    "Kïdo Village - Lesson Plans - Level 1 (Nursery)": {
+        "Kïdo Village - Nursery - Month 1":"kido-village-experimenters-week-1",
+        "Kïdo Village - Nursery - Month 2":"kido-village-level-1-month-2",
+        "Kïdo Village - Nursery - Month 3":"kido-village-level-1-month-3",
+        "Kïdo Village - Nursery - Month 4":"kido-village-level-1-month-4",
+        "Kïdo Village - Nursery - Month 5":"kido-village-level-1-month-5",
+        "Kïdo Village - Nursery - Month 6":"kido-village-level-1-month-6",
+        "Kïdo Village - Nursery - Month 7":"kido-village-level-1-month-7",
+        "Kïdo Village - Nursery - Month 8":"kido-village-level-1-month-8",
+        "Kïdo Village - Nursery - Month 9":"kido-village-level-1-month-9",
+        "Kïdo Village - Nursery - Month 10":"kido-village-level-1-month-10"
+    },
+    "Kïdo Village - Lesson Plans - Level 2 (Lower KG)": {
+        "Kïdo Village - Lower KG - Month 1":"kido-village-pathfinders-week-1",
+        "Kïdo Village - Lower KG - Month 2":"kido-village-level-2-month-2",
+        "Kïdo Village - Lower KG - Month 3":"kido-village-level-2-month-3",
+        "Kïdo Village - Lower KG - Month 4":"kido-village-level-2-month-4",
+        "Kïdo Village - Lower KG - Month 5":"kido-village-level-2-month-5",
+        "Kïdo Village - Lower KG - Month 6":"kido-village-level-2-month-6",
+        "Kïdo Village - Lower KG - Month 7":"kido-village-level-2-month-7",
+        "Kïdo Village - Lower KG - Month 8":"kido-village-level-2-month-8",
+        "Kïdo Village - Lower KG - Month 9":"kido-village-level-2-month-9",
+        "Kïdo Village - Lower KG - Month 10":"kido-village-level-2-month-10"
+    },
+    "Kïdo Village - Lesson Plans - Level 3 (Upper KG)": {
+        "Kïdo Village - Upper KG - Month 1":"kido-village-seekers-week-1",
+        "Kïdo Village - Upper KG - Month 2":"kido-village-level-3-month-2",
+        "Kïdo Village - Upper KG - Month 3":"kido-village-level-3-month-3",
+        "Kïdo Village - Upper KG - Month 4":"kido-village-level-3-month-4",
+        "Kïdo Village - Upper KG - Month 5":"kido-village-level-3-month-5",
+        "Kïdo Village - Upper KG - Month 6":"kido-village-level-3-month-6",
+        "Kïdo Village - Upper KG - Month 7":"kido-village-level-3-month-7",
+        "Kïdo Village - Upper KG - Month 8":"kido-village-level-3-month-8",
+        "Kïdo Village - Upper KG - Month 9":"kido-village-level-3-month-9",
+        "Kïdo Village - Upper KG - Month 10":"kido-village-level-3-month-10"
+    },
+    "Kido Village - Lesson Plans - Turbo Toddlers (Playgroup)": {
+        "Kïdo Village - Playgroup - Month 1":"kido-village-adventurers",
+        "Kïdo Village - Playgroup - Month 2":"kido-village-turbo-toddlers-month-2",
+        "Kïdo Village - Playgroup - Month 3":"kido-village-turbo-toddlers-month-3",
+        "Kïdo Village - Playgroup - Month 4":"kido-village-turbo-toddlers-month-4",
+        "Kïdo Village - Playgroup - Month 5":"kido-village-turbo-toddlers-month-5",
+        "Kïdo Village - Playgroup - Month 6":"kido-village-turbo-toddlers-month-6",
+        "Kïdo Village - Playgroup - Month 7":"kido-village-turbo-toddlers-month-7",
+        "Kïdo Village - Playgroup - Month 8":"kido-village-turbo-toddlers-month-8",
+        "Kïdo Village - Playgroup - Month 9":"kido-village-turbo-toddlers-month-9",
+        "Kïdo Village - Playgroup - Month 10":"kido-village-turbo-toddlers-month-10"
+    },
+    "Online Learning Lesson Plans": {
+        "Online Learning Lesson Plans - Adventurers (Playgroup) - Month 1":"kido-home-lesson-plans-adventurers",
+        "Online Learning Lesson Plans - Adventurers (Playgroup) - Month 2":"online-learning-lesson-plans-adventurers-playgroup-month-2",
+        "Online Learning Lesson Plans - Experimenters (Nursery) - Month 1":"kido-home-lesson-plans-experimenters",
+        "Online Learning Lesson Plans - Experimenters (Nursery) - Month 2":"online-learning-lesson-plans-experimenters-nursery-month-2",
+        "Online Learning Lesson Plans - Pathfinders (Lower KG) - Month 1":"kido-home-lesson-plans-pathfinders-l2-lower-kg",
+        "Online Learning Lesson Plans - Pathfinders (Lower KG) - Month 2":"online-learning-lesson-plans-pathfinders-lower-kg-month-2",
+        "Online Learning Lesson Plans - Seekers (Upper KG) - Month 1":"kido-home-lesson-plans-seekers-upper-kg",
+        "Online Learning Lesson Plans - Seekers (Upper KG) - Month 2":"online-learning-lesson-plans-seekers-upper-kg-month-2"
+    },
+    "Ungrouped":{
+        "KV Teacher Guidance for Curriculum Implementation":"kv-teacher-guidance-for-curriculum-implementation",
+        "Kïdo Village - Below 2 Years - English [RESTORED]":"kido-village-below-2-years-english-restored-20210714095206",
+        "Kïdo Village - Below 2 Years - Mathematics [RESTORED]":"kido-village-below-2-years-mathematics-restored-20210714095206",
+        "Kïdo Village - Below 2 Years - STEM [RESTORED]":"kido-village-below-2-years-stem-restored-20210714095206",
+        "Kïdo Village - Below 2 Years - Art [RESTORED]":"kkido-village-below-2-years-art-restored-20210714095206",
+        "Kïdo Village - Below 2 Years - Physical Development [RESTORED]":"kido-village-below-2-years-physical-development-restored-20210714095206" 
+    },
+    "e-Resources":{
+        "Kïdo Village - eResource - Under 3's":"kido-village-eresource-under-3-s",
+        "Kïdo Village - eResource - Over 3's":"kido-village-eresource-over-3-s"
+    }
+}

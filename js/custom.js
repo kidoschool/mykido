@@ -351,12 +351,12 @@ function structured_accordian(obj,div_id,end_arrow_show) {
                             z = 0;
                             $.each(v2, function (k3, v3) {
                                 i = 4;z++;                            
-                                out += "<div ind="+j+"."+x+"."+y+"."+z+" class='ls"+i+"'>"+v3+'  '+arw+' </div>';
+                                out += "<div ind="+j+"."+x+"."+y+"."+z+" class='ls"+i+"'>"+k3+'  '+arw+' </div>';
                                     if(v3 instanceof Object){
                                         a = 0;
                                         $.each(v3, function (k4, v4) {
                                             i = 5;a++;
-                                            out += "<div ind="+j+"."+x+"."+y+"."+z+"."+a+" class='ls"+i+"'>"+v4+'  '+arw+' </div>';
+                                            out += "<div ind="+j+"."+x+"."+y+"."+z+"."+a+" class='ls"+i+"'>"+k4+'  '+arw+' </div>';
                                             mnul_vals[""+j+"."+x+"."+y+"."+z+"."+a] = {"value":v4,"keys":[k,k1,k2,k3,k4]};
                                         });
                                     }else{

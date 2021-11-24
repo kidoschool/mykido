@@ -352,7 +352,16 @@ function structured_accordian(obj,div_id,end_arrow_show) {
                             $.each(v2, function (k3, v3) {
                                 i = 4;z++;                            
                                 out += "<div ind="+j+"."+x+"."+y+"."+z+" class='ls"+i+"'>"+v3+'  '+arw+' </div>';
-                                mnul_vals[""+j+"."+x+"."+y+"."+z] = {"value":v3,"keys":[k,k1,k2,k3]};
+                                    if(v3 instanceof Object){
+                                        a = 0;
+                                        $.each(v3, function (k4, v4) {
+                                            i = 5;a++;
+                                            out += "<div ind="+j+"."+x+"."+y+"."+z+"."+a+" class='ls"+i+"'>"+v4+'  '+arw+' </div>';
+                                            mnul_vals[""+j+"."+x+"."+y+"."+z+"."+a] = {"value":v4,"keys":[k,k1,k2,k3,k4]};
+                                        });
+                                    }else{
+                                        mnul_vals[""+j+"."+x+"."+y+"."+z] = {"value":v3,"keys":[k,k1,k2,k3]};
+                                    }
                             });
                         }else{
                             mnul_vals[""+j+"."+x+"."+y] = {"value":v2,"keys":[k,k1,k2]};
@@ -510,6 +519,21 @@ $(document).on('click','#manuals .ls2',function(){
         $(this).addClass("active");
     }
 });
+
+$(document).on('click','#manuals .ls3',function(){
+    $("#manuals").find(".ls4,.ls5").css("display","none");
+    if($(this).hasClass("active")){
+        $(".ls3.active").removeClass("active");
+        $(this).nextUntil(".ls3").filter(".ls4").css("display","none");
+    }else{
+        $(".ls3.active").removeClass("active");
+        $(this).nextUntil(".ls3").filter(".ls4").css("display","block");
+        $(this).addClass("active");
+    }
+});
+
+
+
 
 $(document).on('click','.ls_val',function(){
     var out_obj = {};

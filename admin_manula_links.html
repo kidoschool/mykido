@@ -4,7 +4,7 @@
 .ls1{color: #2cabe3;padding-left: 3%;}
 .ls2{color: #e45355;padding-left: 6%;}
 .ls3{color: darkblue;padding-left: 9%;}
-.ls4{color: darkorchid;padding-left: 4%;}
+.ls4{color: darkorchid;padding-left: 11%;}
 #added_manuals div{display: initial;display: block;}
 
 </style>
@@ -67,12 +67,16 @@
 
 updt_usr_list_tbl("user_list");
 
+var user = local_get("logged_user");
 var struc_obj = {};
-$.getJSON( "manula_links.json", function(manuals) {
+var json_obj = user.team == "kido" ? "manula_links.json"  : "kv_manula_links.json";
+// var json_obj = "manula_links.json";
+// var json_obj = obj;
 
-    // structured_accordian(manuals,"manuals");
+$.getJSON( json_obj, function(manuals) {
 
     struc_obj = structured_accordian(manuals,"manuals",true);
+    // struc_obj = structured_accordian(obj,"manuals",true);
 
     $.each(struc_obj, function (k, v) {
         var elem = $("[ind='" + k + "']");

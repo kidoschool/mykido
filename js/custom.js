@@ -375,24 +375,34 @@ function structured_accordian(obj,div_id,end_arrow_show) {
             x = 0;
             $.each(v, function (k1, v1) {
                 i = 2;x++;
-                out += "<div ind="+j+x+" class='ls"+i+"'>"+k1+'  '+arw+' </div>';
+                out += "<div ind="+j+"."+x+" class='ls"+i+"'>"+k1+'  '+arw+' </div>';
                 if(v1 instanceof Object){
                     y = 0;
                     $.each(v1, function (k2, v2) {
                         i = 3;y++;
-                        out += "<div ind="+j+x+y+" class='ls"+i+"'>"+k2+'  '+arw+' </div>';
+                        out += "<div ind="+j+"."+x+"."+y+" class='ls"+i+"'>"+k2+'  '+arw+' </div>';
                         if(v2 instanceof Object){
+                            z = 0;
                             $.each(v2, function (k3, v3) {
                                 i = 4;z++;                            
-                                out += "<div ind="+j+x+y+z+" class='ls"+i+"'>"+v3+'  '+arw+' </div>';
-                                mnul_vals[""+j+x+y+z] = {"value":v3,"keys":[k,k1,k2,k3]};
+                                out += "<div ind="+j+"."+x+"."+y+"."+z+" class='ls"+i+"'>"+k3+'  '+arw+' </div>';
+                                    if(v3 instanceof Object){
+                                        a = 0;
+                                        $.each(v3, function (k4, v4) {
+                                            i = 5;a++;
+                                            out += "<div ind="+j+"."+x+"."+y+"."+z+"."+a+" class='ls"+i+"'>"+k4+'  '+arw+' </div>';
+                                            mnul_vals[""+j+"."+x+"."+y+"."+z+"."+a] = {"value":v4,"keys":[k,k1,k2,k3,k4]};
+                                        });
+                                    }else{
+                                        mnul_vals[""+j+"."+x+"."+y+"."+z] = {"value":v3,"keys":[k,k1,k2,k3]};
+                                    }
                             });
                         }else{
-                            mnul_vals[""+j+x+y] = {"value":v2,"keys":[k,k1,k2]};
+                            mnul_vals[""+j+"."+x+"."+y] = {"value":v2,"keys":[k,k1,k2]};
                         }
                     });
                 }else{
-                    mnul_vals[""+j+x] = {"value":v1,"keys":[k,k1]};
+                    mnul_vals[""+j+"."+x] = {"value":v1,"keys":[k,k1]};
                 }
             });
         }else{
@@ -543,6 +553,21 @@ $(document).on('click','#manuals .ls2',function(){
         $(this).addClass("active");
     }
 });
+
+$(document).on('click','#manuals .ls3',function(){
+    $("#manuals").find(".ls4,.ls5").css("display","none");
+    if($(this).hasClass("active")){
+        $(".ls3.active").removeClass("active");
+        $(this).nextUntil(".ls3").filter(".ls4").css("display","none");
+    }else{
+        $(".ls3.active").removeClass("active");
+        $(this).nextUntil(".ls3").filter(".ls4").css("display","block");
+        $(this).addClass("active");
+    }
+});
+
+
+
 
 $(document).on('click','.ls_val',function(){
     var out_obj = {};

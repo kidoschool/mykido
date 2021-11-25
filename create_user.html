@@ -30,6 +30,22 @@
                             <input type="text" class="form-control" id="manula_link" class="manula_link">
                         </div> -->
                         <div class="form-group">
+                            <label for="level">level</label>
+                            <select class="form-control" id="level" class="level">
+                                <option value="" selected>Select Status</option>
+                                <!-- <option value="1">admin</option> -->
+                                <!-- <option value="2">country-admin</option> -->
+                                <option value="3">Cluster-admin</option>
+                                <option value="4">Teacher</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <select class="form-control" id="country">
+
+                            </select>
+                          </div>
+                        <div class="form-group">
                             <label for="status">Status</label>
                             <select class="form-control" id="status" class="status">
                               <option value="" selected>Select Status</option>
@@ -75,5 +91,6 @@
         
         var user = local_get("logged_user");
         $("#team").val(user.team);
+        $("#country").append("<option value="+user.country+">"+country[user.country]+"</option>");
     
     </script>

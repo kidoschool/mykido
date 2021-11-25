@@ -641,6 +641,8 @@ $(document).on('click','#created_user_trs .user_list_tr',function(){
     var team = access_cards[0].team;
     var password = access_cards[0].password;
     var manula_links = access_cards[0].manula_links;
+    var country = access_cards[0].country;
+    var level = access_cards[0].level;
     var status = access_cards[0].status;
 
     $("#name").val(name);
@@ -648,6 +650,8 @@ $(document).on('click','#created_user_trs .user_list_tr',function(){
     $("#team").val(team);
     $("#password").val(password);
     $("#manula_link").val(manula_links);
+    $("#country").val(country);
+    $("#level").val(level);
     $("#status").val(status);
 
     $(".access_cb").prop('checked', false);
@@ -813,22 +817,22 @@ $(document).on('click','#create_new_user',function(){
     var email = $("#email").val();
     var is_admin = 0;
     var team = $("#team").val();
-    // var password = $("#password").val();
-    // var manula_link = $("#manula_link").val();
+    var country = $("#country").val();
+    var level = $("#level").val();
     var status = $("#status").val();
     var err = "";
 
     valid_email(email) ? true : err += " Please privde valid email. " ;
     name.length ? true : err += " Please privde valid name. " ;
     // password.length > 2 ? true : err += " Please privde password. " ;
-    // is_admin.length ? true : err += " Please select admin status. " ;
-    // manula_link.length ? true : err += " Please privde manula link. " ;
+    country.length ? true : err += " Please select country. " ;
+    level.length ? true : err += " Please privde level. " ;
     status.length ? true : err += " Please select status. " ;
 
     if(!err.length){
 
-        var data = {"name":name,"email":email,"is_admin":is_admin,"team":team,"status":status};
-        var cols = ["name","email","is_admin","team","status"];
+        var data = {"name":name,"email":email,"is_admin":is_admin,"team":team,"country":country,"level":level,"status":status};
+        var cols = ["name","email","is_admin","team","country","level","status"];
 
         if($("#created_user_trs .user_list_tr.active").length){
             data["id"] = $("#created_user_trs .user_list_tr.active").attr("uid");
@@ -843,7 +847,7 @@ $(document).on('click','#create_new_user',function(){
         var user_det = JSON.parse(requester(server,"POST",{'api':'create_new_user','data':JSON.stringify(data),'cols':JSON.stringify(cols)}));
         console.log(user_det);
         if(parseInt(user_det)){
-            alert("New User Created.");
+            alert("User Details Save.");
             window.location.reload();
         }
     }else{

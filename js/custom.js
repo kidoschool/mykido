@@ -8,12 +8,12 @@ var teamTypes = {
 }
 
 var country = {
-    1 : "india",
-    2 : "uk",
-    3 : "dubai",
-    4 : "us",
-    5 : "hongkong",
-    6 : "china"
+    1 : "India",
+    2 : "UK",
+    3 : "Dubai",
+    4 : "USA",
+    5 : "Hongkong",
+    6 : "China"
 }
 
 var teamTypesRev = {
@@ -338,7 +338,7 @@ function updt_nrsy_list_tbl(tabl_id) {
         // trs += '<tr><td>'+v.name+'</td> <td>'+v.email+'</td><td usr="'+v.email+'" >No</td><td><input type="checkbox" value="'+v.email+'"></td></tr>';
         // var team = (v.team).replaceAll("-"," ");
         var status = v.status == 1 ? '<span class="text-success">Active</span>' : '<span class="text-danger">InActive</span>';
-        trs += '<tr uid="'+v.id+'" class="user_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+v.country+'</td><td>'+status+'</td></tr>';
+        trs += '<tr uid="'+v.id+'" class="user_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+country[v.country]+'</td><td>'+status+'</td></tr>';
         // trs += '<tr class="user_list_tr"><td>'+v.name+'</td> <td>'+v.email+'</td></tr>';
         // console.log(v)
     });

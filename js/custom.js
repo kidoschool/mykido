@@ -7,6 +7,14 @@ var teamTypes = {
     "kidovillage" : 2
 }
 
+var country = {
+    1 : "india",
+    2 : "uk",
+    3 : "dubai",
+    4 : "us",
+    5 : "hongkong",
+    6 : "china"
+}
 
 var teamTypesRev = {
     1 : "kido",
@@ -20,6 +28,13 @@ var scheduleType = {
     4 : "monthly",
     5 : "half yearly",
     6 : "yearly"
+}
+
+var userLevels = {
+    1 : "admin",
+    2 : "country-admin", 
+    3 : "cluster-admin", 
+    4 : "teachers"
 }
 //-------------------------------COMMON FUNCTIONS----------------------
 
@@ -305,6 +320,25 @@ function updt_usr_list_tbl(tabl_id) {
         var team = (v.team).replaceAll("-"," ");
         var status = v.status == 1 ? '<span class="text-success">Active</span>' : '<span class="text-danger">InActive</span>';
         trs += '<tr uid="'+v.id+'" class="user_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+v.email+'</td><td>'+status+'</td></tr>';
+        // trs += '<tr class="user_list_tr"><td>'+v.name+'</td> <td>'+v.email+'</td></tr>';
+        // console.log(v)
+    });
+    var tbody = $('#'+tabl_id).find("tbody");
+    tbody.append(trs);
+    $('#'+tabl_id).DataTable();
+}
+
+function updt_nrsy_list_tbl(tabl_id) {
+    var user = local_get('logged_user');
+    var filter = JSON.stringify({"country":user.country});
+    var inspects = JSON.parse(requester(server,"POST",{'api':'get_nursery','filter':filter}));
+    $("#user_trs").empty();
+    var trs = "";
+    $.each(inspects, function (k, v) {
+        // trs += '<tr><td>'+v.name+'</td> <td>'+v.email+'</td><td usr="'+v.email+'" >No</td><td><input type="checkbox" value="'+v.email+'"></td></tr>';
+        // var team = (v.team).replaceAll("-"," ");
+        var status = v.status == 1 ? '<span class="text-success">Active</span>' : '<span class="text-danger">InActive</span>';
+        trs += '<tr uid="'+v.id+'" class="user_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+v.country+'</td><td>'+status+'</td></tr>';
         // trs += '<tr class="user_list_tr"><td>'+v.name+'</td> <td>'+v.email+'</td></tr>';
         // console.log(v)
     });
@@ -602,6 +636,47 @@ $(document).on('click','#created_user_trs .user_list_tr',function(){
 
 });
 
+$(document).on('click','#created_nursary_trs .user_list_tr',function(){
+
+    var uid = $(this).attr("uid");
+    $(".user_list_tr.active").removeClass("active");
+    $(this).addClass("active");
+    $("#selected_user").text($(this).find(".name").text());
+    $("#selected_user").attr("user_id",uid);
+
+    var filter = JSON.stringify({"id":uid});
+    var access_cards = JSON.parse(requester(server,"POST",{'api':'get_nursery','filter':filter}));
+    // console.log(access_cards);
+
+    var name = access_cards[0].name;
+    var country = access_cards[0].country;
+    var state = access_cards[0].state;
+    var city = access_cards[0].city;
+    var pincode = access_cards[0].pincode;
+    var lat = access_cards[0].lat;
+    var long = access_cards[0].long;
+    var status = access_cards[0].status;
+
+    $("#name").val(name);
+    $("#country").val(country);
+    $("#state").val(state);
+    $("#city").val(city);
+    $("#pincode").val(pincode);
+    $("#lat").val(lat);
+    $("#long").val(long);
+    $("#status").val(status);
+
+    $(".access_cb").prop('checked', false);
+
+    $("#save_user_access").attr("uid",uid);
+
+    $.each(access_cards, function (k1, v1) {
+        // console.log();
+        $("input[name="+v1.access_name+"]").prop('checked', true);
+    });
+
+});
+
 
 
 $(document).on('click','#manula_user_trs .user_list_tr',function(){
@@ -745,6 +820,55 @@ $(document).on('click','#create_new_user',function(){
         if(parseInt(user_det)){
             alert("New User Created.");
             window.location.reload();
+        }
+    }else{
+        alert(err);
+    }
+});
+
+
+$(document).on('click','#create_new_nursery',function(){
+
+    var user = local_get("logged_user");
+    var name = $("#name").val();
+    var country = $("#country").val();
+    var state = $("#state").val();
+    var city = $("#city").val();
+    var pincode = $("#pincode").val();
+    var status = $("#status").val();
+    var lat = $("#lat").val();
+    var long = $("#long").val();
+    var err = "";
+
+    // valid_email(email) ? true : err += " Please privde valid email. " ;
+    name.length ? true : err += " Please privde valid name. " ;
+    country.length ? true : err += " Please privde valid country. " ;
+    state.length > 2 ? true : err += " Please privde state. " ;
+    city.length ? true : err += " Please privde city. " ;
+    pincode.length ? true : err += " Please privde pincode. " ;
+    status.length ? true : err += " Please select status. " ;
+    lat.length ? true : err += " Please select lat. " ;
+    long.length ? true : err += " Please select long. " ;
+
+
+    if(!err.length){
+
+        var data = {"name":name,"country":country,"state":state,"city":city,"pincode":pincode,"lat":lat,"long":long,"status":status};
+        var cols = ["name","country","state","city","pincode","lat","long","status"];
+
+        if($("#created_nursary_trs .user_list_tr.active").length){
+            data["id"] = $("#created_nursary_trs .user_list_tr.active").attr("uid");
+            cols.push("id");
+        }else{
+            // data["password"] = "123";
+            // cols.push("password");
+        }
+
+        var user_det = JSON.parse(requester(server,"POST",{'api':'create_new_nursery','data':JSON.stringify(data),'cols':JSON.stringify(cols)}));
+        console.log(user_det);
+        if(parseInt(user_det)){
+            alert("New User Created.");
+            // window.location.reload();
         }
     }else{
         alert(err);

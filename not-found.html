@@ -13,110 +13,80 @@
         <div class="row justify-content-center">
             <h3>Schedule Inspection
             <div class="col-lg-12 mt-3">
-                
-                <!-- <div class="container"> -->
-                    <!-- <div class="col-md-12"> -->
-                        <div class="panel panel-default">
-                        <div class="panel-body">
-                    <table class="table border bg-white text-nowrap">
-                    <thead class="thead-light bg-light">
-                        <tr>
-                          <th></th>
-                          <th>Fist Name</th>
-                          <th>Last Name</th>
-                          <th>City</th>
-                          <th>State</th>
-                          <th>Status</th>
-                        </tr>
-                    </thead>
-                
-                    <tbody>
-                        <tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
-                           <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
-                            <td>Carlos</td>
-                            <td>Mathias</td>
-                            <td>Leme</td>
-                            <td>SP</td>
-                            <td>new</td>
-                        </tr>
-                            
-                        <tr>
-                            <td colspan="12" class="hiddenRow">
-                            <div class="accordian-body collapse" id="demo1"> 
-                              <table class="table table-striped">	                      
-                                    <tbody>                      
-                                        <tr>
-                                            ]<td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
-                                            <td>Carlos</td>
-                                            <td>Mathias</td>
-                                            <td>Leme</td>
-                                            <td>SP</td>
-                                            <td>new</td>
-                                        </tr>                                                                              
-                                        <tr>
-                                            <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
-                                            <td>Carlos</td>
-                                            <td>Mathias</td>
-                                            <td>Leme</td>
-                                            <td>SP</td>
-                                            <td>new</td>
-                                        </tr>                                            
-                                        <tr>
-                                            <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
-                                            <td>Carlos</td>
-                                            <td>Mathias</td>
-                                            <td>Leme</td>
-                                            <td>SP</td>
-                                            <td>new</td>
-                                        </tr>                            
-                                        <tr>
-                                            <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
-                                            <td>Carlos</td>
-                                            <td>Mathias</td>
-                                            <td>Leme</td>
-                                            <td>SP</td>
-                                            <td>new</td>
-                                        </tr>
-                                      </tbody>
-                                   </table>
-                              </div> 
-                          </td>
-                        </tr>
-                      
-                      
-                            
-                        <tr data-toggle="collapse" data-target="#demo2" class="accordion-toggle">
-                             <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
-                             <td>Silvio</td>
-                            <td>Santos</td>
-                            <td>São Paulo</td>
-                            <td>SP</td>
-                          <td> new</td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" class="hiddenRow"><div id="demo2" class="accordian-body collapse">Demo2</div></td>
-                        </tr>
-                        <tr data-toggle="collapse" data-target="#demo3" class="accordion-toggle">
-                            <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
-                            <td>John</td>
-                            <td>Doe</td>
-                            <td>Dracena</td>
-                            <td>SP</td>
-                          <td> New</td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" class="hiddenRow"><div id="demo3" class="accordian-body collapse">Demo3 sadasdasdasdasdas</div></td>
-                        </tr>
-                    </tbody>
-                </table>
-                            </div>
-                        
-                          </div> 
-                        
-                      <!-- </div> -->
-                    <!-- </div> -->
-                       
-                
+                <div class="accordion" id="accordionExample">
+                    <div class="card">
+                      <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                          <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            User #1
+                          </button>
+                        </h2>
+                      </div>
+                  
+                      <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">First</th>
+                                    <th scope="col">Last</th>
+                                    <th scope="col">Handle</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <th scope="row">1</th>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                    <td>@mdo</td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">2</th>
+                                    <td>Jacob</td>
+                                    <td>Thornton</td>
+                                    <td>@fat</td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">3</th>
+                                    <td>Larry</td>
+                                    <td>the Bird</td>
+                                    <td>@twitter</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card">
+                      <div class="card-header" id="headingTwo">
+                        <h2 class="mb-0">
+                          <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            User #2
+                          </button>
+                        </h2>
+                      </div>
+                      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                        <div class="card-body">
+                            no item added                        
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card">
+                      <div class="card-header" id="headingThree">
+                        <h2 class="mb-0">
+                          <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            User #3
+                          </button>
+                        </h2>
+                      </div>
+                      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                        <div class="card-body">
+                            no item added                        
+                        </div>
+                      </div>
+                    </div>
+                  </div>
             </div>
         </div>
     </div>

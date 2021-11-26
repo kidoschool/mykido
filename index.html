@@ -94,7 +94,15 @@
             if(user_det[0]){
                 local_set("logged_user",user_det[0]);
                 // console.log( parseInt(user_det[0]["is_admin"]));
-                parseInt(user_det[0]["is_admin"]) ? window.location = "dashboard.html" : window.location = "user_dashboard.html";
+
+                if(parseInt(user_det[0]["level"]) == 2){
+                    window.location = "dashboard.html";
+                }else if(parseInt(user_det[0]["level"]) == 3){
+                    window.location = "cluster_admin.html";
+                }else if(parseInt(user_det[0]["level"]) == 4){
+                    window.location = "user_dashboard.html";
+                }
+                // parseInt(user_det[0]["is_admin"]) ? window.location = "dashboard.html" : window.location = "user_dashboard.html";
             }else{
                 alert("User not added. Please contact admin.");
                 // console.log("Not registered with gmail.");

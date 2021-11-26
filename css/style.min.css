@@ -14787,3 +14787,7 @@ input.form-control[type=file]{
 .hiddenRow {
     padding: 0 !important;
 }
+
+.schedule-user-count{
+    border-radius: 50%;
+}

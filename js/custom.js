@@ -338,7 +338,7 @@ function updt_nrsy_list_tbl(tabl_id) {
         // trs += '<tr><td>'+v.name+'</td> <td>'+v.email+'</td><td usr="'+v.email+'" >No</td><td><input type="checkbox" value="'+v.email+'"></td></tr>';
         // var team = (v.team).replaceAll("-"," ");
         var status = v.status == 1 ? '<span class="text-success">Active</span>' : '<span class="text-danger">InActive</span>';
-        trs += '<tr uid="'+v.id+'" class="user_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+country[v.country]+'</td><td>'+status+'</td></tr>';
+        trs += '<tr uid="'+v.id+'" class="user_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+v.cluster_id+'</td><td>'+status+'</td></tr>';
         // trs += '<tr class="user_list_tr"><td>'+v.name+'</td> <td>'+v.email+'</td></tr>';
         // console.log(v)
     });
@@ -697,18 +697,18 @@ $(document).on('click','#created_nursary_trs .user_list_tr',function(){
     // console.log(access_cards);
 
     var name = access_cards[0].name;
-    var country = access_cards[0].country;
-    var state = access_cards[0].state;
-    var city = access_cards[0].city;
+    var cluster = access_cards[0].cluster_id;
+    // var state = access_cards[0].state;
+    // var city = access_cards[0].city;
     var pincode = access_cards[0].pincode;
     var lat = access_cards[0].lat;
     var long = access_cards[0].long;
     var status = access_cards[0].status;
 
     $("#name").val(name);
-    $("#country").val(country);
-    $("#state").val(state);
-    $("#city").val(city);
+    $("#cluster").val(cluster);
+    // $("#state").val(state);
+    // $("#city").val(city);
     $("#pincode").val(pincode);
     $("#lat").val(lat);
     $("#long").val(long);
@@ -912,9 +912,9 @@ $(document).on('click','#create_new_nursery',function(){
 
     var user = local_get("logged_user");
     var name = $("#name").val();
-    var country = $("#country").val();
-    var state = $("#state").val();
-    var city = $("#city").val();
+    var cluster = $("#cluster").val();
+    // var state = $("#state").val();
+    // var city = $("#city").val();
     var pincode = $("#pincode").val();
     var status = $("#status").val();
     var lat = $("#lat").val();
@@ -923,9 +923,9 @@ $(document).on('click','#create_new_nursery',function(){
 
     // valid_email(email) ? true : err += " Please privde valid email. " ;
     name.length ? true : err += " Please privde valid name. " ;
-    country.length ? true : err += " Please privde valid country. " ;
-    state.length > 2 ? true : err += " Please privde state. " ;
-    city.length ? true : err += " Please privde city. " ;
+    cluster.length ? true : err += " Please select cluster. " ;
+    // state.length > 2 ? true : err += " Please privde state. " ;
+    // city.length ? true : err += " Please privde city. " ;
     pincode.length ? true : err += " Please privde pincode. " ;
     status.length ? true : err += " Please select status. " ;
     lat.length ? true : err += " Please select lat. " ;
@@ -934,8 +934,8 @@ $(document).on('click','#create_new_nursery',function(){
 
     if(!err.length){
 
-        var data = {"name":name,"country":country,"state":state,"city":city,"pincode":pincode,"lat":lat,"long":long,"status":status};
-        var cols = ["name","country","state","city","pincode","lat","long","status"];
+        var data = {"name":name,"cluster_id":cluster,"pincode":pincode,"lat":lat,"long":long,"status":status};
+        var cols = ["name","cluster_id","pincode","lat","long","status"];
 
         if($("#created_nursary_trs .user_list_tr.active").length){
             data["id"] = $("#created_nursary_trs .user_list_tr.active").attr("uid");

@@ -222,8 +222,13 @@ $(function() {
             if($("#inspect_title").attr("form_id")){
                 data["id"] = $("#inspect_title").attr("form_id");
             }
-            requester(server,"POST",data);
-            $("#modal_btn").trigger("click");
+            var insp_id = requester(server,"POST",data);
+            if(parseInt(insp_id)){
+                $("#inspect_title").attr("form_id",insp_id);
+                $("#modal_btn").trigger("click");
+            }else{
+                alert("Form has errors.");
+            }
         }
     });
 
@@ -461,8 +466,12 @@ $(document).on('click','#user_inspect_submit',function(){
     var obj = formRenderInstance.userData;
     $.each(obj, function (k, v) {
         if(v.type == "file"){
-            // .parent().append("<a href="+dwnld_url+v.url+" download>Download</a>");
             obj[k]["url"] = $("#"+v.name).attr("url");
+        }
+        if(v.type == "checkbox-group"){
+            $.each(v.values, function (k1, v1) {
+                v.values[k1]['selected'] = false;
+            });
         }
     });
 

@@ -119,7 +119,7 @@ var access_portals_list = [
     {
         "name": "School Diary",
         "link": "https://kido.schooldiary.me/Login",
-        "logo": "images/schooldiary.png",
+        "logo": "images/kv.png",
         "desc": "iAuditor is an inspection app used to empower your workers in the field.",
     }    
 ];

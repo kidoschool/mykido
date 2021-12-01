@@ -357,7 +357,7 @@ function updt_clust_list_tbl(tabl_id) {
         // trs += '<tr><td>'+v.name+'</td> <td>'+v.email+'</td><td usr="'+v.email+'" >No</td><td><input type="checkbox" value="'+v.email+'"></td></tr>';
         // var team = (v.team).replaceAll("-"," ");
         var status = v.status == 1 ? '<span class="text-success">Active</span>' : '<span class="text-danger">InActive</span>';
-        trs += '<tr uid="'+v.id+'" class="user_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+country[v.country]+'</td><td>'+status+'</td></tr>';
+        trs += '<tr clusid="'+v.id+'" class="clus_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+country[v.country]+'</td><td>'+status+'</td></tr>';
         // trs += '<tr class="user_list_tr"><td>'+v.name+'</td> <td>'+v.email+'</td></tr>';
         // console.log(v)
     });
@@ -1022,6 +1022,56 @@ $(document).on('click','#save_user_access',function(){
     if(data.length){
         // var filter = JSON.stringify(data);
         var access_cards = JSON.parse(requester(server,"POST",{'api':'save_users_access','user_access':JSON.stringify(data)}));
+        alert("Saved");
+    }
+
+});
+
+
+// $(document).on('click','.clus_list_tr',function(){
+//     $(".clus_list_tr.active").removeClass("active");
+//     $(this).addClass("active");
+// });
+
+$(document).on('click','#cluster_trs .clus_list_tr',function(){
+
+    var clusid = $(this).attr("clusid");
+    $(".clus_list_tr.active").removeClass("active");
+    $(this).addClass("active");
+    // $("#selected_user").text($(this).find(".name").text());
+    $("#selected_user").attr("cluster_id",clusid);
+
+    var filter = JSON.stringify({"cluster_id":clusid});
+    var access_cards = JSON.parse(requester(server,"POST",{'api':'get_user_cluster','filter':filter}));
+    // console.log(access_cards);
+    $(".access_cb").prop('checked', false);
+
+    $("#save_cluster_access").attr("clusid",clusid);
+
+    $.each(access_cards, function (k1, v1) {
+        console.log(v1);
+        $("input[uid="+v1.user_id+"]").prop('checked', true);
+    });
+
+});
+
+$(document).on('click','#save_cluster_access',function(){
+
+    var clusid = $("tr.clus_list_tr.active").attr("clusid");
+    var data = [];
+
+    $("input.access_cb").each(function () {
+        if($(this).prop('checked')){
+            var uid = $(this).attr("uid");
+            data.push([uid,clusid,1]);
+        }
+    });
+
+    // console.log((data));
+
+    if(data.length){
+        // var filter = JSON.stringify(data);
+        var access_cards = JSON.parse(requester(server,"POST",{'api':'save_cluster_access','cluster_id':clusid,'user_cluster':JSON.stringify(data)}));
         alert("Saved");
     }
 

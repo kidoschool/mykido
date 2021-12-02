@@ -316,7 +316,7 @@ function updt_usr_tbl() {
 
 function updt_usr_list_tbl(tabl_id) {
     var user = local_get('logged_user');
-    var filter = JSON.stringify({"team":user.team});
+    var filter = JSON.stringify({"country":user.country});
     var inspects = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
     $("#user_trs").empty();
     var trs = "";
@@ -958,8 +958,8 @@ $(document).on('click','#create_new_nursery',function(){
         var user_det = JSON.parse(requester(server,"POST",{'api':'create_new_nursery','data':JSON.stringify(data),'cols':JSON.stringify(cols)}));
         console.log(user_det);
         if(parseInt(user_det)){
-            alert("New Nursary Created.");
-            window.location.reload();
+            // alert("New Nursary Created.");
+            // window.location.reload();
         }
     }else{
         alert(err);

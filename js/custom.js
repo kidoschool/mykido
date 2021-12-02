@@ -352,7 +352,28 @@ function updt_nrsy_list_tbl(tabl_id) {
     $('#'+tabl_id).DataTable();
 }
 
-function updt_clust_list_tbl(tabl_id) {
+
+function updt_nursy_access_list_tbl(tabl_id) {
+    var user = local_get('logged_user');
+    var filter = JSON.stringify({"country":user.country});
+    var inspects = JSON.parse(requester(server,"POST",{'api':'get_nursery','filter':filter}));
+    $("#user_trs").empty();
+    var trs = "";
+    $.each(inspects, function (k, v) {
+        // trs += '<tr><td>'+v.name+'</td> <td>'+v.email+'</td><td usr="'+v.email+'" >No</td><td><input type="checkbox" value="'+v.email+'"></td></tr>';
+        // var team = (v.team).replaceAll("-"," ");
+        // var status = v.status == 1 ? '<span class="text-success">Active</span>' : '<span class="text-danger">InActive</span>';
+        trs += '<tr nursyid="'+v.id+'" class="nursy_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+v.cluster_id+'</td></tr>';
+        // trs += '<tr class="user_list_tr"><td>'+v.name+'</td> <td>'+v.email+'</td></tr>';
+        // console.log(v)
+        nusy_ids.push(v.id);
+    });
+    var tbody = $('#'+tabl_id).find("tbody");
+    tbody.append(trs);
+    $('#'+tabl_id).DataTable();
+}
+
+function updt_clust_access_list_tbl(tabl_id) {
     var user = local_get('logged_user');
     var filter = JSON.stringify({"country":user.country});
     var inspects = JSON.parse(requester(server,"POST",{'api':'get_cluster','filter':filter}));
@@ -363,6 +384,26 @@ function updt_clust_list_tbl(tabl_id) {
         // var team = (v.team).replaceAll("-"," ");
         // var status = v.status == 1 ? '<span class="text-success">Active</span>' : '<span class="text-danger">InActive</span>';
         trs += '<tr clusid="'+v.id+'" class="clus_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+country[v.country]+'</td></tr>';
+        // trs += '<tr class="user_list_tr"><td>'+v.name+'</td> <td>'+v.email+'</td></tr>';
+        // console.log(v)
+        clus_ids.push(v.id);
+    });
+    var tbody = $('#'+tabl_id).find("tbody");
+    tbody.append(trs);
+    $('#'+tabl_id).DataTable();
+}
+
+function updt_clust_list_tbl(tabl_id) {
+    var user = local_get('logged_user');
+    var filter = JSON.stringify({"country":user.country});
+    var inspects = JSON.parse(requester(server,"POST",{'api':'get_cluster','filter':filter}));
+    $("#user_trs").empty();
+    var trs = "";
+    $.each(inspects, function (k, v) {
+        // trs += '<tr><td>'+v.name+'</td> <td>'+v.email+'</td><td usr="'+v.email+'" >No</td><td><input type="checkbox" value="'+v.email+'"></td></tr>';
+        // var team = (v.team).replaceAll("-"," ");
+        // var status = v.status == 1 ? '<span class="text-success">Active</span>' : '<span class="text-danger">InActive</span>';
+        trs += '<tr uid="'+v.id+'" class="user_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+country[v.country]+'</td></tr>';
         // trs += '<tr class="user_list_tr"><td>'+v.name+'</td> <td>'+v.email+'</td></tr>';
         // console.log(v)
         clus_ids.push(v.id);
@@ -1083,6 +1124,52 @@ $(document).on('click','#save_cluster_access',function(){
         // var filter = JSON.stringify(data);
         var access_cards = JSON.parse(requester(server,"POST",{'api':'save_cluster_access','cluster_id':clusid,'user_cluster':JSON.stringify(data)}));
         alert("Saved");
+        window.location.reload();
+    }
+
+});
+
+$(document).on('click','#nursery_trs .nursy_list_tr',function(){
+
+    var nursyid = $(this).attr("nursyid");
+    $(".nursy_list_tr.active").removeClass("active");
+    $(this).addClass("active");
+    // $("#selected_user").text($(this).find(".name").text());
+    $("#selected_user").attr("nursery_id",nursyid);
+
+    var filter = JSON.stringify({"nursery_id":nursyid});
+    var access_cards = JSON.parse(requester(server,"POST",{'api':'get_user_nursery','filter':filter}));
+    // console.log(access_cards);
+    $(".access_cb").prop('checked', false);
+
+    $("#save_nursery_access").attr("nursyid",nursyid);
+
+    $.each(access_cards, function (k1, v1) {
+        console.log(v1);
+        $("input[uid="+v1.user_id+"]").prop('checked', true);
+    });
+
+});
+
+$(document).on('click','#save_nursery_access',function(){
+
+    var nursyid = $("tr.nursy_list_tr.active").attr("nursyid");    
+    var data = [];
+
+    $("input.access_cb").each(function () {
+        if($(this).prop('checked')){
+            var uid = $(this).attr("uid");
+            data.push([uid,nursyid,1]);
+        }
+    });
+
+    // console.log((data));
+
+    if(data.length){
+        // var filter = JSON.stringify(data);
+        var access_cards = JSON.parse(requester(server,"POST",{'api':'save_nursery_access','nursery_id':nursyid,'user_nursery':JSON.stringify(data)}));
+        alert("Saved");
+        window.location.reload();
     }
 
 });
@@ -1112,6 +1199,7 @@ $(document).on('click','.save_user_detail',function(){
         // var filter = JSON.stringify(data);
         var access_cards = JSON.parse(requester(server,"POST",{'api':'save_users_creds','user_access':JSON.stringify(data)}));
         alert("Saved");
+        window.location.reload();
     }
 
 });

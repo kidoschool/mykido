@@ -361,10 +361,11 @@ function updt_clust_list_tbl(tabl_id) {
     $.each(inspects, function (k, v) {
         // trs += '<tr><td>'+v.name+'</td> <td>'+v.email+'</td><td usr="'+v.email+'" >No</td><td><input type="checkbox" value="'+v.email+'"></td></tr>';
         // var team = (v.team).replaceAll("-"," ");
-        var status = v.status == 1 ? '<span class="text-success">Active</span>' : '<span class="text-danger">InActive</span>';
-        trs += '<tr clusid="'+v.id+'" class="clus_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+country[v.country]+'</td><td>'+status+'</td></tr>';
+        // var status = v.status == 1 ? '<span class="text-success">Active</span>' : '<span class="text-danger">InActive</span>';
+        trs += '<tr clusid="'+v.id+'" class="clus_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+country[v.country]+'</td></tr>';
         // trs += '<tr class="user_list_tr"><td>'+v.name+'</td> <td>'+v.email+'</td></tr>';
         // console.log(v)
+        clus_ids.push(v.id);
     });
     var tbody = $('#'+tabl_id).find("tbody");
     tbody.append(trs);
@@ -1066,7 +1067,7 @@ $(document).on('click','#cluster_trs .clus_list_tr',function(){
 
 $(document).on('click','#save_cluster_access',function(){
 
-    var clusid = $("tr.clus_list_tr.active").attr("clusid");
+    var clusid = $("tr.clus_list_tr.active").attr("clusid");    
     var data = [];
 
     $("input.access_cb").each(function () {

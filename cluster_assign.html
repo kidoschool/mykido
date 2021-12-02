@@ -1,7 +1,7 @@
 <div class="page-wrapper">
     <div class="container-fluid">
         <div class="row"> 
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <h3>Clusters</h3>
                 <div class="table-responsive mt-4">
                     <table class="table border bg-white text-nowrap" id="cluster_list">
@@ -9,7 +9,7 @@
                             <tr>
                                 <th class="border-top-0">Cluster Name</th>
                                 <th class="border-top-0">Country</th>
-                                <th class="border-top-0">Status</th>
+                                <!-- <th class="border-top-0">Status</th> -->
                             </tr>
                         </thead>
                         <tbody id="cluster_trs">
@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-6">
+            <div class="col-lg-8">
                 <h3>User Assign</h3>
                 <div class="table-responsive mt-4">
                     <table class="table border bg-white text-nowrap" id="user_list">
@@ -28,6 +28,7 @@
                                 <th class="border-top-0">Assign</th>
                                 <th class="border-top-0">User</th>
                                 <th class="border-top-0">Email</th>
+                                <th class="border-top-0">Cluster</th>
                             </tr>
                         </thead>
                         <tbody id="user_trs">
@@ -42,19 +43,34 @@
 </div>
 
 <script>
+    var clus_ids = [];
 
     updt_clust_list_tbl("cluster_list");
-
 
     var user = local_get('logged_user');
     var filter = JSON.stringify({"level":3});
     var inspects = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
+    // console.log(clus_ids);
+    var filter = JSON.stringify({"cluster_id":clus_ids});
+    var clusters = JSON.parse(requester(server,"POST",{'api':'get_user_cluster','filter':filter}));
+
+    var clus_usrs = {};
+    $.each(clusters, function (k, v) {
+        clus_usrs[v.user_id] = v;
+    });
+
+    console.log(clus_usrs);
+
+
+
     $("#user_trs").empty();
     var trs = "";
     $.each(inspects, function (k, v) {
         var team = (v.team).replaceAll("-"," ");
-        var status = '<input uid="'+v.id+'" class="access_cb" name="'+v.name+'" type="checkbox" value="'+k+'">';
-        trs += '<tr><td>'+status+'</td><td class="name">'+v.name+'</td> <td class="email">'+v.email+'</td></tr>';
+        var chkbx = '<input uid="'+v.id+'" class="access_cb" name="'+v.name+'" type="checkbox" value="'+k+'">';
+        var clus = clus_usrs[v.id] ? $("tr[clusid="+clus_usrs[v.id]["cluster_id"]+"]").find('.name').text() : "-";
+
+        trs += '<tr><td>'+chkbx+'</td><td class="name">'+v.name+'</td> <td class="email">'+v.email+'</td><td>'+clus+'</td></tr>';
     });
     var tbody = $('#user_list').find("tbody");
     tbody.append(trs);

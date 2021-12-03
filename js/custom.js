@@ -586,7 +586,7 @@ $(document).on('click','#user_view_prev_submitted',function(){
             if(v.type == "file"){
                 if(v.url){
                     var fil_url = encodeURI(dwnld_url+v.url);
-                  $("#"+v.name).parent().append("<a href="+fil_url+" download>Download</a>");
+                  $("#"+v.name).parent().append("<a href="+fil_url+" download target='_blank'>Download</a>");
                 }else{
                   $("#"+v.name).parent().append("<a href='#' >File Not Uploaded.</a>");
                 }

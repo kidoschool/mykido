@@ -95,12 +95,11 @@
         // var user = local_get('logged_user');
         var filter = JSON.stringify({"country":user.country});
         var inspects = JSON.parse(requester(server,"POST",{'api':'get_nursery','filter':filter}));
-        console.log(inspects);
-        var trs = "";
+        // console.log(inspects);
+        var opts = "";
         $.each(inspects, function (k, v) {
             var status = v.status == 1 ? '<span class="text-success">Active</span>' : '<span class="text-danger">InActive</span>';
-            // trs += '<tr uid="'+v.id+'" class="user_list_tr"><td class="name">'+v.name+'</td><td>'+status+'</td></tr>';
-            trs += '<option value="'+v.id+'">'+v.name+'</option>';
-            $("#nursery_name").append(trs);
+            opts += '<option value="'+v.id+'">'+v.name+'</option>';
+            $("#nursery_name").append(opts);
         });
     </script>

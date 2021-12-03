@@ -54,12 +54,22 @@
     var filter = JSON.stringify({"cluster_id":clus_ids});
     var clusters = JSON.parse(requester(server,"POST",{'api':'get_user_cluster','filter':filter}));
 
+
     var clus_usrs = {};
     $.each(clusters, function (k, v) {
-        clus_usrs[v.user_id] = v;
+
+        var clu_nm = $("tr[clusid="+v.cluster_id+"]").find('.name').text();
+        console.log(clus_usrs[v.user_id]);
+        if(clus_usrs[v.user_id]){
+            clus_usrs[v.user_id] += "<br>"+clu_nm; 
+        }else{
+            clus_usrs[v.user_id] = clu_nm; 
+        }
+        // nusy_usrs[v.user_id] = v;
     });
 
-    console.log(clus_usrs);
+
+    // console.log(clus_usrs);
 
 
 
@@ -68,7 +78,9 @@
     $.each(inspects, function (k, v) {
         var team = (v.team).replaceAll("-"," ");
         var chkbx = '<input uid="'+v.id+'" class="access_cb" name="'+v.name+'" type="checkbox" value="'+k+'">';
-        var clus = clus_usrs[v.id] ? $("tr[clusid="+clus_usrs[v.id]["cluster_id"]+"]").find('.name').text() : "-";
+        // var clus = clus_usrs[v.id] ? $("tr[clusid="+clus_usrs[v.id]["cluster_id"]+"]").find('.name').text() : "-";
+        var clus = clus_usrs[v.id] ? clus_usrs[v.id] : "-";
+
 
         trs += '<tr><td>'+chkbx+'</td><td class="name">'+v.name+'</td> <td class="email">'+v.email+'</td><td>'+clus+'</td></tr>';
     });

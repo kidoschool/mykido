@@ -15,14 +15,6 @@
                               <option value="" selected>Select cluster</option>
                           </select>
                         </div>
-                        <!-- <div class="form-group">
-                            <label for="state">State</label>
-                            <input type="text" class="form-control" id="state" class="state">
-                        </div>
-                        <div class="form-group">
-                            <label for="city">city</label>
-                            <input type="text" class="form-control" id="city" class="city">
-                        </div> -->
                         <div class="form-group">
                             <label for="pincode">Pincode</label>
                             <input type="number" class="form-control" id="pincode" class="pincode">
@@ -52,7 +44,7 @@
                             <thead class="thead-light bg-light">
                                 <tr>
                                     <th class="border-top-0">Name</th>
-                                    <th class="border-top-0">Country</th>
+                                    <!-- <th class="border-top-0">Country</th> -->
                                     <th class="border-top-0">Status</th>
                                     <!-- <th class="border-top-0">Sent Before</th>
                                     <th class="border-top-0">Select All</th> -->
@@ -87,7 +79,10 @@
         var status = v.status == 1 ? '<span class="text-success">Active</span>' : '<span class="text-danger">InActive</span>';
         opts += '<option value="'+v.id+'">'+v.name+'</option>';
         });
-        $("#cluster").append(opts)
+        $("#cluster").append(opts);
+
+
+        
 
         
     </script>

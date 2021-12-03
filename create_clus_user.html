@@ -21,22 +21,20 @@
                             <label for="team">team</label>
                             <input type="text" class="form-control" id="team" class="team" readonly>
                         </div>
-                        <!-- <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" class="password">
-                        </div>
                         <div class="form-group">
-                            <label for="manula_link">Manula Link</label>
-                            <input type="text" class="form-control" id="manula_link" class="manula_link">
-                        </div> -->
+                            <label for="cluster">Select Nursery</label>
+                            <select class="form-control" id="nursery_name">
+                                <option value="" selected>Select Nursery</option>
+                            </select>
+                          </div>
                         <div class="form-group">
                             <label for="level">level</label>
                             <select class="form-control" id="level" class="level">
                                 <!-- <option value="" selected>Select Level</option> -->
                                 <!-- <option value="1">admin</option> -->
                                 <!-- <option value="2">country-admin</option> -->
-                                <option value="3" selected>Cluster-admin</option>
-                                <!-- <option value="4">Teacher</option> -->
+                                <!-- <option value="3" selected>Cluster-admin</option> -->
+                                <option value="4" selected>Teacher</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -93,4 +91,16 @@
         $("#team").val(user.team);
         $("#country").append("<option value="+user.country+">"+country[user.country]+"</option>");
     
+    
+        // var user = local_get('logged_user');
+        var filter = JSON.stringify({"country":user.country});
+        var inspects = JSON.parse(requester(server,"POST",{'api':'get_nursery','filter':filter}));
+        console.log(inspects);
+        var trs = "";
+        $.each(inspects, function (k, v) {
+            var status = v.status == 1 ? '<span class="text-success">Active</span>' : '<span class="text-danger">InActive</span>';
+            // trs += '<tr uid="'+v.id+'" class="user_list_tr"><td class="name">'+v.name+'</td><td>'+status+'</td></tr>';
+            trs += '<option value="'+v.id+'">'+v.name+'</option>';
+            $("#nursery_name").append(trs);
+        });
     </script>

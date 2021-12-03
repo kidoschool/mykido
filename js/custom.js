@@ -343,7 +343,7 @@ function updt_nrsy_list_tbl(tabl_id) {
         // trs += '<tr><td>'+v.name+'</td> <td>'+v.email+'</td><td usr="'+v.email+'" >No</td><td><input type="checkbox" value="'+v.email+'"></td></tr>';
         // var team = (v.team).replaceAll("-"," ");
         var status = v.status == 1 ? '<span class="text-success">Active</span>' : '<span class="text-danger">InActive</span>';
-        trs += '<tr uid="'+v.id+'" class="user_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+v.cluster_id+'</td><td>'+status+'</td></tr>';
+        trs += '<tr uid="'+v.id+'" class="user_list_tr"><td class="name">'+v.name+'</td><td>'+status+'</td></tr>';
         // trs += '<tr class="user_list_tr"><td>'+v.name+'</td> <td>'+v.email+'</td></tr>';
         // console.log(v)
     });
@@ -363,7 +363,7 @@ function updt_nursy_access_list_tbl(tabl_id) {
         // trs += '<tr><td>'+v.name+'</td> <td>'+v.email+'</td><td usr="'+v.email+'" >No</td><td><input type="checkbox" value="'+v.email+'"></td></tr>';
         // var team = (v.team).replaceAll("-"," ");
         // var status = v.status == 1 ? '<span class="text-success">Active</span>' : '<span class="text-danger">InActive</span>';
-        trs += '<tr nursyid="'+v.id+'" class="nursy_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+v.cluster_id+'</td></tr>';
+        trs += '<tr nursyid="'+v.id+'" class="nursy_list_tr"><td class="name">'+v.name+'</td></tr>';
         // trs += '<tr class="user_list_tr"><td>'+v.name+'</td> <td>'+v.email+'</td></tr>';
         // console.log(v)
         nusy_ids.push(v.id);

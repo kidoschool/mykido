@@ -1059,7 +1059,6 @@ $(document).on('click','#cluster_trs .clus_list_tr',function(){
     $("#save_cluster_access").attr("clusid",clusid);
 
     $.each(access_cards, function (k1, v1) {
-        console.log(v1);
         $("input[uid="+v1.user_id+"]").prop('checked', true);
     });
 

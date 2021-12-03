@@ -1103,7 +1103,7 @@ $(document).on('click','#cluster_trs .clus_list_tr',function(){
         $("input[uid="+v1.user_id+"]").prop('checked', true);
     });
 
-    window.location.reload();
+    // window.location.reload();
 });
 
 $(document).on('click','#save_cluster_access',function(){

@@ -333,6 +333,28 @@ function updt_usr_list_tbl(tabl_id) {
     $('#'+tabl_id).DataTable();
 }
 
+function usr_tbl_clus_admin(tabl_id) {
+    var user = local_get('logged_user');
+    var filter = JSON.stringify({"country":user.country,"level":3});
+    var inspects = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
+    $("#user_trs").empty();
+    var trs = "";
+    $.each(inspects, function (k, v) {
+        // trs += '<tr><td>'+v.name+'</td> <td>'+v.email+'</td><td usr="'+v.email+'" >No</td><td><input type="checkbox" value="'+v.email+'"></td></tr>';
+        var team = (v.team).replaceAll("-"," ");
+        var status = v.status == 1 ? '<span class="text-success">Active</span>' : '<span class="text-danger">InActive</span>';
+        trs += '<tr uid="'+v.id+'" class="user_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+v.email+'</td><td>'+status+'</td></tr>';
+        // trs += '<tr class="user_list_tr"><td>'+v.name+'</td> <td>'+v.email+'</td></tr>';
+        // console.log(v)
+    });
+    var tbody = $('#'+tabl_id).find("tbody");
+    tbody.append(trs);
+    $('#'+tabl_id).DataTable();
+}
+
+
+
+
 function updt_nrsy_list_tbl(tabl_id) {
     var user = local_get('logged_user');
     var filter = JSON.stringify({"country":user.country});

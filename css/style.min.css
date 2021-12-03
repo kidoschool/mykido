@@ -216,7 +216,7 @@ ul{
     cursor: pointer;
 }
 
-.user_list_tr.active, .clus_list_tr.active{
+.user_list_tr.active, .clus_list_tr.active, .nursy_list_tr.active{
     background-color: #bcdbf3;
 }
 

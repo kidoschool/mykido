@@ -534,7 +534,8 @@ $(document).on('click','#user_inspect_submit',function(){
         }
         if(v.type == "checkbox-group"){
             $.each(v.values, function (k1, v1) {
-                v.values[k1]['selected'] = false;
+                console.log(((v.userData).indexOf(v1.value) == -1));
+                v.values[k1]['selected'] = ((v.userData).indexOf(v1.value) == -1) ? false : true;
             });
         }
     });
@@ -584,7 +585,8 @@ $(document).on('click','#user_view_prev_submitted',function(){
         $.each(subs, function (k, v) {
             if(v.type == "file"){
                 if(v.url){
-                  $("#"+v.name).parent().append("<a href="+dwnld_url+v.url+" download>Download</a>");
+                    var fil_url = encodeURI(dwnld_url+v.url);
+                  $("#"+v.name).parent().append("<a href="+fil_url+" download target='_blank'>Download</a>");
                 }else{
                   $("#"+v.name).parent().append("<a href='#' >File Not Uploaded.</a>");
                 }

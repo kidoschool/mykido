@@ -534,7 +534,7 @@ $(document).on('click','#user_inspect_submit',function(){
         }
         if(v.type == "checkbox-group"){
             $.each(v.values, function (k1, v1) {
-                v.values[k1]['selected'] = false;
+                ((v.userData).indexOf(v.values[k1]['value']) == -1) ? v.values[k1]['selected'] = false : true;
             });
         }
     });

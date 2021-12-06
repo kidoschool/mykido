@@ -25,9 +25,10 @@ var scheduleType = {
     1 : "once",
     2 : "daily",
     3 : "weekly",
-    4 : "monthly",
-    5 : "half yearly",
-    6 : "yearly"
+    4 : "fortnight",
+    5 : "monthly",
+    6 : "half-yearly",
+    7 : "yearly"
 }
 
 var userLevels = {

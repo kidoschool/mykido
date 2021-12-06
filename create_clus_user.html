@@ -98,8 +98,7 @@
         // console.log(inspects);
         var opts = "";
         $.each(inspects, function (k, v) {
-            var status = v.status == 1 ? '<span class="text-success">Active</span>' : '<span class="text-danger">InActive</span>';
             opts += '<option value="'+v.id+'">'+v.name+'</option>';
-            $("#nursery_name").append(opts);
         });
+        $("#nursery_name").append(opts);
     </script>

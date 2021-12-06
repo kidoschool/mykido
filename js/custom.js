@@ -1145,12 +1145,12 @@ $(document).on('click','#save_cluster_access',function(){
 
     // console.log((data));
 
-    if(data.length){
+    // if(data.length || !data.length){
         // var filter = JSON.stringify(data);
         var access_cards = JSON.parse(requester(server,"POST",{'api':'save_cluster_access','cluster_id':clusid,'user_cluster':JSON.stringify(data)}));
         alert("Saved");
         window.location.reload();
-    }
+    // }
 
 });
 
@@ -1190,12 +1190,12 @@ $(document).on('click','#save_nursery_access',function(){
 
     // console.log((data));
 
-    if(data.length){
+    // if(data.length || !data.length){
         // var filter = JSON.stringify(data);
         var access_cards = JSON.parse(requester(server,"POST",{'api':'save_nursery_access','nursery_id':nursyid,'user_nursery':JSON.stringify(data)}));
         alert("Saved");
         window.location.reload();
-    }
+    // }
 
 });
 

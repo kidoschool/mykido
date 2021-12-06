@@ -69,8 +69,9 @@
         // });
         // $("#access_portals").empty().append(lis);
         var user = local_get("logged_user");
-        var filter = JSON.stringify({"user_id":user.id});
-        var clusters = JSON.parse(requester(server,"POST",{'api':'get_cluster','filter':filter}));
+        var clusters = user.clutrs;
+        // var filter = JSON.stringify({"user_id":user.id});
+        // var clusters = JSON.parse(requester(server,"POST",{'api':'get_cluster','filter':filter}));
         var opts = "",clus_ids = [];
         $.each(clusters, function (k, v) {
             opts += '<option value="'+v["cluster_id"]+'">'+v["cluster_id.name"]+'</option>';

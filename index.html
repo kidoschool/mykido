@@ -93,11 +93,13 @@
             var user_det = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
             if(user_det[0]){
                 local_set("logged_user",user_det[0]);
-                // console.log( parseInt(user_det[0]["is_admin"]));
 
                 if(parseInt(user_det[0]["level"]) == 2){
                     window.location = "dashboard.html";
                 }else if(parseInt(user_det[0]["level"]) == 3){
+                    var usr = user_det[0];
+                    usr["clutrs"] = JSON.parse(requester(server,"POST",{'api':'get_cluster','filter':JSON.stringify({"user_id":user_det[0]["id"]})}));
+                    local_set("logged_user",usr);
                     window.location = "cluster_admin.html";
                 }else if(parseInt(user_det[0]["level"]) == 4){
                     window.location = "user_dashboard.html";

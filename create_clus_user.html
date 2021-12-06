@@ -78,27 +78,45 @@
     </div>
     
     <script>
-          updt_usr_list_tbl("created_user_list");
-        var lis = "";
-        $.each(access_portals_list, function (k1, v1) {
-            lis += '<li><input obj_ind="'+k1+'" class="access_cb" name="'+v1.name+'" type="checkbox" value="'+k1+'">&emsp;<span>'+v1.name+'</span></li>';
-        });
-        $("#access_portals").empty().append(lis);
-    
-        
-        
+
         var user = local_get("logged_user");
+        var clusters = user.clutrs;
+
+        var clus_ids = [];
+        $.each(clusters, function (k, v) {
+            clus_ids.push(v["cluster_id"]);
+        });
+        // updt_usr_list_tbl("created_user_list");
+        // var lis = "";
+        // $.each(access_portals_list, function (k1, v1) {
+        //     lis += '<li><input obj_ind="'+k1+'" class="access_cb" name="'+v1.name+'" type="checkbox" value="'+k1+'">&emsp;<span>'+v1.name+'</span></li>';
+        // });
+        // $("#access_portals").empty().append(lis);
         $("#team").val(user.team);
-        $("#country").append("<option value="+user.country+">"+country[user.country]+"</option>");
-    
-    
+        // $("#country").append("<option value="+user.country+">"+country[user.country]+"</option>");
         // var user = local_get('logged_user');
-        var filter = JSON.stringify({"country":user.country});
-        var inspects = JSON.parse(requester(server,"POST",{'api':'get_nursery','filter':filter}));
+        var filter = JSON.stringify({"cluster_id":clus_ids});
+        var nurseries = JSON.parse(requester(server,"POST",{'api':'get_nursery','filter':filter}));
+        // var filter = JSON.stringify({"country":user.country});
+        // var inspects = JSON.parse(requester(server,"POST",{'api':'get_nursery','filter':filter}));
         // console.log(inspects);
         var opts = "";
-        $.each(inspects, function (k, v) {
+        $.each(nurseries, function (k, v) {
             opts += '<option value="'+v.id+'">'+v.name+'</option>';
         });
         $("#nursery_name").append(opts);
+
+
+
+        var filter = JSON.stringify({"id":usr_ids});
+        var user_dets = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
+
+
+
+
+
+
+
+
+
     </script>

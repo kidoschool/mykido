@@ -72,7 +72,6 @@
     var nusy_usrs = {} , usr_ids = [];
     $.each(nrsry_usr_resp, function (k, v) {
         var nur_nm = $("tr[nursyid="+v.nursery_id+"]").find('.name').text();
-        // console.log(nusy_usrs[v.user_id]);
         usr_ids.push(v.user_id);
         if(nusy_usrs[v.user_id]){
             nusy_usrs[v.user_id] += "<br>"+nur_nm; 
@@ -81,8 +80,6 @@
         }
     });
     
-    // console.log(nursery);
-
     var filter = JSON.stringify({"id":usr_ids});
     var user_dets = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
     var trs = "";

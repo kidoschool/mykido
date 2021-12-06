@@ -17,32 +17,28 @@
                             <label for="is_admin">Is Admin</label>
                             <input type="hidden" class="form-control" id="is_admin" class="is_admin">
                         </div> -->
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="team">team</label>
                             <input type="text" class="form-control" id="team" class="team" readonly>
-                        </div>
-                        <div class="form-group">
+                        </div> -->
+                        <!-- <div class="form-group">
                             <label for="cluster">Select Nursery</label>
                             <select class="form-control" id="nursery_name">
                                 <option value="" selected>Select Nursery</option>
                             </select>
-                          </div>
-                        <div class="form-group">
+                        </div> -->
+                        <!-- <div class="form-group">
                             <label for="level">level</label>
                             <select class="form-control" id="level" class="level">
-                                <!-- <option value="" selected>Select Level</option> -->
-                                <!-- <option value="1">admin</option> -->
-                                <!-- <option value="2">country-admin</option> -->
-                                <!-- <option value="3" selected>Cluster-admin</option> -->
                                 <option value="4" selected>Teacher</option>
                             </select>
-                        </div>
-                        <div class="form-group">
+                        </div> -->
+                        <!-- <div class="form-group">
                             <label for="country">Country</label>
                             <select class="form-control" id="country">
 
                             </select>
-                          </div>
+                        </div> -->
                         <div class="form-group">
                             <label for="status">Status</label>
                             <select class="form-control" id="status" class="status">
@@ -50,6 +46,13 @@
                               <option value="1">Active</option>
                               <option value="0">Inactive</option>
                             </select>
+                        </div>
+                        <div class="form-group">
+                            Nurseries
+                            <ul id="nurs_list">
+                                <!-- <li></li>
+                                <li></li> -->
+                            </ul>
                         </div>
                         <button type="submit" class="btn btn-sm btn-outline-info" id="create_new_user">Save</button>
                       </form>
@@ -76,7 +79,6 @@
         </div>
     </section>
     </div>
-    
     <script>
 
         var user = local_get("logged_user");
@@ -93,29 +95,35 @@
         // });
         // $("#access_portals").empty().append(lis);
         $("#team").val(user.team);
-        // $("#country").append("<option value="+user.country+">"+country[user.country]+"</option>");
-        // var user = local_get('logged_user');
+
         var filter = JSON.stringify({"cluster_id":clus_ids});
         var nurseries = JSON.parse(requester(server,"POST",{'api':'get_nursery','filter':filter}));
-        // var filter = JSON.stringify({"country":user.country});
-        // var inspects = JSON.parse(requester(server,"POST",{'api':'get_nursery','filter':filter}));
-        // console.log(inspects);
-        var opts = "";
+        var nurs = "";
+        var nrsry_ids = [];
         $.each(nurseries, function (k, v) {
-            opts += '<option value="'+v.id+'">'+v.name+'</option>';
+            // nurs += '<option value="'+v.id+'">'+v.name+'</option>';
+            nurs += "<li> <input type='checkbox' value='"+v.id+"'>  "+v.name+"</li>";
+            nrsry_ids.push(v.id);
         });
-        $("#nursery_name").append(opts);
+        // console.log(nurseries);
+        $("#nurs_list").append(nurs);
 
+        var filter = JSON.stringify({"nursery_id":nrsry_ids});
+        var user_nurs = JSON.parse(requester(server,"POST",{'api':'get_user_nursery','filter':filter}));
+        var user_ids = [];
+        $.each(user_nurs, function (k, v) {
+            user_ids.push(v.user_id);
+        });
 
-
-        var filter = JSON.stringify({"id":usr_ids});
+        var filter = JSON.stringify({"id":user_ids});
         var user_dets = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
-
-
-
-
-
-
+        var trs = "";
+        $.each(user_dets, function (k, v) {
+            var status = v.status == 1 ? '<span class="text-success">Active</span>' : '<span class="text-danger">InActive</span>';
+            trs += '<tr uid="'+v.id+'" class="user_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+v.email+'</td><td>'+status+'</td></tr>';
+        });
+        $('#created_user_list').find("tbody").append(trs);
+        $('#created_user_list').DataTable();
 
 
 

@@ -48,11 +48,43 @@
 
 <script>
 
-    updt_usr_list_tbl("user_list");
+    // updt_usr_list_tbl("user_list");
     var lis = "";
     $.each(access_portals_list, function (k1, v1) {
         lis += '  <tr access_tr="'+v1.name+'"><td><a href="'+v1.link+'" target="_blank" rel="noopener noreferrer" class="access_link"><h5 class="box-title"><input obj_ind="'+k1+'" class="access_cb" name="'+v1.name+'" type="checkbox" value="'+k1+'">&emsp;<img src="'+v1.logo+'" alt="user-img" class="access_logo">&emsp;<small class="access_name">'+v1.name+'</small></h5></a></td><td><input type="text" class="form-control username access_uname"></td><td><input type="text" class="form-control password access_upass"></td></tr>';
     });
     $("#access_portals").empty().append(lis);
+    var user = local_get("logged_user");
+    var clusters = user.clutrs;var clus_ids = [];
+    $.each(clusters, function (k, v) {
+        clus_ids.push(v["cluster_id"]);
+    });
+
+    var filter = JSON.stringify({"cluster_id":clus_ids});
+    var nurseries = JSON.parse(requester(server,"POST",{'api':'get_nursery','filter':filter}));
+
+    var nrsry_ids = [];
+    $.each(nurseries, function (k, v) {
+        nrsry_ids.push(v.id);
+    });
+
+    var filter = JSON.stringify({"nursery_id":nrsry_ids});
+    var user_nurs = JSON.parse(requester(server,"POST",{'api':'get_user_nursery','filter':filter}));
+    var user_ids = [];
+    $.each(user_nurs, function (k, v) {
+        user_ids.push(v.user_id);
+    });
+
+    var filter = JSON.stringify({"id":user_ids});
+    var user_dets = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
+    var trs = "";
+    $.each(user_dets, function (k, v) {
+        var status = v.status == 1 ? '<span class="text-success">Active</span>' : '<span class="text-danger">InActive</span>';
+        trs += '<tr uid="'+v.id+'" class="user_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+v.email+'</td><td>'+status+'</td></tr>';
+    });
+    $('#user_list').find("tbody").append(trs);
+    $('#user_list').DataTable();
+
+
 
 </script>

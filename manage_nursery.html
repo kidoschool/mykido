@@ -62,27 +62,34 @@
     </div>
     
     <script>
-        updt_nrsy_list_tbl("created_nursary_list");
-        var lis = "";
-        $.each(access_portals_list, function (k1, v1) {
-            lis += '<li><input obj_ind="'+k1+'" class="access_cb" name="'+v1.name+'" type="checkbox" value="'+k1+'">&emsp;<span>'+v1.name+'</span></li>';
-        });
-        $("#access_portals").empty().append(lis);
-    
-        
-        
+        // updt_nrsy_list_tbl("created_nursary_list");
+        // var lis = "";
+        // $.each(access_portals_list, function (k1, v1) {
+        //     lis += '<li><input obj_ind="'+k1+'" class="access_cb" name="'+v1.name+'" type="checkbox" value="'+k1+'">&emsp;<span>'+v1.name+'</span></li>';
+        // });
+        // $("#access_portals").empty().append(lis);
         var user = local_get("logged_user");
-        var filter = JSON.stringify({"country":user.country});
+        var filter = JSON.stringify({"user_id":user.id});
         var clusters = JSON.parse(requester(server,"POST",{'api':'get_cluster','filter':filter}));
-        var opts = "";
+        var opts = "",clus_ids = [];
         $.each(clusters, function (k, v) {
-        var status = v.status == 1 ? '<span class="text-success">Active</span>' : '<span class="text-danger">InActive</span>';
-        opts += '<option value="'+v.id+'">'+v.name+'</option>';
+            opts += '<option value="'+v["cluster_id"]+'">'+v["cluster_id.name"]+'</option>';
+            clus_ids.push(v["cluster_id"]);
         });
         $("#cluster").append(opts);
-
-
         
 
-        
+        var filter = JSON.stringify({"cluster_id":clus_ids});
+        var nurseries = JSON.parse(requester(server,"POST",{'api':'get_nursery','filter':filter}));
+        // $("#created_nursary_trs").empty();
+        var trs = "";
+        $.each(nurseries, function (k, v) {
+            var status = v.status == 1 ? '<span class="text-success">Active</span>' : '<span class="text-danger">InActive</span>';
+            trs += '<tr uid="'+v.id+'" class="user_list_tr"><td class="name">'+v.name+'</td><td>'+status+'</td></tr>';
+        });
+        var tbody = $("#created_nursary_list").find("tbody");
+        tbody.append(trs);
+        $("#created_nursary_list").DataTable();
+
+
     </script>

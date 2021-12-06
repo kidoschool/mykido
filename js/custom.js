@@ -733,7 +733,7 @@ $(document).on('click','#created_user_trs .user_list_tr',function(){
     var email = access_cards[0].email;
     var name = access_cards[0].name;
     var team = access_cards[0].team;
-    var password = access_cards[0].password;
+    // var password = access_cards[0].password;
     var manula_links = access_cards[0].manula_links;
     var country = access_cards[0].country;
     var level = access_cards[0].level;
@@ -742,7 +742,7 @@ $(document).on('click','#created_user_trs .user_list_tr',function(){
     $("#name").val(name);
     $("#email").val(email);
     $("#team").val(team);
-    $("#password").val(password);
+    // $("#password").val(password);
     $("#manula_link").val(manula_links);
     $("#country").val(country);
     $("#level").val(level);
@@ -974,7 +974,7 @@ $(document).on('click','#create_new_user',function(){
         var user_det = JSON.parse(requester(server,"POST",{'api':'create_new_user','data':JSON.stringify(data),'cols':JSON.stringify(cols)}));
         console.log(user_det);
         if(parseInt(user_det)){
-            alert("User Details Save.");
+            alert("Cluster Admin Details Save.");
             window.location.reload();
         }
     }else{

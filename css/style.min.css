@@ -12581,7 +12581,7 @@ html[dir=ltr] body .p-l-0 {
 #main-wrapper[data-layout=horizontal] .topbar[data-navbarbg=skin5],
 #main-wrapper[data-layout=vertical] .topbar .navbar-collapse[data-navbarbg=skin5],
 #main-wrapper[data-layout=vertical] {
-    background: #2f323e;
+    background: #405a67;
 }
 .topbar[data-navbarbg=skin5]{
     background-color: white;
@@ -12650,7 +12650,7 @@ html[dir=ltr] body .p-l-0 {
 }
 
 .page-wrapper {
-    background: #edf1f5;
+    background: #f8f9fa;
     position: relative
 }
 
@@ -14790,4 +14790,8 @@ input.form-control[type=file]{
 
 .schedule-user-count{
     border-radius: 50%;
+}
+
+.bg-light {
+    background-color: #2a85b133 !important;
 }

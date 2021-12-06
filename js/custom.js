@@ -719,7 +719,7 @@ $(document).on('click','#user_trs .user_list_tr',function(){
 
 });
 
-$(document).on('click','#created_user_trs .user_list_tr',function(){
+$(document).on('click','#created_clusadmin_trs .user_list_tr',function(){
 
     var uid = $(this).attr("uid");
     $(".user_list_tr.active").removeClass("active");
@@ -744,6 +744,47 @@ $(document).on('click','#created_user_trs .user_list_tr',function(){
     $("#email").val(email);
     $("#team").val(team);
     // $("#password").val(password);
+    $("#manula_link").val(manula_links);
+    $("#country").val(country);
+    $("#level").val(level);
+    $("#status").val(status);
+
+    $(".access_cb").prop('checked', false);
+
+    $("#save_user_access").attr("uid",uid);
+
+    $.each(access_cards, function (k1, v1) {
+        // console.log();
+        $("input[name="+v1.access_name+"]").prop('checked', true);
+    });
+
+});
+
+$(document).on('click','#created_user_trs .user_list_tr',function(){
+
+    var uid = $(this).attr("uid");
+    $(".user_list_tr.active").removeClass("active");
+    $(this).addClass("active");
+    $("#selected_user").text($(this).find(".name").text());
+    $("#selected_user").attr("user_id",uid);
+
+    var filter = JSON.stringify({"id":uid});
+    var access_cards = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
+    // console.log(access_cards);
+
+    var email = access_cards[0].email;
+    var name = access_cards[0].name;
+    var team = access_cards[0].team;
+    // var nursery_name = access_cards[0].nursery_name;
+    var manula_links = access_cards[0].manula_links;
+    var country = access_cards[0].country;
+    var level = access_cards[0].level;
+    var status = access_cards[0].status;
+
+    $("#name").val(name);
+    $("#email").val(email);
+    $("#team").val(team);
+    // $("#nursery_name").val(nursery_name);
     $("#manula_link").val(manula_links);
     $("#country").val(country);
     $("#level").val(level);
@@ -938,7 +979,7 @@ $(document).on('click','#save_profile',function(){
     }
 });
 
-$(document).on('click','#create_new_user',function(){
+$(document).on('click','#create_new_clusadmin',function(){
 
     var user = local_get("logged_user");
     var name = $("#name").val();
@@ -962,6 +1003,52 @@ $(document).on('click','#create_new_user',function(){
         var data = {"name":name,"email":email,"is_admin":is_admin,"team":team,"country":country,"level":level,"status":status};
         var cols = ["name","email","is_admin","team","country","level","status"];
 
+        if($("#created_clusadmin_trs .user_list_tr.active").length){
+            data["id"] = $("#created_clusadmin_trs .user_list_tr.active").attr("uid");
+            cols.push("id");
+        }else{
+            data["password"] = "123";
+            cols.push("password");
+        }
+
+        // var data = JSON.stringify({"id":user.id,"name":name,"email":email,"is_admin":is_admin,"team":team,"status":status});
+        // var cols = JSON.stringify(["id","name","email","is_admin","team","status"]);
+        var user_det = JSON.parse(requester(server,"POST",{'api':'create_new_user','data':JSON.stringify(data),'cols':JSON.stringify(cols)}));
+        console.log(user_det);
+        if(parseInt(user_det)){
+            alert("Cluster Admin Details Save.");
+            window.location.reload();
+        }
+    }else{
+        alert(err);
+    }
+});
+
+$(document).on('click','#create_new_user',function(){
+
+    var user = local_get("logged_user");
+    var name = $("#name").val();
+    var email = $("#email").val();
+    var is_admin = 0;
+    var team = $("#team").val();
+    var nursery_name = $("#nursery_name").val();
+    var country = $("#country").val();
+    var level = $("#level").val();
+    var status = $("#status").val();
+    var err = "";
+
+    valid_email(email) ? true : err += " Please privde valid email. " ;
+    name.length ? true : err += " Please privde valid name. " ;
+    nursery_name.length > 2 ? true : err += " Please privde nursery_name. " ;
+    country.length ? true : err += " Please select country. " ;
+    level.length ? true : err += " Please privde level. " ;
+    status.length ? true : err += " Please select status. " ;
+
+    if(!err.length){
+
+        var data = {"name":name,"email":email,"is_admin":is_admin,"team":team,"nursery_name":nursery_name,"country":country,"level":level,"status":status};
+        var cols = ["name","email","is_admin","team","country","level","status"];
+
         if($("#created_user_trs .user_list_tr.active").length){
             data["id"] = $("#created_user_trs .user_list_tr.active").attr("uid");
             cols.push("id");
@@ -975,7 +1062,7 @@ $(document).on('click','#create_new_user',function(){
         var user_det = JSON.parse(requester(server,"POST",{'api':'create_new_user','data':JSON.stringify(data),'cols':JSON.stringify(cols)}));
         console.log(user_det);
         if(parseInt(user_det)){
-            alert("Cluster Admin Details Save.");
+            alert("New User Details Save.");
             window.location.reload();
         }
     }else{

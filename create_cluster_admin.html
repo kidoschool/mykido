@@ -53,12 +53,12 @@
                               <option value="0">Inactive</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-sm btn-outline-info" id="create_new_user">Save</button>
+                        <button type="submit" class="btn btn-sm btn-outline-info" id="create_new_clusadmin">Save</button>
                       </form>
                 </div>
                 <div class="col-lg-6">
                     <div class="table-responsive">
-                        <table class="table border bg-white text-nowrap" id="created_user_list">
+                        <table class="table border bg-white text-nowrap" id="created_clusadmin_user_list">
                             <thead class="thead-light bg-light">
                                 <tr>
                                     <th class="border-top-0">User</th>
@@ -67,8 +67,8 @@
                                     <!-- <th class="border-top-0">Sent Before</th>
                                     <th class="border-top-0">Select All</th> -->
                                 </tr>
-                            </thead>
-                            <tbody id="created_user_trs">
+                            </thead>    
+                            <tbody id="created_clusadmin_trs">
     
                             </tbody>
                         </table>
@@ -80,7 +80,7 @@
     </div>
     
     <script>
-          usr_tbl_clus_admin("created_user_list");
+          usr_tbl_clus_admin("created_clusadmin_user_list");
         var lis = "";
         $.each(access_portals_list, function (k1, v1) {
             lis += '<li><input obj_ind="'+k1+'" class="access_cb" name="'+v1.name+'" type="checkbox" value="'+k1+'">&emsp;<span>'+v1.name+'</span></li>';

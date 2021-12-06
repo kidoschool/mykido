@@ -45,33 +45,48 @@
 <script>
     var nusy_ids = [];
 
-    updt_nursy_access_list_tbl("nursery_list");
+    var user = local_get("logged_user");
+    var clusters = user.clutrs;
 
-    var user = local_get('logged_user');
-    var filter = JSON.stringify({"level":4});
-    var inspects = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
-    // console.log(inspects);
+    var clus_ids = [];
+    $.each(clusters, function (k, v) {
+        clus_ids.push(v["cluster_id"]);
+    });
+
+
+    var filter = JSON.stringify({"cluster_id":clus_ids});
+    var nurseries = JSON.parse(requester(server,"POST",{'api':'get_nursery','filter':filter}));
+    var trs = "";
+    $.each(nurseries, function (k, v) {
+        trs += '<tr nursyid="'+v.id+'" class="nursy_list_tr"><td class="name">'+v.name+'</td></tr>';
+        nusy_ids.push(v.id);
+    });
+    var tbody = $('#nursery_list').find("tbody");
+    tbody.append(trs);
+    $('#nursery_list').DataTable();
+
+    // updt_nursy_access_list_tbl("nursery_list");
     var filter = JSON.stringify({"nursery_id":nusy_ids});
-    var nursery = JSON.parse(requester(server,"POST",{'api':'get_user_nursery','filter':filter}));
+    var nrsry_usr_resp = JSON.parse(requester(server,"POST",{'api':'get_user_nursery','filter':filter}));
 
-    var nusy_usrs = {};
-    $.each(nursery, function (k, v) {
-
+    var nusy_usrs = {} , usr_ids = [];
+    $.each(nrsry_usr_resp, function (k, v) {
         var nur_nm = $("tr[nursyid="+v.nursery_id+"]").find('.name').text();
-        console.log(nusy_usrs[v.user_id]);
+        // console.log(nusy_usrs[v.user_id]);
+        usr_ids.push(v.user_id);
         if(nusy_usrs[v.user_id]){
             nusy_usrs[v.user_id] += "<br>"+nur_nm; 
         }else{
             nusy_usrs[v.user_id] = nur_nm; 
         }
-        // nusy_usrs[v.user_id] = v;
     });
+    
+    // console.log(nursery);
 
-    // console.log(nusy_usrs);
-
-    $("#user_trs").empty();
+    var filter = JSON.stringify({"id":usr_ids});
+    var user_dets = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
     var trs = "";
-    $.each(inspects, function (k, v) {
+    $.each(user_dets, function (k, v) {
         var team = (v.team).replaceAll("-"," ");
         var chkbx = '<input uid="'+v.id+'" class="access_cb" name="'+v.name+'" type="checkbox" value="'+k+'">';
         var nusy = nusy_usrs[v.id] ? nusy_usrs[v.id] : "-";

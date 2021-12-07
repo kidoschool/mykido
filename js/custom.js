@@ -1040,7 +1040,7 @@ $(document).on('click','#create_new_user',function(){
 
     valid_email(email) ? true : err += " Please privde valid email. " ;
     name.length ? true : err += " Please privde valid name. " ;
-    nursery_name.length > 2 ? true : err += " Please privde nursery_name. " ;
+    // nursery_name.length > 2 ? true : err += " Please privde nursery_name. " ;
     country.length ? true : err += " Please select country. " ;
     level.length ? true : err += " Please privde level. " ;
     status.length ? true : err += " Please select status. " ;

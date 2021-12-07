@@ -1030,10 +1030,11 @@ $(document).on('click','#create_new_user',function(){
     var name = $("#name").val();
     var email = $("#email").val();
     var is_admin = 0;
-    var team = $("#team").val();
-    var nursery_name = $("#nursery_name").val();
-    var country = $("#country").val();
-    var level = $("#level").val();
+    var team = "kidovillage";
+    // var nursery_name = $("#nursery_name").val();
+    // var country = $("#country").val();
+    var country = user.country;
+    var level = "4";
     var status = $("#status").val();
     var err = "";
 
@@ -1046,7 +1047,7 @@ $(document).on('click','#create_new_user',function(){
 
     if(!err.length){
 
-        var data = {"name":name,"email":email,"is_admin":is_admin,"team":team,"nursery_name":nursery_name,"country":country,"level":level,"status":status};
+        var data = {"name":name,"email":email,"is_admin":is_admin,"team":team,"country":country,"level":level,"status":status};
         var cols = ["name","email","is_admin","team","country","level","status"];
 
         if($("#created_user_trs .user_list_tr.active").length){

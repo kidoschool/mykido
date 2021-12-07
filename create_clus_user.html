@@ -100,7 +100,7 @@
         var nrsry_ids = [];
         $.each(nurseries, function (k, v) {
             // nurs += '<option value="'+v.id+'">'+v.name+'</option>';
-            nurs += "<li> <input type='checkbox' value='"+v.id+"'>  "+v.name+"</li>";
+            nurs += "<li> <input type='checkbox' class='nursery_checked' value='"+v.id+"'>  "+v.name+"</li>";
             nrsry_ids.push(v.id);
         });
         // console.log(nurseries);

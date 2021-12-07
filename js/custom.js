@@ -1058,9 +1058,17 @@ $(document).on('click','#create_new_user',function(){
             cols.push("password");
         }
 
+        var nursery_ids = [];
+        $("input.nursery_checked").each(function () {
+            if($(this).prop('checked')){
+                var nursery_id = $(this).val();
+                nursery_ids.push([nursery_id]);
+            }
+        });
+
         // var data = JSON.stringify({"id":user.id,"name":name,"email":email,"is_admin":is_admin,"team":team,"status":status});
         // var cols = JSON.stringify(["id","name","email","is_admin","team","status"]);
-        var user_det = JSON.parse(requester(server,"POST",{'api':'create_new_user','data':JSON.stringify(data),'cols':JSON.stringify(cols)}));
+        var user_det = JSON.parse(requester(server,"POST",{'api':'create_new_user','data':JSON.stringify(data),'cols':JSON.stringify(cols),'nursery_ids':JSON.stringify(nursery_ids)}));
         console.log(user_det);
         if(parseInt(user_det)){
             alert("New User Details Save.");

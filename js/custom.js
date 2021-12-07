@@ -1071,7 +1071,7 @@ $(document).on('click','#create_new_user',function(){
         var user_det = JSON.parse(requester(server,"POST",{'api':'create_new_user','data':JSON.stringify(data),'cols':JSON.stringify(cols),'nursery_ids':JSON.stringify(nursery_ids)}));
         console.log(user_det);
         if(parseInt(user_det)){
-            alert("New User Details Save.");
+            alert("User Saved.");
             window.location.reload();
         }
     }else{

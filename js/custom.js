@@ -1062,7 +1062,7 @@ $(document).on('click','#create_new_user',function(){
         $("input.nursery_checked").each(function () {
             if($(this).prop('checked')){
                 var nursery_id = $(this).val();
-                nursery_ids.push([nursery_id]);
+                nursery_ids.push(nursery_id);
             }
         });
 

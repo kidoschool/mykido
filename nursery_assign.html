@@ -57,6 +57,7 @@
     var filter = JSON.stringify({"cluster_id":clus_ids});
     var nurseries = JSON.parse(requester(server,"POST",{'api':'get_nursery','filter':filter}));
     var trs = "";
+    // console.log(nurseries);
     $.each(nurseries, function (k, v) {
         trs += '<tr nursyid="'+v.id+'" class="nursy_list_tr"><td class="name">'+v.name+'</td></tr>';
         nusy_ids.push(v.id);

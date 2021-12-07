@@ -770,12 +770,20 @@ $(document).on('click','#created_user_trs .user_list_tr',function(){
 
     var filter = JSON.stringify({"id":uid});
     var access_cards = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
-    // console.log(access_cards);
+    
+    var userfilter = JSON.stringify({"user_id":uid});
+    var user_nursy = JSON.parse(requester(server,"POST",{'api':'get_user_nursery','filter':userfilter}));
+
+    // console.log(user_nursy);
+    $.each(user_nursy, function (k1, v1) {
+        // console.log(v1);
+        $(".nursery_checked[value="+v1.nursery_id+"]").prop('checked', true);
+    });
 
     var email = access_cards[0].email;
     var name = access_cards[0].name;
     var team = access_cards[0].team;
-    // var nursery_name = access_cards[0].nursery_name;
+    // var nursery_ids = access_cards[0].nursery_ids;
     var manula_links = access_cards[0].manula_links;
     var country = access_cards[0].country;
     var level = access_cards[0].level;
@@ -784,7 +792,7 @@ $(document).on('click','#created_user_trs .user_list_tr',function(){
     $("#name").val(name);
     $("#email").val(email);
     $("#team").val(team);
-    // $("#nursery_name").val(nursery_name);
+    // $("#nursery_ids").val(nursery_ids);
     $("#manula_link").val(manula_links);
     $("#country").val(country);
     $("#level").val(level);
@@ -1038,12 +1046,22 @@ $(document).on('click','#create_new_user',function(){
     var status = $("#status").val();
     var err = "";
 
+    var nursery_ids = [];
+    $("input.nursery_checked").each(function () {
+        if($(this).prop('checked')){
+            var nursery_id = $(this).val();
+            nursery_ids.push(nursery_id);
+        }
+    });
+
     valid_email(email) ? true : err += " Please privde valid email. " ;
     name.length ? true : err += " Please privde valid name. " ;
     // nursery_name.length > 2 ? true : err += " Please privde nursery_name. " ;
     country.length ? true : err += " Please select country. " ;
     level.length ? true : err += " Please privde level. " ;
     status.length ? true : err += " Please select status. " ;
+    nursery_ids.length ? true : err += " Please select atleast one nursery"
+
 
     if(!err.length){
 
@@ -1057,14 +1075,6 @@ $(document).on('click','#create_new_user',function(){
             data["password"] = "123";
             cols.push("password");
         }
-
-        var nursery_ids = [];
-        $("input.nursery_checked").each(function () {
-            if($(this).prop('checked')){
-                var nursery_id = $(this).val();
-                nursery_ids.push(nursery_id);
-            }
-        });
 
         // var data = JSON.stringify({"id":user.id,"name":name,"email":email,"is_admin":is_admin,"team":team,"status":status});
         // var cols = JSON.stringify(["id","name","email","is_admin","team","status"]);

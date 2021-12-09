@@ -534,7 +534,7 @@ $(document).on('click','#user_inspect_submit',function(){
             // obj[k]["url"] = $("."+v.name).attr("url");
             obj[k]["url"] = [];
             $("."+v.name).each(function () {
-                obj[k]["url"].push($(this).attr("response"));
+                obj[k]["url"].push($(this).attr("url"));
             });
         }
         if(v.type == "checkbox-group"){
@@ -590,7 +590,7 @@ $(document).on('click','#user_view_prev_submitted',function(){
         $.each(subs, function (k, v) {
             if(v.type == "file"){
                 if(v.url.length){
-                    // console.log(v.url);
+                    console.log(v.url);
                     $.each(v.url, function (k1, v1) {
                         var fil_url = encodeURI(dwnld_url+v1);
                         var fileName = v1.split('/').pop();

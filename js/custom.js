@@ -775,6 +775,7 @@ $(document).on('click','#created_user_trs .user_list_tr',function(){
     var user_nursy = JSON.parse(requester(server,"POST",{'api':'get_user_nursery','filter':userfilter}));
 
     // console.log(user_nursy);
+    $(".nursery_checked").prop('checked', false);
     $.each(user_nursy, function (k1, v1) {
         // console.log(v1);
         $(".nursery_checked[value="+v1.nursery_id+"]").prop('checked', true);

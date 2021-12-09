@@ -25,7 +25,7 @@
                     <table class="table border bg-white text-nowrap" id="user_list">
                         <thead  class="thead-light bg-light">
                             <tr>
-                                <th class="border-top-0">Assign</th>
+                                <!-- <th class="border-top-0">Assign</th> -->
                                 <th class="border-top-0">User</th>
                                 <th class="border-top-0">Email</th>
                                 <th class="border-top-0">Nursary</th>
@@ -35,7 +35,7 @@
 
                         </tbody>
                     </table>
-                <button id="save_nursery_access" class="btn btn-sm btn-outline-info">Save</button>
+                 <!-- <button id="save_nursery_access" class="btn btn-sm btn-outline-info">Save</button> -->
                 </div>
             </div>
         </div>
@@ -89,7 +89,7 @@
         var chkbx = '<input uid="'+v.id+'" class="access_cb" name="'+v.name+'" type="checkbox" value="'+k+'">';
         var nusy = nusy_usrs[v.id] ? nusy_usrs[v.id] : "-";
 
-        trs += '<tr><td>'+chkbx+'</td><td class="name">'+v.name+'</td> <td class="email">'+v.email+'</td><td>'+nusy+'</td></tr>';
+        trs += '<tr><td class="name">'+v.name+'</td> <td class="email">'+v.email+'</td><td>'+nusy+'</td></tr>';
     });
     var tbody = $('#user_list').find("tbody");
     tbody.append(trs);

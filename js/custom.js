@@ -1131,8 +1131,8 @@ $(document).on('click','#create_new_nursery',function(){
         var user_det = JSON.parse(requester(server,"POST",{'api':'create_new_nursery','data':JSON.stringify(data),'cols':JSON.stringify(cols)}));
         console.log(user_det);
         if(parseInt(user_det)){
-            // alert("New Nursary Created.");
-            // window.location.reload();
+            alert("New Nursary Created.");
+            window.location.reload();
         }
     }else{
         alert(err);
@@ -1152,29 +1152,39 @@ $(document).on('click','#create_new_cluster',function(){
     // valid_email(email) ? true : err += " Please privde valid email. " ;
     name.length ? true : err += " Please privde valid name. " ;
     country.length ? true : err += " Please privde valid country. " ;
-    state.length > 2 ? true : err += " Please privde state. " ;
+    state.length ? true : err += " Please privde state. " ;
     city.length ? true : err += " Please privde city. " ;
     status.length ? true : err += " Please select status. " ;
 
+    var timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
     if(!err.length){
 
         var data = {"name":name,"country":country,"state":state,"city":city,"status":status};
         var cols = ["name","country","state","city","status"];
 
+
         if($("#created_cluster_trs .user_list_tr.active").length){
             data["id"] = $("#created_cluster_trs .user_list_tr.active").attr("uid");
             cols.push("id");
-        }else{
-            // data["password"] = "123";
-            // cols.push("password");
-        }
+            var approval_data = {"initiated_by":user.id,"type":"cluster_update","data":JSON.stringify({'api':'create_new_cluster','data':data,'cols':cols}),"status":1,"country":user.country,"level":1,"added_on":timestamp};
+            var approval_cols = ["initiated_by","type","data","status","country","level","added_on"];
+            var approvaluser_det = JSON.parse(requester(server,"POST",{'api':'manage_approval_data','data':JSON.stringify(approval_data),'cols':JSON.stringify(approval_cols)}));
+            console.log(approvaluser_det);
+            if(parseInt(approvaluser_det)){
+                // alert("New Cluster Created.");
+                // window.location.reload();
+            }
 
-        var user_det = JSON.parse(requester(server,"POST",{'api':'create_new_cluster','data':JSON.stringify(data),'cols':JSON.stringify(cols)}));
-        console.log(user_det);
-        if(parseInt(user_det)){
-            alert("New Cluster Created.");
-            window.location.reload();
+        }else{
+            data["password"] = "123";
+            cols.push("password");
+            var user_det = JSON.parse(requester(server,"POST",{'api':'create_new_cluster','data':JSON.stringify(data),'cols':JSON.stringify(cols)}));
+            // console.log(user_det);
+            if(parseInt(user_det)){
+                alert("New Cluster Created.");
+                window.location.reload();
+            }
         }
     }else{
         alert(err);
@@ -1277,7 +1287,6 @@ $(document).on('click','#nursery_trs .nursy_list_tr',function(){
     $("#save_nursery_access").attr("nursyid",nursyid);
 
     $.each(access_cards, function (k1, v1) {
-        console.log(v1);
         $("input[uid="+v1.user_id+"]").prop('checked', true);
     });
 

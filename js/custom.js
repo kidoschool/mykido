@@ -535,12 +535,12 @@ $(document).on('click','#user_inspect_submit',function(){
         }
         if(v.type == "checkbox-group"){
             $.each(v.values, function (k1, v1) {
-                console.log(((v.userData).indexOf(v1.value) == -1));
-                v.values[k1]['selected'] = ((v.userData).indexOf(v1.value) == -1) ? false : true;
+                // ((v.userData).indexOf(v1.value) == -1)
+                v.values[k1]['selected'] = $("#"+v.name+"-"+k1).prop('checked') ? true : false;
             });
         }
     });
-
+    // console.log(obj);
     var timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
     var cols = JSON.stringify(["inspection_id","user_id","status","submission","submitted_on","updated_on"]);
     var submission = JSON.stringify(obj);

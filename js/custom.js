@@ -531,16 +531,20 @@ $(document).on('click','#user_inspect_submit',function(){
     var obj = formRenderInstance.userData;
     $.each(obj, function (k, v) {
         if(v.type == "file"){
-            obj[k]["url"] = $("#"+v.name).attr("url");
+            // obj[k]["url"] = $("."+v.name).attr("url");
+            obj[k]["url"] = [];
+            $("."+v.name).each(function () {
+                obj[k]["url"].push($(this).attr("url"));
+            });
         }
         if(v.type == "checkbox-group"){
             $.each(v.values, function (k1, v1) {
-                console.log(((v.userData).indexOf(v1.value) == -1));
-                v.values[k1]['selected'] = ((v.userData).indexOf(v1.value) == -1) ? false : true;
+                // ((v.userData).indexOf(v1.value) == -1)
+                v.values[k1]['selected'] = $("#"+v.name+"-"+k1).prop('checked') ? true : false;
             });
         }
     });
-
+    console.log(obj);
     var timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
     var cols = JSON.stringify(["inspection_id","user_id","status","submission","submitted_on","updated_on"]);
     var submission = JSON.stringify(obj);
@@ -585,11 +589,15 @@ $(document).on('click','#user_view_prev_submitted',function(){
         var formRenderInstance = $('#form_div').formRender({dataType: 'json',formData: subs});
         $.each(subs, function (k, v) {
             if(v.type == "file"){
-                if(v.url){
-                    var fil_url = encodeURI(dwnld_url+v.url);
-                  $("#"+v.name).parent().append("<a href="+fil_url+" download target='_blank'>Download</a>");
+                if(v.url.length){
+                    console.log(v.url);
+                    $.each(v.url, function (k1, v1) {
+                        var fil_url = encodeURI(dwnld_url+v1);
+                        var fileName = v1.split('/').pop();
+                        $("#"+v.name).parent().append(" <a href="+fil_url+" download target='_blank'>"+fileName+"</a>  ");
+                    });
                 }else{
-                  $("#"+v.name).parent().append("<a href='#' >File Not Uploaded.</a>");
+                    $("#"+v.name).parent().append("<a href='#' >File Not Uploaded.</a>");
                 }
                 $("#"+v.name).remove();
             }
@@ -620,10 +628,14 @@ $(document).on('change','#user_sub_dates',function(){
         var formRenderInstance = $('#form_div').formRender({dataType: 'json',formData: subs});
         $.each(subs, function (k, v) {
             if(v.type == "file"){
-                if(v.url){
-                  $("#"+v.name).parent().append("<a href="+dwnld_url+v.url+" download>Download</a>");
+                if(v.url.length){
+                    $.each(v.url, function (k1, v1) {
+                        var fil_url = encodeURI(dwnld_url+v1);
+                        var fileName = v1.split('/').pop();
+                        $("#"+v.name).parent().append(" <a href="+fil_url+" download target='_blank'>"+fileName+"</a>  ");
+                    });
                 }else{
-                  $("#"+v.name).parent().append("<a href='#' >File Not Uploaded.</a>");
+                    $("#"+v.name).parent().append("<a href='#' >File Not Uploaded.</a>");
                 }
                 $("#"+v.name).remove();
             }
@@ -1373,33 +1385,41 @@ $(document).on('change','input.form-control[type=file]',function(){
     // console.log($(this));
     // console.log();
     var elem = $(this);
-    var upld = $("<span>Uploading File...</span>");
-    elem.after(upld);
     var form = new FormData();
     form.append("api", "upload_file");
+    var cls_id = elem.attr("id");
     // $("#upload_image")[0].files.length ? form.append("image", $(this).files[0]) : false;
     // $(this)
-    form.append("file", elem[0].files[0]);
-    var user = local_get('logged_user');
-    form.append("user_id", user.id);
-    var settings = {
-        "url": server,
-        "method": "POST",
-        "timeout": 0,
-        "processData": false,
-        "mimeType": "multipart/form-data",
-        "contentType": false,
-        "data": form,
-        success: function (response) {
-            // console.log(response);
-            elem.attr("url",response);
-            console.log(formRenderInstance.userData);
-            upld.text("File Uploaded.");
-        }
-    };
+    // console.log(elem[0].files.length);
+    var upld = $("<span></span>");
+    elem.after(upld);
 
-    $.ajax(settings);
+    for (let i = 0; i < elem[0].files.length; i++) {
+        var fil = elem[0].files[i];
+        // console.log(fil);
+        // var fileName = (fil.name).split('/').pop();
 
+        form.append("file",fil);
+        var user = local_get('logged_user');
+        form.append("user_id", user.id);
+        var settings = {
+            "url": server,
+            "method": "POST",
+            "timeout": 0,
+            "processData": false,
+            "mimeType": "multipart/form-data",
+            "contentType": false,
+            "data": form,
+            success: function (response) {
+                // console.log(response);
+                var fileName = response.split('/').pop();
+                elem.attr("url",response);
+                // console.log(formRenderInstance.userData);
+                upld.append("<span class='"+cls_id+"' url='"+response+"' >"+fileName+" uploaded.  </span>");
+            }
+        };
+        $.ajax(settings);
+    }
 });
 
 

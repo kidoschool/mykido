@@ -1295,23 +1295,26 @@ $(document).on('click','#save_cluster_access',function(){
 });
 
 $(document).on('click','#nursery_trs .nursy_list_tr',function(){
-
-    var nursyid = $(this).attr("nursyid");
     $(".nursy_list_tr.active").removeClass("active");
     $(this).addClass("active");
+    var nursynm = $(this).find(".name").text();
+
+    $("#user_list_filter").find('input[type=search]').val(nursynm).trigger("keyup");
+    // $("#user_list_filter").find('input[type=search]').trigger("keyup");
+
+
+    // $('input[type=search]').each(function () {
     // $("#selected_user").text($(this).find(".name").text());
-    $("#selected_user").attr("nursery_id",nursyid);
+    // $("#selected_user").attr("nursery_id",nursyid);
 
-    var filter = JSON.stringify({"nursery_id":nursyid});
-    var access_cards = JSON.parse(requester(server,"POST",{'api':'get_user_nursery','filter':filter}));
+    // var filter = JSON.stringify({"nursery_id":nursyid});
+    // var access_cards = JSON.parse(requester(server,"POST",{'api':'get_user_nursery','filter':filter}));
     // console.log(access_cards);
-    $(".access_cb").prop('checked', false);
-
-    $("#save_nursery_access").attr("nursyid",nursyid);
-
-    $.each(access_cards, function (k1, v1) {
-        $("input[uid="+v1.user_id+"]").prop('checked', true);
-    });
+    // $(".access_cb").prop('checked', false);
+    // $("#save_nursery_access").attr("nursyid",nursyid);
+    // $.each(access_cards, function (k1, v1) {
+    //     $("input[uid="+v1.user_id+"]").prop('checked', true);
+    // });
 
 });
 

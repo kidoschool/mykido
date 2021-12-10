@@ -1127,6 +1127,8 @@ $(document).on('click','#create_new_nursery',function(){
     long.length ? true : err += " Please select long. " ;
 
 
+    var timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
     if(!err.length){
 
         var data = {"name":name,"cluster_id":cluster,"pincode":pincode,"lat":lat,"long":long,"status":status};
@@ -1135,17 +1137,25 @@ $(document).on('click','#create_new_nursery',function(){
         if($("#created_nursary_trs .user_list_tr.active").length){
             data["id"] = $("#created_nursary_trs .user_list_tr.active").attr("uid");
             cols.push("id");
+            var approval_data = {"initiated_by":user.id,"type":"nursery_update","data":JSON.stringify({'api':'create_new_nursery','data':data,'cols':cols}),"status":1,"country":user.country,"level":1,"added_on":timestamp};
+            var approval_cols = ["initiated_by","type","data","status","country","level","added_on"];
+            var approvaluser_det = JSON.parse(requester(server,"POST",{'api':'manage_approval_data','data':JSON.stringify(approval_data),'cols':JSON.stringify(approval_cols)}));
+            // console.log(approvaluser_det);
+            if(parseInt(approvaluser_det)){
+                alert("Approval request sent..");
+                window.location.reload();
+            }
         }else{
             // data["password"] = "123";
             // cols.push("password");
+            var user_det = JSON.parse(requester(server,"POST",{'api':'create_new_nursery','data':JSON.stringify(data),'cols':JSON.stringify(cols)}));
+            // console.log(user_det);
+            if(parseInt(user_det)){
+                alert("New Nursary Created.");
+                window.location.reload();
+            }
         }
 
-        var user_det = JSON.parse(requester(server,"POST",{'api':'create_new_nursery','data':JSON.stringify(data),'cols':JSON.stringify(cols)}));
-        console.log(user_det);
-        if(parseInt(user_det)){
-            alert("New Nursary Created.");
-            window.location.reload();
-        }
     }else{
         alert(err);
     }
@@ -1184,8 +1194,8 @@ $(document).on('click','#create_new_cluster',function(){
             var approvaluser_det = JSON.parse(requester(server,"POST",{'api':'manage_approval_data','data':JSON.stringify(approval_data),'cols':JSON.stringify(approval_cols)}));
             console.log(approvaluser_det);
             if(parseInt(approvaluser_det)){
-                // alert("New Cluster Created.");
-                // window.location.reload();
+                alert("Approval request sent..");
+                window.location.reload();
             }
 
         }else{

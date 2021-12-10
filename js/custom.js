@@ -528,35 +528,42 @@ $(document).on('click','#user_inspect_submit',function(){
     // var someDate = new Date().toISOString();
     // var team = (v.team).replaceAll("-"," ");
     // document.writeln();
+    var errs = "";
     var obj = formRenderInstance.userData;
     $.each(obj, function (k, v) {
         if(v.type == "file"){
-            // obj[k]["url"] = $("."+v.name).attr("url");
+            (v.required && $("."+v.name).length) ? true : errs +=  v.label+" is required. ";
             obj[k]["url"] = [];
             $("."+v.name).each(function () {
                 obj[k]["url"].push($(this).attr("url"));
             });
         }
         if(v.type == "checkbox-group"){
+            (v.required && v.userData) ? true : errs +=  v.label+" is required. ";
             $.each(v.values, function (k1, v1) {
                 // ((v.userData).indexOf(v1.value) == -1)
                 v.values[k1]['selected'] = $("#"+v.name+"-"+k1).prop('checked') ? true : false;
             });
         }
     });
-    console.log(obj);
-    var timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
-    var cols = JSON.stringify(["inspection_id","user_id","status","submission","submitted_on","updated_on"]);
-    var submission = JSON.stringify(obj);
-    var data = [];
-    data.push([form_id,user.id,"1",submission,timestamp,timestamp]);
-    // console.log(submission);
-    var inspects = requester(server,"POST",{'api':'save_tab',"tbl_name":"inspection_assign",'cols':cols,'data':JSON.stringify(data)});
-    // console.log(inspects);
-    if (parseInt(inspects)) {
-        alert("Submitted.");
+    // console.log(obj);
+    if(!errs.length){
+        var timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
+        var cols = JSON.stringify(["inspection_id","user_id","status","submission","submitted_on","updated_on"]);
+        var submission = JSON.stringify(obj);
+        var data = [];
+        data.push([form_id,user.id,"1",submission,timestamp,timestamp]);
+        // console.log(submission);
+        var inspects = requester(server,"POST",{'api':'save_tab',"tbl_name":"inspection_assign",'cols':cols,'data':JSON.stringify(data)});
+        // console.log(inspects);
+        if (parseInt(inspects)) {
+            alert("Submitted.");
+            cust_navigate("user_inspection");
+        }else{
+            alert("Not Submitted.");
+        }
     }else{
-        alert("Not Submitted.");
+        alert(errs);
     }
     // console.log(formRenderInstance.userData);
 });

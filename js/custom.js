@@ -557,7 +557,7 @@ $(document).on('click','#user_inspect_submit',function(){
         var inspects = requester(server,"POST",{'api':'save_tab',"tbl_name":"inspection_assign",'cols':cols,'data':JSON.stringify(data)});
         // console.log(inspects);
         if (parseInt(inspects)) {
-            alert("Submitted.");
+            alert("Thank you for submitting your responses.");
             cust_navigate("user_inspection");
         }else{
             alert("Not Submitted.");
@@ -581,10 +581,12 @@ $(document).on('click','#user_view_prev_submitted',function(){
 
     var inspects = {}, last_sub_dt = "", date_selector = "<select id='user_sub_dates'><option>Previous submission</option>";
     $.each(out, function (k, v) {
-        inspects[v.submitted_on] =  v;
-        last_sub_dt = v.submitted_on;
-        date_selector += "<option value='"+v.submitted_on+"'>"+v.submitted_on+"</option>";
-        (v.submission) ? sub_prev = true : false;
+        if(v.submitted_on){
+            inspects[v.submitted_on] =  v;
+            last_sub_dt = v.submitted_on;
+            date_selector += "<option value='"+v.submitted_on+"'>"+v.submitted_on+"</option>";
+            (v.submission) ? sub_prev = true : false;
+        }
     });
     date_selector += "</select>";
     user_submitted = inspects;
@@ -597,7 +599,7 @@ $(document).on('click','#user_view_prev_submitted',function(){
         $.each(subs, function (k, v) {
             if(v.type == "file"){
                 if(v.url.length){
-                    console.log(v.url);
+                    // console.log(v.url);
                     $.each(v.url, function (k1, v1) {
                         var fil_url = encodeURI(dwnld_url+v1);
                         var fileName = v1.split('/').pop();
@@ -941,10 +943,12 @@ $(document).on('click','#user_submission_trs .user_list_tr',function(){
 
     var inspects = {}, last_sub_dt = "", date_selector = "<select id='user_sub_dates'><option>Previous submission</option>";
     $.each(out, function (k, v) {
-        inspects[v.submitted_on] =  v;
-        last_sub_dt = v.submitted_on;
-        date_selector += "<option value='"+v.submitted_on+"'>"+v.submitted_on+"</option>";
-        (v.submission) ? sub_prev = true : false;
+        if(v.submitted_on){
+            inspects[v.submitted_on] =  v;
+            last_sub_dt = v.submitted_on;
+            date_selector += "<option value='"+v.submitted_on+"'>"+v.submitted_on+"</option>";
+            (v.submission) ? sub_prev = true : false;
+        }
     });
     date_selector += "</select>";
     user_submitted = inspects;

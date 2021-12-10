@@ -25,7 +25,7 @@
                     <table class="table border bg-white text-nowrap" id="user_list">
                         <thead  class="thead-light bg-light">
                             <tr>
-                                <th class="border-top-0">Assign</th>
+                                <!-- <th class="border-top-0">Assign</th> -->
                                 <th class="border-top-0">User</th>
                                 <th class="border-top-0">Email</th>
                                 <th class="border-top-0">Nursary</th>
@@ -87,10 +87,11 @@
     var trs = "";
     $.each(user_dets, function (k, v) {
         var team = (v.team).replaceAll("-"," ");
-        var chkbx = '<input uid="'+v.id+'" class="access_cb" name="'+v.name+'" type="checkbox" value="'+k+'" disabled>';
+        // var chkbx = '<input uid="'+v.id+'" class="access_cb" name="'+v.name+'" type="checkbox" value="'+k+'" disabled>';
         var nusy = nusy_usrs[v.id] ? nusy_usrs[v.id] : "-";
         // console.log(v);
-        trs += '<tr><td>'+chkbx+'</td><td class="name">'+v.name+'</td> <td class="email">'+v.email+'</td><td>'+nusy+'</td></tr>';
+        // trs += '<tr><td>'+chkbx+'</td><td class="name">'+v.name+'</td> <td class="email">'+v.email+'</td><td>'+nusy+'</td></tr>';
+        trs += '<tr><td class="name">'+v.name+'</td> <td class="email">'+v.email+'</td><td>'+nusy+'</td></tr>';
     });
     var tbody = $('#user_list').find("tbody");
     tbody.append(trs);

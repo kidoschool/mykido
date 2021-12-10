@@ -528,35 +528,42 @@ $(document).on('click','#user_inspect_submit',function(){
     // var someDate = new Date().toISOString();
     // var team = (v.team).replaceAll("-"," ");
     // document.writeln();
+    var errs = "";
     var obj = formRenderInstance.userData;
     $.each(obj, function (k, v) {
         if(v.type == "file"){
-            // obj[k]["url"] = $("."+v.name).attr("url");
+            (v.required && $("."+v.name).length) ? true : errs +=  v.label+" is required. ";
             obj[k]["url"] = [];
             $("."+v.name).each(function () {
                 obj[k]["url"].push($(this).attr("url"));
             });
         }
         if(v.type == "checkbox-group"){
+            (v.required && v.userData) ? true : errs +=  v.label+" is required. ";
             $.each(v.values, function (k1, v1) {
                 // ((v.userData).indexOf(v1.value) == -1)
                 v.values[k1]['selected'] = $("#"+v.name+"-"+k1).prop('checked') ? true : false;
             });
         }
     });
-    console.log(obj);
-    var timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
-    var cols = JSON.stringify(["inspection_id","user_id","status","submission","submitted_on","updated_on"]);
-    var submission = JSON.stringify(obj);
-    var data = [];
-    data.push([form_id,user.id,"1",submission,timestamp,timestamp]);
-    // console.log(submission);
-    var inspects = requester(server,"POST",{'api':'save_tab',"tbl_name":"inspection_assign",'cols':cols,'data':JSON.stringify(data)});
-    // console.log(inspects);
-    if (parseInt(inspects)) {
-        alert("Submitted.");
+    // console.log(obj);
+    if(!errs.length){
+        var timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
+        var cols = JSON.stringify(["inspection_id","user_id","status","submission","submitted_on","updated_on"]);
+        var submission = JSON.stringify(obj);
+        var data = [];
+        data.push([form_id,user.id,"1",submission,timestamp,timestamp]);
+        // console.log(submission);
+        var inspects = requester(server,"POST",{'api':'save_tab',"tbl_name":"inspection_assign",'cols':cols,'data':JSON.stringify(data)});
+        // console.log(inspects);
+        if (parseInt(inspects)) {
+            alert("Thank you for submitting your responses.");
+            cust_navigate("user_inspection");
+        }else{
+            alert("Not Submitted.");
+        }
     }else{
-        alert("Not Submitted.");
+        alert(errs);
     }
     // console.log(formRenderInstance.userData);
 });
@@ -574,10 +581,12 @@ $(document).on('click','#user_view_prev_submitted',function(){
 
     var inspects = {}, last_sub_dt = "", date_selector = "<select id='user_sub_dates'><option>Previous submission</option>";
     $.each(out, function (k, v) {
-        inspects[v.submitted_on] =  v;
-        last_sub_dt = v.submitted_on;
-        date_selector += "<option value='"+v.submitted_on+"'>"+v.submitted_on+"</option>";
-        (v.submission) ? sub_prev = true : false;
+        if(v.submitted_on){
+            inspects[v.submitted_on] =  v;
+            last_sub_dt = v.submitted_on;
+            date_selector += "<option value='"+v.submitted_on+"'>"+v.submitted_on+"</option>";
+            (v.submission) ? sub_prev = true : false;
+        }
     });
     date_selector += "</select>";
     user_submitted = inspects;
@@ -590,7 +599,7 @@ $(document).on('click','#user_view_prev_submitted',function(){
         $.each(subs, function (k, v) {
             if(v.type == "file"){
                 if(v.url.length){
-                    console.log(v.url);
+                    // console.log(v.url);
                     $.each(v.url, function (k1, v1) {
                         var fil_url = encodeURI(dwnld_url+v1);
                         var fileName = v1.split('/').pop();
@@ -934,10 +943,12 @@ $(document).on('click','#user_submission_trs .user_list_tr',function(){
 
     var inspects = {}, last_sub_dt = "", date_selector = "<select id='user_sub_dates'><option>Previous submission</option>";
     $.each(out, function (k, v) {
-        inspects[v.submitted_on] =  v;
-        last_sub_dt = v.submitted_on;
-        date_selector += "<option value='"+v.submitted_on+"'>"+v.submitted_on+"</option>";
-        (v.submission) ? sub_prev = true : false;
+        if(v.submitted_on){
+            inspects[v.submitted_on] =  v;
+            last_sub_dt = v.submitted_on;
+            date_selector += "<option value='"+v.submitted_on+"'>"+v.submitted_on+"</option>";
+            (v.submission) ? sub_prev = true : false;
+        }
     });
     date_selector += "</select>";
     user_submitted = inspects;

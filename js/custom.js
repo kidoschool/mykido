@@ -308,12 +308,40 @@ function valid_email(tstr) {
 }
 
 function updt_usr_tbl() {
-    var user = local_get('logged_user');
-    var filter = JSON.stringify({"team":user.team});
-    var inspects = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
-    $("#user_trs").empty();
+    // var user = local_get('logged_user');
+    // var filter = JSON.stringify({"team":user.team});
+    // var inspects = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
+    // $("#user_trs").empty();
+    // var trs = "";
+    // $.each(inspects, function (k, v) {
+    //     trs += '<tr><td>'+v.name+'</td> <td>'+v.email+'</td><td usr="'+v.id+'" >No</td><td><input type="checkbox" value="'+v.id+'"></td></tr>';
+    // });
+    // $("#user_trs").append(trs);
+    // $('#user_list').DataTable();
+
+    var user = local_get("logged_user");
+    var clusters = user.clutrs;
+    var clus_ids = [];
+    $.each(clusters, function (k, v) {
+        clus_ids.push(v["cluster_id"]);
+    });
+    var filter = JSON.stringify({"cluster_id":clus_ids});
+    var nurseries = JSON.parse(requester(server,"POST",{'api':'get_nursery','filter':filter}));
+    var nrsry_ids = [];
+    $.each(nurseries, function (k, v) {
+        nrsry_ids.push(v.id);
+    });
+    var filter = JSON.stringify({"nursery_id":nrsry_ids});
+    var user_nurs = JSON.parse(requester(server,"POST",{'api':'get_user_nursery','filter':filter}));
+    var user_ids = [];
+    $.each(user_nurs, function (k, v) {
+        user_ids.push(v.user_id);
+    });
+
+    var filter = JSON.stringify({"id":user_ids});
+    var user_dets = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
     var trs = "";
-    $.each(inspects, function (k, v) {
+    $.each(user_dets, function (k, v) {
         trs += '<tr><td>'+v.name+'</td> <td>'+v.email+'</td><td usr="'+v.id+'" >No</td><td><input type="checkbox" value="'+v.id+'"></td></tr>';
     });
     $("#user_trs").append(trs);

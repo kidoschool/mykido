@@ -170,6 +170,7 @@ $(function() {
         // var formBuilder = $('#edit-form').formBuilder();
         // var fbEditor = document.getElementById('edit-form');
         // var formBuilder = $(fbEditor).formBuilder();
+        var user = local_get('logged_user');    
         var title = $("#inspect_title").val();
         var err = "";
         (title.length == 0) ? err += " Title cannot be empty. " : false;
@@ -180,7 +181,8 @@ $(function() {
             var due_date = $( "#due_date" ).val().substring(0,10);
             var inspect_schedule = $("#inspect_schedule").val();
             var allow_after_dd = $('#allow_after_dd').is(":checked") ? 1 : 0;
-            var team = teamTypes[$("#user_team").text()];
+            // var team = teamTypes[$("#user_team").text()];
+            var team = user.country;
             var data = {'api':'save_inspect','content':fbuilder.formData,"title":title,"due_date":due_date,"submit_after_due_date":allow_after_dd,"schedule":inspect_schedule,"team":team};
             if($("#inspect_title").attr("form_id")){
                 data["id"] = $("#inspect_title").attr("form_id");
@@ -215,18 +217,20 @@ $(function() {
         // var formBuilder = $('#fb-editor').formBuilder();
         // var fbEditor = document.getElementById('fb-editor');
         // var formBuilder = $(fbEditor).formBuilder();
+        var user = local_get('logged_user');
         var title = $("#inspect_title").val();
         var due_date = format_date(format_date2($( "#due_date" ).val()));
         var allow_after_dd = $('#allow_after_dd').is(":checked") ? 1 : 0;
         var schedule = $("#inspect_schedule").val();
-        var team = teamTypes[$("#user_team").text()];
+        // var team = teamTypes[$("#user_team").text()];
+        var team = user.country;
         var err = "";
         (title.length == 0) ? err += " Title cannot be empty. " : false;
         JSON.parse(fbuilder.formData).length == 0 ? err += " No fields added. " : false;
         if(err.length){
             alert(err);
         }else{
-            var data = {'api':'save_inspect','content':fbuilder.formData,"title":title,"due_date":due_date,"submit_after_due_date":allow_after_dd,"schedule":schedule,"team":team,};
+            var data = {'api':'save_inspect','content':fbuilder.formData,"title":title,"due_date":due_date,"submit_after_due_date":allow_after_dd,"schedule":schedule,"team":team};
             if($("#inspect_title").attr("form_id")){
                 data["id"] = $("#inspect_title").attr("form_id");
             }
@@ -474,8 +478,8 @@ function updt_clust_list_tbl(tabl_id) {
 
 function updt_insp_tbl() {
     var user = local_get('logged_user');
-    console.log(teamTypes[user.team]);
-    var filter = JSON.stringify({"team": teamTypes[user.team]});
+    // console.log(teamTypes[user.team]);
+    var filter = JSON.stringify({"team": user.country});
     var inspects = JSON.parse(requester(server,"POST",{'api':'get_inspect','filter':filter}));
     $("#inspect_trs").empty();
     var i = 1;

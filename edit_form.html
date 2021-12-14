@@ -17,7 +17,7 @@
         <div class="row align-items-center">
             <div class="col-lg-12 col-md-4 col-sm-4 col-xs-12">
                 <h4 class="page-title">Form Details</h4>
-                <small>Team : <span class="user_team text-primary" id="user_team"></span></small>
+                <!-- <small>Team : <span class="user_team text-primary" id="user_team"></span></small> -->
                 <!-- <span class="page-title">Create New Inspection</span> -->
                 <div class="row py-4">
 
@@ -190,7 +190,7 @@ $( "#due_date" ).datepicker({
         $("#inspect_title").val(inspects[0]['title']);
         $("#due_date").val(inspects[0]['due_date']);
         $("#inspect_schedule").val( (parseInt(inspects[0]['schedule']) || 1) );
-        $("#user_team").text(teamTypesRev[inspects[0]['team']]);
+        // $("#user_team").text(teamTypesRev[inspects[0]['team']]);
 
 
         $.each(inspects[0]['users'], function (k, v) {

@@ -410,6 +410,7 @@ function updt_clust_access_list_tbl(tabl_id) {
     $("#user_trs").empty();
     var trs = "";
     $.each(inspects, function (k, v) {
+        console.log(inspects);
         // trs += '<tr><td>'+v.name+'</td> <td>'+v.email+'</td><td usr="'+v.email+'" >No</td><td><input type="checkbox" value="'+v.email+'"></td></tr>';
         // var team = (v.team).replaceAll("-"," ");
         // var status = v.status == 1 ? '<span class="text-success">Active</span>' : '<span class="text-danger">InActive</span>';

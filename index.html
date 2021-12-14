@@ -56,6 +56,7 @@
     <!-- <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script> -->
 
     <script>
+                $("#gm-signin-div").css("visibility","hidden");
 
     // function onSuccess(googleUser) {
     //   console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
@@ -105,6 +106,8 @@
                     window.location = "user_dashboard.html";
                 }else if(parseInt(user_det[0]["level"]) == 1){
                     window.location = "kido_admin.html";
+                }else if(parseInt(user_det[0]["level"]) == 5){
+                    window.location = "lesson_plan_manager.html";
                 }
                 // parseInt(user_det[0]["is_admin"]) ? window.location = "dashboard.html" : window.location = "user_dashboard.html";
             }else{
@@ -116,39 +119,42 @@
     // console.log("---------------------");
     // signOut();
 
+    try{
+        function onSignIn(googleUser) {
+            // Useful data for your client-side scripts:
+            var profile = googleUser.getBasicProfile();
+            var id_token = googleUser.getAuthResponse().id_token;
+            localStorage.setItem("profile", JSON.stringify(profile));
+            // localStorage.setItem("token", JSON.stringify(id_token));
+            // console.log(profile);
+            // window.location = "dashboard.html";
+            // console.log(googleUser.getAuthResponse());
+            // console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+            // console.log('Full Name: ' + profile.getName());
 
-    function onSignIn(googleUser) {
-        // Useful data for your client-side scripts:
-        var profile = googleUser.getBasicProfile();
-        var id_token = googleUser.getAuthResponse().id_token;
-        localStorage.setItem("profile", JSON.stringify(profile));
-        // localStorage.setItem("token", JSON.stringify(id_token));
-        // console.log(profile);
-        // window.location = "dashboard.html";
-        // console.log(googleUser.getAuthResponse());
-        // console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-        // console.log('Full Name: ' + profile.getName());
-
-        var filter = JSON.stringify({"email":profile.getEmail()});
-        var user_det = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
-        console.log(user_det[0]);
-        if(user_det[0]){
-            local_set("logged_user",user_det[0]);
-            // console.log( parseInt(user_det[0]["is_admin"]));
-            parseInt(user_det[0]["is_admin"]) ? window.location = "dashboard.html" : window.location = "user_dashboard.html";
-        }else{
-            // alert("User not added. Please contact admin.");
-            console.log("Not registered with gmail.");
-            $("#gm-signin-div").css("visibility","hidden");
-            // $("#login-section").css("visibility","visible");
-            // $("#login-load").css("visibility","hidden");
+            var filter = JSON.stringify({"email":profile.getEmail()});
+            var user_det = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
+            // console.log(user_det[0]);
+            if(user_det[0]){
+                local_set("logged_user",user_det[0]);
+                // console.log( parseInt(user_det[0]["is_admin"]));
+                parseInt(user_det[0]["is_admin"]) ? window.location = "dashboard.html" : window.location = "user_dashboard.html";
+            }else{
+                // alert("User not added. Please contact admin.");
+                console.log("Not registered with gmail.");
+                $("#gm-signin-div").css("visibility","hidden");
+                // $("#login-section").css("visibility","visible");
+                // $("#login-load").css("visibility","hidden");
+            }
+            // console.log('Given Name: ' + profile.getGivenName());
+            // console.log('Family Name: ' + profile.getFamilyName());
+            // console.log("Image URL: " + profile.getImageUrl());
+            // console.log("Email: " + profile.getEmail());
+            // The ID token you need to pass to your backend:
+            // console.log("ID Token: " + id_token);
         }
-        // console.log('Given Name: ' + profile.getGivenName());
-        // console.log('Family Name: ' + profile.getFamilyName());
-        // console.log("Image URL: " + profile.getImageUrl());
-        // console.log("Email: " + profile.getEmail());
-        // The ID token you need to pass to your backend:
-        // console.log("ID Token: " + id_token);
+    }catch (error) {
+        console.log("Gmail Login issue.");
     }
 
     //   function onSignOut(googleUser) {

@@ -19,7 +19,7 @@
                             <input type="text" class="form-control" id="state" class="state">
                         </div>
                         <div class="form-group">
-                            <label for="city">city</label>
+                            <label for="city">City</label>
                             <input type="text" class="form-control" id="city" class="city">
                         </div>
                         <div class="form-group">
@@ -71,4 +71,11 @@
         $("#team").val(user.team);
         $("#country").append("<option value="+user.country+">"+country[user.country]+"</option>");
         
+        if(countryRegions[user.country]){
+            var cRegs = "";
+            $.each(countryRegions[user.country], function (k1, v1) {
+                cRegs += "<option value="+v1+">"+v1+"</option>";
+            });
+            $("#country").after('<select class="form-control" id="countryRegion" ><option value="" selected>Select Region</option>'+cRegs+'</select>');
+        }
     </script>

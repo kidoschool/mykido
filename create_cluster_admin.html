@@ -80,14 +80,12 @@
     </div>
     
     <script>
-          usr_tbl_clus_admin("created_clusadmin_user_list");
+        usr_tbl_clus_admin("created_clusadmin_user_list");
         var lis = "";
         $.each(access_portals_list, function (k1, v1) {
             lis += '<li><input obj_ind="'+k1+'" class="access_cb" name="'+v1.name+'" type="checkbox" value="'+k1+'">&emsp;<span>'+v1.name+'</span></li>';
         });
         $("#access_portals").empty().append(lis);
-    
-        
         
         var user = local_get("logged_user");
         $("#team").val(user.team);

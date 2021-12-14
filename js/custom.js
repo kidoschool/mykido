@@ -16,6 +16,13 @@ var country = {
     6 : "China"
 }
 
+var countryRegions = {
+    1 : ["North","Central","East","South","West"]
+}
+var countryTeamNames = {
+    1 : "Kidovillage",2 : "Kido",3 : "Kido",4 : "Kido",5 : "Kido",6 : "Kido"
+}
+
 var teamTypesRev = {
     1 : "kido",
     2 : "kidovillage" 
@@ -1046,7 +1053,7 @@ $(document).on('click','#create_new_clusadmin',function(){
         // var data = JSON.stringify({"id":user.id,"name":name,"email":email,"is_admin":is_admin,"team":team,"status":status});
         // var cols = JSON.stringify(["id","name","email","is_admin","team","status"]);
         var user_det = JSON.parse(requester(server,"POST",{'api':'create_new_user','data':JSON.stringify(data),'cols':JSON.stringify(cols)}));
-        console.log(user_det);
+        // console.log(user_det);
         if(parseInt(user_det)){
             alert("Cluster Admin Details Save.");
             window.location.reload();
@@ -1189,6 +1196,12 @@ $(document).on('click','#create_new_cluster',function(){
     city.length ? true : err += " Please privde city. " ;
     status.length ? true : err += " Please select status. " ;
 
+    if($("#countryRegion").length){
+        $("#countryRegion").val() ? true : err += " Please select region. " ;
+        name = countryTeamNames[country]+" "+$("#countryRegion").val()+" - "+name;
+    }
+
+
     var timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
     if(!err.length){
@@ -1210,8 +1223,8 @@ $(document).on('click','#create_new_cluster',function(){
             }
 
         }else{
-            data["password"] = "123";
-            cols.push("password");
+            // data["password"] = "123";
+            // cols.push("password");
             var user_det = JSON.parse(requester(server,"POST",{'api':'create_new_cluster','data':JSON.stringify(data),'cols':JSON.stringify(cols)}));
             // console.log(user_det);
             if(parseInt(user_det)){

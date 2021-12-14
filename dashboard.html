@@ -253,7 +253,8 @@
             console.log(auth3.isSignedIn.get());
             setInterval(function(){
                 // console.log(auth3.isSignedIn.get()); 
-                if(!auth3.isSignedIn.get()){
+                var user = local_get("logged_user");
+                if(!auth3.isSignedIn.get() && !user){
                     window.location = "./";
                 }
             }, 1000);

@@ -775,7 +775,7 @@ $(document).on('click','#user_trs .user_list_tr',function(){
         console.log(v1);
         $("tr[access_tr='"+v1.access_name+"']").find(".access_uname").val(v1.username);
         $("tr[access_tr='"+v1.access_name+"']").find(".access_upass").val(v1.password);
-        $("input[name="+v1.access_name+"]").prop('checked', true);
+        $("input[name='"+v1.access_name+"']").prop('checked', true);
     });
 
 });

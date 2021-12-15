@@ -32,25 +32,27 @@ small{color: #bbb;}
     var user = (JSON.parse(requester(server,"POST",{'api':'get_users','filter':JSON.stringify({"id":logged_user.id})})))[0];
     // var open_lnk = $('.opn_lnk:first');
     // $('.opn_lnk').remove();
-    // console.log(open_lnk);
+    // console.log(logged_user);
     // console.log(JSON.parse(user.manula_links));
     var out_obj = JSON.parse(user.manula_links);
 
     if(out_obj){
         var mnul_vals =  structured_accordian(out_obj,"manuals",false);
+        var manula_pre = logged_user.country == "1" ? "https://www.manula.com/manuals/kido-village/" : "https://www.manula.com/manuals/kido-education/";
         $.each(mnul_vals, function (k, v) {
             var elem = $("[ind='" + k + "']");
-            var lnk_val = "https://edvergnce.com/"+v.value;
+            var lnk_val = manula_pre+v.value;
+            // var lnk_val = "https://edvergnce.com/"+v.value;
             // var o_lnk  = open_lnk.clone();
             // console.log(o_lnk);
             // o_lnk.find('a').attr("href",lnk_val);
-            var str = '<small class="check_link" lnk="'+lnk_val+'" >Check link</small>';
+            var str = '<small class="check_link" lnk="'+lnk_val+'" >Check</small>';
             // html(string).contents();
             var tml = $.parseHTML( str );
-            elem.addClass("undrln");
+            // elem.addClass("undrln");
             // var lnk = $();
             // var lnk = $($.parseHTML(''));
-            elem.append(tml).contents();
+            elem.prepend(tml).contents();
             // console.log(elem[0]);
         });
         $(".ls1").addClass("uls1").removeClass("ls1");

@@ -573,14 +573,14 @@ $(document).on('click','#user_inspect_submit',function(){
     // console.log(obj);
     $.each(obj, function (k, v) {
         if(v.type == "file"){
-            if(v.required){($("."+v.name).length) ? true : errs +=  v.label+" is required. ";}
+            (v.required && $("."+v.name).length) ? true : errs +=  v.label+" is required. <br/>";
             obj[k]["url"] = [];
             $("."+v.name).each(function () {
                 obj[k]["url"].push($(this).attr("url"));
             });
         }
         if(v.type == "checkbox-group"){
-            if(v.required){(v.userData) ? true : errs +=  v.label+" is required. ";}
+            (v.required && v.userData) ? true : errs +=  v.label+" is required. <br/>";
             $.each(v.values, function (k1, v1) {
                 // ((v.userData).indexOf(v1.value) == -1)
                 v.values[k1]['selected'] = $("#"+v.name+"-"+k1).prop('checked') ? true : false;
@@ -604,7 +604,10 @@ $(document).on('click','#user_inspect_submit',function(){
             alert("Not Submitted.");
         }
     }else{
-        alert(errs);
+        // alert(errs);
+        $("#err-div").removeClass("d-none");
+        var errdata = $('#error-data').find("p");
+        errdata.append(errs);
     }
     // console.log(formRenderInstance.userData);
 });

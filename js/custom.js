@@ -570,16 +570,17 @@ $(document).on('click','#user_inspect_submit',function(){
     // document.writeln();
     var errs = "";
     var obj = formRenderInstance.userData;
+    // console.log(obj);
     $.each(obj, function (k, v) {
         if(v.type == "file"){
-            (v.required && $("."+v.name).length) ? true : errs +=  v.label+" is required. ";
+            if(v.required){($("."+v.name).length) ? true : errs +=  v.label+" is required. ";}
             obj[k]["url"] = [];
             $("."+v.name).each(function () {
                 obj[k]["url"].push($(this).attr("url"));
             });
         }
         if(v.type == "checkbox-group"){
-            (v.required && v.userData) ? true : errs +=  v.label+" is required. ";
+            if(v.required){(v.userData) ? true : errs +=  v.label+" is required. ";}
             $.each(v.values, function (k1, v1) {
                 // ((v.userData).indexOf(v1.value) == -1)
                 v.values[k1]['selected'] = $("#"+v.name+"-"+k1).prop('checked') ? true : false;
@@ -1008,6 +1009,9 @@ $(document).on('click','#user_submission_trs .user_list_tr',function(){
                 $("#"+v.name).remove();
             }
         });
+        $("#selected_date").remove();
+        $("#user_sub_dates").remove();
+
         $('#form_div').before(date_selector);
         $('#form_div').before("<span id='selected_date'>&emsp;&emsp;Submitted on : "+last_sub_dt+"</span>");
         // console.log(date_selector);

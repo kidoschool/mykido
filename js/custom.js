@@ -610,11 +610,11 @@ $(document).on('click','#user_inspect_submit',function(){
 });
 
 $(document).on('click','#user_view_prev_submitted',function(){
-    var uid = $(this).attr("uid");
-    $(".user_list_tr.active").removeClass("active");
-    $(this).addClass("active");
-    $("#selected_user").text($(this).find(".name").text());
-    $("#selected_user").attr("user_id",uid);
+    // var uid = $(this).attr("uid");
+    // $(".user_list_tr.active").removeClass("active");
+    // $(this).addClass("active");
+    // $("#selected_user").text($(this).find(".name").text());
+    // $("#selected_user").attr("user_id",uid);
     // var form_id = url.searchParams.get("form_id");
     var filter = JSON.stringify({"inspection_id":form_id,"user_id":user.id});
     var out = JSON.parse(requester(server,"POST",{'api':'submitted_get_users','filter':filter,'limit':0}));

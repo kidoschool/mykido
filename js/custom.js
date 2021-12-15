@@ -620,7 +620,7 @@ $(document).on('click','#user_view_prev_submitted',function(){
     var out = JSON.parse(requester(server,"POST",{'api':'submitted_get_users','filter':filter,'limit':0}));
     var sub_prev = false;
 
-    var inspects = {}, last_sub_dt = "", date_selector = "<select id='user_sub_dates'><option>Previous submission</option>";
+    var inspects = {}, last_sub_dt = "", date_selector = "<select id='user_sub_dates'><option value=''>Previous submission</option>";
     $.each(out, function (k, v) {
         if(v.submitted_on){
             inspects[v.submitted_on] =  v;
@@ -655,6 +655,7 @@ $(document).on('click','#user_view_prev_submitted',function(){
         $('#form_div').before(date_selector);
         $('#form_div').before("<span id='selected_date'>&emsp;&emsp;Submitted on : "+last_sub_dt+"</span>");
         // console.log(date_selector);
+        $('#form_div').find("input").prop("disabled",true);
         $("#user_inspect_submit").remove();
         $("#user_view_prev_submitted").remove();
     }else{
@@ -666,35 +667,38 @@ $(document).on('click','#user_view_prev_submitted',function(){
 $(document).on('change','#user_sub_dates',function(){
 
     // alert($(this).val());
-
     // console.log(user_submitted[$(this).val()]);
+    var sel_dt = $(this).val();
+    console.log(sel_dt);
+    if(sel_dt){
+        var sub_obj = user_submitted[sel_dt];
+        $('#form_div').empty();
 
-    var sub_obj = user_submitted[$(this).val()];
-    $('#form_div').empty();
-
-    if(sub_obj["submission"]){
-        var subs = JSON.parse(sub_obj["submission"]);
-        // console.log(subs);
-        var formRenderInstance = $('#form_div').formRender({dataType: 'json',formData: subs});
-        $.each(subs, function (k, v) {
-            if(v.type == "file"){
-                if(v.url.length){
-                    $.each(v.url, function (k1, v1) {
-                        var fil_url = encodeURI(dwnld_url+v1);
-                        var fileName = v1.split('/').pop();
-                        $("#"+v.name).parent().append(" <a href="+fil_url+" download target='_blank'>"+fileName+"</a>  ");
-                    });
-                }else{
-                    $("#"+v.name).parent().append("<a href='#' >File Not Uploaded.</a>");
+        if(sub_obj["submission"]){
+            var subs = JSON.parse(sub_obj["submission"]);
+            // console.log(subs);
+            var formRenderInstance = $('#form_div').formRender({dataType: 'json',formData: subs});
+            $.each(subs, function (k, v) {
+                if(v.type == "file"){
+                    if(v.url.length){
+                        $.each(v.url, function (k1, v1) {
+                            var fil_url = encodeURI(dwnld_url+v1);
+                            var fileName = v1.split('/').pop();
+                            $("#"+v.name).parent().append(" <a href="+fil_url+" download target='_blank'>"+fileName+"</a>  ");
+                        });
+                    }else{
+                        $("#"+v.name).parent().append("<a href='#' >File Not Uploaded.</a>");
+                    }
+                    $("#"+v.name).remove();
                 }
-                $("#"+v.name).remove();
-            }
-        });
-        $('#selected_date').html("&emsp;&emsp;Submitted on : "+$(this).val());
-        // $('#form_div').before("<span>&emsp;&emsp;Submitted on : "+last_sub_dt+"</span>");
-        // console.log(date_selector);
-    }else{
-        $('#form_div').html("<h3>Not submitted on :"+$(this).val()+".</h3>");
+            });
+            $('#selected_date').html("&emsp;&emsp;Submitted on : "+$(this).val());
+            $('#form_div').find("input").prop("disabled",true);
+            // $('#form_div').before("<span>&emsp;&emsp;Submitted on : "+last_sub_dt+"</span>");
+            // console.log(date_selector);
+        }else{
+            $('#form_div').html("<h3>Not submitted on :"+$(this).val()+".</h3>");
+        }
     }
 });
 
@@ -982,7 +986,7 @@ $(document).on('click','#user_submission_trs .user_list_tr',function(){
     var out = JSON.parse(requester(server,"POST",{'api':'submitted_get_users','filter':filter,'limit':0}));
     var sub_prev = false;
 
-    var inspects = {}, last_sub_dt = "", date_selector = "<select id='user_sub_dates'><option>Previous submission</option>";
+    var inspects = {}, last_sub_dt = "", date_selector = "<select id='user_sub_dates'><option value=''>Previous submission</option>";
     $.each(out, function (k, v) {
         if(v.submitted_on){
             inspects[v.submitted_on] =  v;

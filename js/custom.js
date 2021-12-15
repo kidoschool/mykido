@@ -666,6 +666,9 @@ $(document).on('click','#user_view_prev_submitted',function(){
     }
 });
 
+$(document).on('click','#manula_content_clear',function(){
+    $("#target_out").attr("src","");
+});
 
 $(document).on('change','#user_sub_dates',function(){
 

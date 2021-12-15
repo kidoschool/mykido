@@ -570,17 +570,36 @@ $(document).on('click','#user_inspect_submit',function(){
     // document.writeln();
     var errs = "";
     var obj = formRenderInstance.userData;
+    $("#err-div").find("p").empty();
+
     // console.log(obj);
     $.each(obj, function (k, v) {
         if(v.type == "file"){
-            (v.required && $("."+v.name).length) ? true : errs +=  v.label+" is required. <br/>";
+            // (v.required && $("."+v.name).length) ? true : errs +=  v.label+" is required. <br/>";
+            if(v.required){($("."+v.name).length) ? true : errs +=  v.label+" is required. <br/>";}
             obj[k]["url"] = [];
             $("."+v.name).each(function () {
                 obj[k]["url"].push($(this).attr("url"));
             });
         }
+        if(v.type == "number"){
+            // console.log(v.userData[0]);
+            if(v.required){(v.userData[0].length) ? true : errs +=  v.label+" is required. <br/>";}
+        }
+        if(v.type == "text"){
+            // console.log(v);
+            if(v.required){(v.userData[0].length) ? true : errs +=  v.label+" is required. <br/>";}
+        }
+        if(v.type == "radio-group"){
+            // console.log(v.values);
+            if(v.required){(v.values) ? true : errs +=  v.label+" is required. <br/>";}
+            $.each(v.values, function (k1, v1) {
+                $('input[name="'+v.name+'"]:checked').length == 0 ? true : false;
+            });
+        }
         if(v.type == "checkbox-group"){
-            (v.required && v.userData) ? true : errs +=  v.label+" is required. <br/>";
+            if(v.required){(v.userData) ? true : errs +=  v.label+" is required. <br/>";}
+            // (v.required && v.userData) ? true : errs +=  v.label+" is required. <br/>";
             $.each(v.values, function (k1, v1) {
                 // ((v.userData).indexOf(v1.value) == -1)
                 v.values[k1]['selected'] = $("#"+v.name+"-"+k1).prop('checked') ? true : false;

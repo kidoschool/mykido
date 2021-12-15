@@ -98,16 +98,16 @@ var access_portals_list = [
         "name": "Facebook",
         "link": "https://www.facebook.com/",
         "logo": "images/fb.png",
-        "desc": "Connect with friends, family and other people you know. Share photos and videos, send messages and get updates.",
+        "desc": "Login for pod's FB marketing needs.",
     },
     {
         "name": "Instagram",
         "link": "https://www.instagram.com/accounts/login/",
         "logo": "images/instagram.png",
-        "desc": "Create an account or log in to Instagram - A simple, fun & creative way to capture, edit & share photos, videos & messages with friends & family.",
+        "desc": "Login to your pod's Instagram account.",
     },
     {
-        "name": "Webmail",
+        "name": "Email",
         "link": "http://webmail.kidovillage.in/",
         "logo": "images/webmail.png",
         "desc": "Enterprise Email Solutions Redefined.",
@@ -116,7 +116,7 @@ var access_portals_list = [
         "name": "KidovillageBOT",
         "link": "https://kidovillage.gyde.ai/user/login/login",
         "logo": "images/kv.png",
-        "desc": "The Perfect Training Platform for your hybrid workforce across software.",
+        "desc": "Login to complete child assessments and view reports.",
     },
     {
         "name": "Iauditor",
@@ -125,10 +125,10 @@ var access_portals_list = [
         "desc": "iAuditor is an inspection app used to empower your workers in the field.",
     },
     {
-        "name": "School Diary",
+        "name": "Kidovillage App(School Diary)",
         "link": "https://kido.schooldiary.me/Login",
         "logo": "images/kv.png",
-        "desc": "iAuditor is an inspection app used to empower your workers in the field.",
+        "desc": "Login to manage your pod and communicate with parents.",
     }    
 ];
 

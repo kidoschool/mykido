@@ -78,6 +78,7 @@ var access_portals_list = [
     },
     {
         "name": "Manula",
+        "display_name":"Lesson Plans & Manuals",
         "link": "https://admin.manula.com",
         "logo": "images/manula-icon.png",
         "desc": "Manula is super-easy to use manual creation software, for writing, formatting and publishing online instruction manuals.",

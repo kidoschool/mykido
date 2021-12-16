@@ -169,9 +169,11 @@
     $.each(access_cards, function (k, i) {
         // var v = i[Object.keys(i)[0]];var img_bw = "";
         // console.log(i);
+        var accs_name = access_portals_list_by_name[i.access_name]["display_name"] || i.access_name;
+
         var access  = access_card.clone();
         access.find('.access_logo').attr("src",access_portals_list_by_name[i.access_name]["logo"]);
-        access.find('.access_name').text(i.access_name);
+        access.find('.access_name').text(accs_name);
         access.find('.access_uname').val(i.username);
         access.find('.access_upass').val(i.password);
         access.find('.access_link').attr("href",access_portals_list_by_name[i.access_name]["link"]);

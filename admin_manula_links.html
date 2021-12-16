@@ -65,7 +65,7 @@
 
 <script>
 
-updt_usr_list_tbl("user_list");
+// updt_usr_list_tbl("user_list");
 
 var user = local_get("logged_user");
 var struc_obj = {};
@@ -88,6 +88,18 @@ $.getJSON( json_obj, function(manuals) {
 
 });
 
+    var filter = JSON.stringify({"country":user.country,"level":4});
+    var inspects = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
+    $("#user_trs").empty();
+    var trs = "";
+    $.each(inspects, function (k, v) {
+        var team = (v.team).replaceAll("-"," ");
+        var status = v.status == 1 ? '<span class="text-success">Active</span>' : '<span class="text-danger">InActive</span>';
+        trs += '<tr uid="'+v.id+'" class="user_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+v.email+'</td><td>'+status+'</td></tr>';
+    });
+    var tbody = $('#user_list').find("tbody");
+    tbody.append(trs);
+    $('#user_list').DataTable();
 
 
 </script>

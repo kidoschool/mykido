@@ -617,17 +617,19 @@ $(document).on('click','#user_inspect_submit',function(){
         var inspects = requester(server,"POST",{'api':'save_tab',"tbl_name":"inspection_assign",'cols':cols,'data':JSON.stringify(data)});
         // console.log(inspects);
         if (parseInt(inspects)) {
-            // bootbox.alert("Thank you for submitting your responses.");
-
-            // cust_navigate("user_inspection");
+            // alert("Thank you for submitting your responses.");
+            swal({  title: 'Submitted.',type: "success",text: "Thank you for submitting your responses."}).then(function() {
+                cust_navigate("user_inspection");
+            });
         }else{
             alert("Not Submitted.");
         }
     }else{
         // alert(errs);
-        $("#err-div").removeClass("d-none");
-        var errdata = $('#error-data').find("p");
-        errdata.append(errs);
+            swal({  title: 'Please correct.',text: errs,type: "error"});
+        // $("#err-div").removeClass("d-none");
+        // var errdata = $('#error-data').find("p");
+        // errdata.append(errs);
     }
     // console.log(formRenderInstance.userData);
 });

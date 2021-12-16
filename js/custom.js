@@ -1080,7 +1080,8 @@ $(document).on('click','#save_profile',function(){
         var user_det = JSON.parse(requester(server,"POST",{'api':'update_password','data':data}));
         // console.log(user_det);
         if(parseInt(user_det)){
-            alert("Profile Updated.");
+            // alert("Profile Updated.");
+            swal({  title: 'Submitted.',type: "success",text: "Profile Updated Succesfully."});
         }
     }else{
         alert(err);
@@ -1124,8 +1125,11 @@ $(document).on('click','#create_new_clusadmin',function(){
         var user_det = JSON.parse(requester(server,"POST",{'api':'create_new_user','data':JSON.stringify(data),'cols':JSON.stringify(cols)}));
         // console.log(user_det);
         if(parseInt(user_det)){
-            alert("Cluster Admin Details Save.");
-            window.location.reload();
+            // alert("Cluster Admin Details Save.");
+            // window.location.reload();
+            swal({  title: 'Submitted.',type: "success",text: "Cluster Admin Details Save."}).then(function() {
+                window.location.reload();
+            });
         }
     }else{
         alert(err);

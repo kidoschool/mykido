@@ -1185,8 +1185,11 @@ $(document).on('click','#create_new_user',function(){
         var user_det = JSON.parse(requester(server,"POST",{'api':'create_new_user','data':JSON.stringify(data),'cols':JSON.stringify(cols),'nursery_ids':JSON.stringify(nursery_ids)}));
         console.log(user_det);
         if(parseInt(user_det)){
-            alert("User Saved.");
-            window.location.reload();
+            // alert("User Saved.");
+            // window.location.reload();
+            swal({  title: 'Submitted.',type: "success",text: "User Saved Successfully."}).then(function() {
+                window.location.reload();
+            });
         }
     }else{
         alert(err);
@@ -1242,8 +1245,11 @@ $(document).on('click','#create_new_nursery',function(){
             var user_det = JSON.parse(requester(server,"POST",{'api':'create_new_nursery','data':JSON.stringify(data),'cols':JSON.stringify(cols)}));
             // console.log(user_det);
             if(parseInt(user_det)){
-                alert("New Nursary Created.");
-                window.location.reload();
+                // alert("New Nursary Created.");
+                // window.location.reload();
+                swal({  title: 'Submitted.',type: "success",text: "New Nursary Created."}).then(function() {
+                    window.location.reload();
+                });
             }
         }
 
@@ -1291,8 +1297,11 @@ $(document).on('click','#create_new_cluster',function(){
             var approvaluser_det = JSON.parse(requester(server,"POST",{'api':'manage_approval_data','data':JSON.stringify(approval_data),'cols':JSON.stringify(approval_cols)}));
             console.log(approvaluser_det);
             if(parseInt(approvaluser_det)){
-                alert("Approval request sent..");
-                window.location.reload();
+                // alert("Approval request sent..");
+                // window.location.reload();
+                swal({  title: 'Submitted.',type: "warning",text: "Approval request sent..."}).then(function() {
+                    window.location.reload();
+                });
             }
 
         }else{
@@ -1301,8 +1310,11 @@ $(document).on('click','#create_new_cluster',function(){
             var user_det = JSON.parse(requester(server,"POST",{'api':'create_new_cluster','data':JSON.stringify(data),'cols':JSON.stringify(cols)}));
             // console.log(user_det);
             if(parseInt(user_det)){
-                alert("New Cluster Created.");
-                window.location.reload();
+                // alert("New Cluster Created.");
+                // window.location.reload();
+                swal({  title: 'Submitted.',type: "success",text: "New Cluster Created."}).then(function() {
+                    window.location.reload();
+                });
             }
         }
     }else{
@@ -1334,7 +1346,8 @@ $(document).on('click','#save_user_access',function(){
     if(data.length){
         // var filter = JSON.stringify(data);
         var access_cards = JSON.parse(requester(server,"POST",{'api':'save_users_access','user_access':JSON.stringify(data)}));
-        alert("Saved");
+        // alert("Saved");
+        swal({  title: 'Submitted.',type: "success",text: "Saved user access."});
     }
 
 });
@@ -1384,8 +1397,11 @@ $(document).on('click','#save_cluster_access',function(){
     // if(data.length || !data.length){
         // var filter = JSON.stringify(data);
         var access_cards = JSON.parse(requester(server,"POST",{'api':'save_cluster_access','cluster_id':clusid,'user_cluster':JSON.stringify(data)}));
-        alert("Saved");
-        window.location.reload();
+        // alert("Saved");
+        // window.location.reload();
+        swal({  title: 'Submitted.',type: "success",text: "Saved Cluster Access."}).then(function() {
+            window.location.reload();
+        });
     // }
 
 });
@@ -1431,8 +1447,11 @@ $(document).on('click','#save_nursery_access',function(){
     // if(data.length || !data.length){
         // var filter = JSON.stringify(data);
         var access_cards = JSON.parse(requester(server,"POST",{'api':'save_nursery_access','nursery_id':nursyid,'user_nursery':JSON.stringify(data)}));
-        alert("Saved");
-        window.location.reload();
+        // alert("Saved");
+        // window.location.reload();
+        swal({  title: 'Submitted.',type: "success",text: "Saved Nursery Access."}).then(function() {
+            window.location.reload();
+        });
     // }
 
 });
@@ -1461,8 +1480,11 @@ $(document).on('click','.save_user_detail',function(){
     if(data.length){
         // var filter = JSON.stringify(data);
         var access_cards = JSON.parse(requester(server,"POST",{'api':'save_users_creds','user_access':JSON.stringify(data)}));
-        alert("Saved");
-        window.location.reload();
+        // alert("Saved");
+        // window.location.reload();
+        swal({  title: 'Submitted.',type: "success",text: "Saved User Access."}).then(function() {
+            window.location.reload();
+        });
     }
 
 });
@@ -1478,7 +1500,8 @@ $(document).on('click','#save_user_manula_links',function(){
         var user_det = JSON.parse(requester(server,"POST",{'api':'update_user_manula_links','data':JSON.stringify(data)}));
         // alert(parseInt(user_det));
         if(parseInt(user_det)){
-            alert(" Links assigned. ");
+            // alert(" Links assigned. ");
+            swal({  title: 'Submitted.',type: "success",text: "Links assigned."});
         }
         // console.log(user_det);
         // var ifrm = $("#enquireModal").find("iframe").contents();

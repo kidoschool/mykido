@@ -617,8 +617,9 @@ $(document).on('click','#user_inspect_submit',function(){
         var inspects = requester(server,"POST",{'api':'save_tab',"tbl_name":"inspection_assign",'cols':cols,'data':JSON.stringify(data)});
         // console.log(inspects);
         if (parseInt(inspects)) {
-            alert("Thank you for submitting your responses.");
-            cust_navigate("user_inspection");
+            // bootbox.alert("Thank you for submitting your responses.");
+
+            // cust_navigate("user_inspection");
         }else{
             alert("Not Submitted.");
         }

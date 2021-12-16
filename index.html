@@ -114,8 +114,11 @@
                 }
                 // parseInt(user_det[0]["is_admin"]) ? window.location = "dashboard.html" : window.location = "user_dashboard.html";
             }else{
-                alert("User not added. Please contact admin.");
+                // alert("User not added. Please contact admin.");
                 // console.log("Not registered with gmail.");
+                swal({  title: 'Login Failed.',type: "error",text: "Please contact Support at kidovillage.com"}).then(function() {
+                    window.location.reload();
+                });
             }
         }
         // dashboard.html

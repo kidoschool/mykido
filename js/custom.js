@@ -1501,7 +1501,7 @@ $(document).on('click','#save_user_manula_links',function(){
         // alert(parseInt(user_det));
         if(parseInt(user_det)){
             // alert(" Links assigned. ");
-            swal({  title: 'Submitted.',type: "success",text: "Links assigned."});
+            swal({ title: 'Submitted.',type: "success",text: "Links assigned."});
         }
         // console.log(user_det);
         // var ifrm = $("#enquireModal").find("iframe").contents();

@@ -69,15 +69,13 @@
 
 var user = local_get("logged_user");
 var struc_obj = {};
-var json_obj = user.team == "kido" ? "manula_links.json"  : "kv_manula_links.json";
+var json_obj = (user.country == "1") ? "kv_manula_links.json" : "manula_links.json";
 // var json_obj = "manula_links.json";
 // var json_obj = obj;
 
 $.getJSON( json_obj, function(manuals) {
-
     struc_obj = structured_accordian(manuals,"manuals",true);
     // struc_obj = structured_accordian(obj,"manuals",true);
-
     $.each(struc_obj, function (k, v) {
         var elem = $("[ind='" + k + "']");
         var curr_txt = (elem.text()).replace(" > "," ");
@@ -85,7 +83,6 @@ $.getJSON( json_obj, function(manuals) {
         var elem_chk = '<input type="checkbox" class="ls_val" ind="'+k+'" lnk="'+v.value+'" >';
         elem.prepend(elem_chk);
     });
-
 });
 
     var filter = JSON.stringify({"country":user.country,"level":4});

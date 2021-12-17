@@ -52,7 +52,7 @@ var user = local_get('logged_user');
     $.each(appros_dets, function (k, v) {
         // console.log(appros_dets);
         
-        trs += '<tr><td>'+v.initiated_by+'</td><td class="name">'+v.type+'</td> <td class="email"><button type="button" class="btn btn-outline-primary btn-sm view-data" data-toggle="modal" data-target="#exampleModal" data-loc-subject='+k+'>view Data</button></td><td><button class="btn btn-sm btn-outline-success">Approve</button> <button class="btn btn-sm btn-outline-danger">Reject</button></td></tr>';
+        trs += '<tr><td>'+v.initiated_by+'</td><td class="name">'+v.type+'</td> <td class="email"><button type="button" class="btn btn-outline-primary btn-sm view-data" data-toggle="modal" data-target="#exampleModal" data-loc-subject='+k+'>view Data</button></td><td><button class="btn btn-sm btn-outline-success" id="approve-data-btn" data-loc-subject1='+k+'>Approve</button> <button class="btn btn-sm btn-outline-danger">Reject</button></td></tr>';
     });
     var tbody = $('#clus_approval_list').find("tbody");
     tbody.append(trs);
@@ -62,15 +62,5 @@ var user = local_get('logged_user');
     $('#clus_approval_list').DataTable();
 
 
-    $( ".view-data" ).click(function(e) {
-        e.preventDefault();
-        var attrmethod = $(this).attr('data-loc-subject');
-        var temp = appros_dets[attrmethod];
-        var data_html = "";
-        $.each( (JSON.parse(temp.data)).data, function (k1, v1) {
-                data_html += "<span>"+k1+"</span> : <span>"+v1+"</span><br>";
-        });
-        modelbody.empty().append(data_html);
-        // alert(attrmethod);
-    });
+
 </script>

@@ -47,17 +47,19 @@ small{color: #bbb;}
         $.each(mnul_vals, function (k, v) {
             var elem = $("[ind='" + k + "']");
             var lnk_val = manula_pre+v.value;
+            elem.attr("lnk",lnk_val);
+            elem.addClass("lnk_view");
             // var lnk_val = "https://edvergnce.com/"+v.value;
             // var o_lnk  = open_lnk.clone();
             // console.log(o_lnk);
             // o_lnk.find('a').attr("href",lnk_val);
-            var str = '<small class="check_link" lnk="'+lnk_val+'" >Check</small>';
+            // var str = '<small class="check_link" lnk="'+lnk_val+'" >Check</small>';
             // html(string).contents();
-            var tml = $.parseHTML( str );
+            // var tml = $.parseHTML( str );
             // elem.addClass("undrln");
             // var lnk = $();
             // var lnk = $($.parseHTML(''));
-            elem.prepend(tml).contents();
+            // elem.prepend(tml).contents();
             // console.log(elem[0]);
         });
         $(".ls1").addClass("uls1").removeClass("ls1");

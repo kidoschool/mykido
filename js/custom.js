@@ -623,7 +623,8 @@ $(document).on('click','#user_inspect_submit',function(){
                 cust_navigate("user_inspection");
             });
         }else{
-            alert("Not Submitted.");
+            swal({  title: 'Not Submitted.',type: "Error",text: ""});
+            // alert("Not Submitted.");
         }
     }else{
         // alert(errs);
@@ -685,7 +686,9 @@ $(document).on('click','#user_view_prev_submitted',function(){
         $("#user_inspect_submit").remove();
         $("#user_view_prev_submitted").remove();
     }else{
-        alert("Not yet submitted.");
+        // alert("Not yet submitted.");
+        swal({  title: 'Not yet submitted..',type: "Error",text: ""});
+
     }
 });
 

@@ -74,7 +74,7 @@
     $.each(access_cards, function (k, i) {
         // var v = i[Object.keys(i)[0]];var img_bw = "";
         if(ignored_access.indexOf(i.access_name) == -1){
-            console.log(i);
+            // console.log(i);
             var access  = access_card.clone();
             access.find('.access_logo').attr("src",access_portals_list_by_name[i.access_name]["logo"]);
             access.find('.access_name').text(i.access_name);

@@ -59,15 +59,11 @@
     var filter = JSON.stringify({"user_id":user.id});
     var access_cards = JSON.parse(requester(server,"POST",{'api':'get_users_access','filter':filter}));
 
-
-
     var access_portals_list_by_name = {};
 
     $.each(access_portals_list, function (k, i) {
         access_portals_list_by_name[i.name] = i ;
     });
-
-    // console.log(access_portals_list_by_name);
 
     var ignored_access = ["Manula"];
 
@@ -80,17 +76,8 @@
             access.find('.access_name').text(i.access_name);
             access.find('.access_link').attr("href",i.link);
             access.find('.access_desc').text(access_portals_list_by_name[i.access_name]["desc"]);
-            // console.log();
-            // item.attr('item_id',v.id);
-            // console.log(v.sub_cat_id);
-            // item.attr('sub_cat_id',v.sub_cat_id);
-            // (v.is_veg == 0) ? item.find('.veg_nv').attr("src","images/icons/nveg.png") : false;
-            // item.find('.item_count').attr('item_id',v.id);
             $('#access_list').append(access);
         }
     });
-
-
-
 
 </script>

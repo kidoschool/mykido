@@ -1241,8 +1241,11 @@ $(document).on('click','#create_new_nursery',function(){
             var approvaluser_det = JSON.parse(requester(server,"POST",{'api':'manage_approval_data','data':JSON.stringify(approval_data),'cols':JSON.stringify(approval_cols)}));
             // console.log(approvaluser_det);
             if(parseInt(approvaluser_det)){
-                alert("Approval request sent..");
-                window.location.reload();
+                // alert("Approval request sent..");
+                // window.location.reload();
+                swal({  title: 'Submitted.',type: "warning",text: "Approval request sent..."}).then(function() {
+                    window.location.reload();
+                });
             }
         }else{
             // data["password"] = "123";
@@ -1577,7 +1580,7 @@ $(document).on('click','.view-data',function(){
 $(document).on('click','#approve-data-btn',function(){
     var userId = local_get("logged_user");
 
-    var attrmethod = $(this).attr('data-loc-subject1');
+    var attrmethod = $(this).attr('data-subject-approve');
     var temp = JSON.parse(appros_dets[attrmethod].data);
     // console.log(appros_dets);
     var approve_id =  appros_dets[attrmethod].id;
@@ -1597,8 +1600,39 @@ $(document).on('click','#approve-data-btn',function(){
     var approval_cols = ["id","initiated_by","action_by","data","country","level","added_on","status"];
     var approvaluser_det = JSON.parse(requester(server,"POST",{'api':'manage_approval_data','data':JSON.stringify(approval_data),'cols':JSON.stringify(approval_cols)}));
     console.log(approvaluser_det);
-    swal({  title: 'Data Approved.',type: "success",text: "Saved Cluster Approvals."}).then(function() {
-        // window.location.reload();
+    swal({  title: 'Data Approved.',type: "success",text: "Saved Approvals."}).then(function() {
+        window.location.reload();
+    });
+    // console.log(out);
+});
+
+
+$(document).on('click','#reject-data-btn',function(){
+    var userId = local_get("logged_user");
+
+    var attrmethod = $(this).attr('data-subject-reject');
+    console.log(attrmethod);
+    var temp = JSON.parse(appros_dets[attrmethod].data);
+    // console.log(appros_dets);
+    var approve_id =  appros_dets[attrmethod].id;
+    var approve_ini_by = appros_dets[attrmethod].initiated_by;
+    var approve_action_by = userId.id;
+    var approve_data = appros_dets[attrmethod].data;
+    var approve_country = appros_dets[attrmethod].country;
+    var approve_level = appros_dets[attrmethod].level;
+    var approve_added_on = appros_dets[attrmethod].added_on;
+    // console.log(JSON.parse(temp.data));
+    temp["data"] = JSON.stringify(temp["data"]);
+    temp["cols"] = JSON.stringify(temp["cols"]);
+    // console.log(temp);
+    // var out = JSON.parse(requester(server,"POST",temp));
+    // cols.push("id");
+    var approval_data = {"id":approve_id,"initiated_by":approve_ini_by,"action_by":approve_action_by,"data":approve_data,"country":approve_country,"level":approve_level,"added_on":approve_added_on,"status":2};
+    var approval_cols = ["id","initiated_by","action_by","data","country","level","added_on","status"];
+    var approvaluser_det = JSON.parse(requester(server,"POST",{'api':'manage_approval_data','data':JSON.stringify(approval_data),'cols':JSON.stringify(approval_cols)}));
+    console.log(approvaluser_det);
+    swal({  title: 'Data Rejected.',type: "error",text: "Rejected data save."}).then(function() {
+        window.location.reload();
     });
     // console.log(out);
 });

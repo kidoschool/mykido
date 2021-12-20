@@ -1236,7 +1236,7 @@ $(document).on('click','#create_new_nursery',function(){
         if($("#created_nursary_trs .user_list_tr.active").length){
             data["id"] = $("#created_nursary_trs .user_list_tr.active").attr("uid");
             cols.push("id");
-            var approval_data = {"initiated_by":user.id,"type":"nursery_update","data":JSON.stringify({'api':'create_new_nursery','data':data,'cols':cols}),"status":1,"country":user.country,"level":1,"added_on":timestamp};
+            var approval_data = {"initiated_by":user.email,"type":"nursery_update","data":JSON.stringify({'api':'create_new_nursery','data':data,'cols':cols}),"status":1,"country":user.country,"level":1,"added_on":timestamp};
             var approval_cols = ["initiated_by","type","data","status","country","level","added_on"];
             var approvaluser_det = JSON.parse(requester(server,"POST",{'api':'manage_approval_data','data':JSON.stringify(approval_data),'cols':JSON.stringify(approval_cols)}));
             // console.log(approvaluser_det);
@@ -1301,7 +1301,7 @@ $(document).on('click','#create_new_cluster',function(){
         if($("#created_cluster_trs .user_list_tr.active").length){
             data["id"] = $("#created_cluster_trs .user_list_tr.active").attr("uid");
             cols.push("id");
-            var approval_data = {"initiated_by":user.id,"type":"cluster_update","data":JSON.stringify({'api':'create_new_cluster','data':data,'cols':cols}),"status":1,"country":user.country,"level":1,"added_on":timestamp};
+            var approval_data = {"initiated_by":user.email,"type":"cluster_update","data":JSON.stringify({'api':'create_new_cluster','data':data,'cols':cols}),"status":1,"country":user.country,"level":1,"added_on":timestamp};
             var approval_cols = ["initiated_by","type","data","status","country","level","added_on"];
             var approvaluser_det = JSON.parse(requester(server,"POST",{'api':'manage_approval_data','data':JSON.stringify(approval_data),'cols':JSON.stringify(approval_cols)}));
             console.log(approvaluser_det);
@@ -1585,7 +1585,7 @@ $(document).on('click','#approve-data-btn',function(){
     // console.log(appros_dets);
     var approve_id =  appros_dets[attrmethod].id;
     var approve_ini_by = appros_dets[attrmethod].initiated_by;
-    var approve_action_by = userId.id;
+    var approve_action_by = userId.email;
     var approve_data = appros_dets[attrmethod].data;
     var approve_country = appros_dets[attrmethod].country;
     var approve_level = appros_dets[attrmethod].level;
@@ -1616,7 +1616,7 @@ $(document).on('click','#reject-data-btn',function(){
     // console.log(appros_dets);
     var approve_id =  appros_dets[attrmethod].id;
     var approve_ini_by = appros_dets[attrmethod].initiated_by;
-    var approve_action_by = userId.id;
+    var approve_action_by = userId.email;
     var approve_data = appros_dets[attrmethod].data;
     var approve_country = appros_dets[attrmethod].country;
     var approve_level = appros_dets[attrmethod].level;

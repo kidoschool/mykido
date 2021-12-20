@@ -58,10 +58,10 @@
             stsbtn = '<button class="btn btn-sm btn-outline-success app-btn" id="approve-data-btn" data-subject-approve='+k+'>Approve</button> <button class="btn btn-sm btn-outline-danger" id="reject-data-btn" data-subject-reject='+k+'>Reject</button>';
                 break;
             case (v.status = "2"):
-            stsbtn = "<span class='text-danger'><i class='fas fa-times-circle'></i>&nbsp;Rejected";
+            stsbtn = '<span class="text-danger" data-toggle="tooltip" data-placement="top" title="by '+v.action_by+'"><i class="fas fa-times-circle"></i>&nbsp;Rejected</span>';
                 break;
             case (v.status = "3"):
-            stsbtn = "<span class='text-success'><i class='fas fa-thumbs-up'></i>&nbsp;Approved";
+            stsbtn = '<span class="text-success" data-toggle="tooltip" data-placement="top" title="by '+v.action_by+'"><i class="fas fa-thumbs-up"></i>&nbsp;Approved</span>';
             }
         trs += '<tr><td>'+v.initiated_by+'</td><td class="name">'+v.type+'</td> <td class="email"><button type="button" class="btn btn-outline-primary btn-sm view-data" data-toggle="modal" data-target="#exampleModal" data-loc-subject='+k+'>view Data</button></td><td>'+stsbtn+'</td></tr>';
     });
@@ -73,16 +73,7 @@
 
     $('#nursy_approval_list').DataTable();
 
-
-    // $( ".view-data" ).click(function(e) {
-    //     e.preventDefault();
-    //     var attrmethod = $(this).attr('data-loc-subject');
-    //     var temp = appros_dets[attrmethod];
-    //     var data_html = "";
-    //     $.each( (JSON.parse(temp.data)).data, function (k1, v1) {
-    //             data_html += "<span>"+k1+"</span> : <span>"+v1+"</span><br>";
-    //     });
-    //     modelbody.empty().append(data_html);
-    //     // alert(attrmethod);
-    // });
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 </script>

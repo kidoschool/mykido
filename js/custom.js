@@ -623,7 +623,8 @@ $(document).on('click','#user_inspect_submit',function(){
                 cust_navigate("user_inspection");
             });
         }else{
-            alert("Not Submitted.");
+            swal({  title: 'Not Submitted.',type: "Error",text: ""});
+            // alert("Not Submitted.");
         }
     }else{
         // alert(errs);
@@ -685,7 +686,9 @@ $(document).on('click','#user_view_prev_submitted',function(){
         $("#user_inspect_submit").remove();
         $("#user_view_prev_submitted").remove();
     }else{
-        alert("Not yet submitted.");
+        // alert("Not yet submitted.");
+        swal({  title: 'Not yet submitted..',type: "Error",text: ""});
+
     }
 });
 
@@ -1555,6 +1558,51 @@ $(document).on('change','input.form-control[type=file]',function(){
         $.ajax(settings);
     }
 });
+
+//-----------------approve cluster/nursery js start-----------------------
+
+$(document).on('click','.view-data',function(){
+    var attrmethod = $(this).attr('data-loc-subject');
+    var temp = appros_dets[attrmethod];
+    var data_html = "";
+    $.each( (JSON.parse(temp.data)).data, function (k1, v1) {
+            data_html += "<span>"+k1+"</span> : <span>"+v1+"</span><br>";
+    });
+    modelbody.empty().append(data_html);
+    // alert(attrmethod);
+});
+
+$(document).on('click','#approve-data-btn',function(){
+    var userId = local_get("logged_user");
+
+    var attrmethod = $(this).attr('data-loc-subject1');
+    var temp = JSON.parse(appros_dets[attrmethod].data);
+    // console.log(appros_dets);
+    var approve_id =  appros_dets[attrmethod].id;
+    var approve_ini_by = appros_dets[attrmethod].initiated_by;
+    var approve_action_by = userId.id;
+    var approve_data = appros_dets[attrmethod].data;
+    var approve_country = appros_dets[attrmethod].country;
+    var approve_level = appros_dets[attrmethod].level;
+    var approve_added_on = appros_dets[attrmethod].added_on;
+    // console.log(JSON.parse(temp.data));
+    temp["data"] = JSON.stringify(temp["data"]);
+    temp["cols"] = JSON.stringify(temp["cols"]);
+    // console.log(temp);
+    var out = JSON.parse(requester(server,"POST",temp));
+    // cols.push("id");
+    var approval_data = {"id":approve_id,"initiated_by":approve_ini_by,"action_by":approve_action_by,"data":approve_data,"country":approve_country,"level":approve_level,"added_on":approve_added_on,"status":3};
+    var approval_cols = ["id","initiated_by","action_by","data","country","level","added_on","status"];
+    var approvaluser_det = JSON.parse(requester(server,"POST",{'api':'manage_approval_data','data':JSON.stringify(approval_data),'cols':JSON.stringify(approval_cols)}));
+    console.log(approvaluser_det);
+    swal({  title: 'Data Approved.',type: "success",text: "Saved Cluster Approvals."}).then(function() {
+        // window.location.reload();
+    });
+    // console.log(out);
+});
+
+//-----------approve cluster/nursery js end -----------------------
+
 
 
 $(document).on('click','.lnk_view',function(){

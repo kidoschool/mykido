@@ -464,12 +464,7 @@ function updt_clust_list_tbl(tabl_id) {
     $("#user_trs").empty();
     var trs = "";
     $.each(inspects, function (k, v) {
-        // trs += '<tr><td>'+v.name+'</td> <td>'+v.email+'</td><td usr="'+v.email+'" >No</td><td><input type="checkbox" value="'+v.email+'"></td></tr>';
-        // var team = (v.team).replaceAll("-"," ");
-        // var status = v.status == 1 ? '<span class="text-success">Active</span>' : '<span class="text-danger">InActive</span>';
         trs += '<tr uid="'+v.id+'" class="user_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+country[v.country]+'</td></tr>';
-        // trs += '<tr class="user_list_tr"><td>'+v.name+'</td> <td>'+v.email+'</td></tr>';
-        // console.log(v)
         clus_ids.push(v.id);
     });
     var tbody = $('#'+tabl_id).find("tbody");
@@ -966,12 +961,18 @@ $(document).on('click','#created_cluster_trs .user_list_tr',function(){
     var state = access_cards[0].state;
     var city = access_cards[0].city;
     var status = access_cards[0].status;
+    var region = access_cards[0].region;
 
-    $("#name").val(name);
+    if(name.indexOf("-")){
+        name = name.split("-")[1] || name.split("-")[0];
+    }
+
+    $("#name").val(name.trim());
     $("#country").val(country);
     $("#state").val(state);
     $("#city").val(city);
     $("#status").val(status);
+    $("#countryRegion").val(region);
 
     $(".access_cb").prop('checked', false);
 
@@ -1270,6 +1271,7 @@ $(document).on('click','#create_new_cluster',function(){
     var state = $("#state").val();
     var city = $("#city").val();
     var status = $("#status").val();
+    var region = $("#countryRegion").val() || null;
     var err = "";
 
     // valid_email(email) ? true : err += " Please privde valid email. " ;
@@ -1289,8 +1291,8 @@ $(document).on('click','#create_new_cluster',function(){
 
     if(!err.length){
 
-        var data = {"name":name,"country":country,"state":state,"city":city,"status":status};
-        var cols = ["name","country","state","city","status"];
+        var data = {"name":name,"country":country,"region":region,"state":state,"city":city,"status":status};
+        var cols = ["name","country","region","state","city","status"];
 
 
         if($("#created_cluster_trs .user_list_tr.active").length){

@@ -682,8 +682,7 @@ $(document).on('click','#user_view_prev_submitted',function(){
         $("#user_view_prev_submitted").remove();
     }else{
         // alert("Not yet submitted.");
-        swal({  title: 'Not yet submitted..',type: "Error",text: ""});
-
+        swal({  title: 'Not yet submitted..',type:"error",text: ""});
     }
 });
 
@@ -1601,7 +1600,7 @@ $(document).on('click','#approve-data-btn',function(){
     var approvaluser_det = JSON.parse(requester(server,"POST",{'api':'manage_approval_data','data':JSON.stringify(approval_data),'cols':JSON.stringify(approval_cols)}));
     console.log(approvaluser_det);
     swal({  title: 'Data Approved.',type: "success",text: "Saved Approvals."}).then(function() {
-        window.location.reload();
+        // window.location.reload();
     });
     // console.log(out);
 });

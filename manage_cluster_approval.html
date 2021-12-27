@@ -48,10 +48,11 @@
     var user = local_get('logged_user');
     var filter = JSON.stringify({"country":user.country, "type":"cluster_update"});
     var appros_dets = JSON.parse(requester(server,"POST",{'api':'get_approvals','filter':filter}));
-   
+
     var trs = "";
 
     $.each(appros_dets, function (k, v) {
+        // console.log(v.data);
         var stsbtn = "";
         switch (v.status) {
             case (v.status = "1"):
@@ -62,8 +63,8 @@
                 break;
             case (v.status = "3"):
             stsbtn = '<span class="text-success" data-toggle="tooltip" data-placement="top" title="by '+v.action_by+'"><i class="fas fa-thumbs-up"></i>&nbsp;Approved</span>';
-            }
-        trs += '<tr><td>'+v.initiated_by+'</td><td class="name">'+v.type+'</td> <td class="email"><button type="button" class="btn btn-outline-primary btn-sm view-data" data-toggle="modal" data-target="#exampleModal" data-loc-subject='+k+'>view Data</button></td><td>'+stsbtn+'</td></tr>';
+        }
+        trs += '<tr><td>'+v.initiated_by+'</td><td class="name">'+v.type+'</td> <td class="email"><button type="button" class="btn btn-outline-primary btn-sm view-data" data-toggle="modal" data-target="#exampleModal" data-loc-subject='+k+'>View Details</button></td><td>'+stsbtn+'</td></tr>';
     });
     var tbody = $('#clus_approval_list').find("tbody");
     tbody.append(trs);

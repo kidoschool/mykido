@@ -177,7 +177,7 @@ $(function() {
         (title.length == 0) ? err += " Title cannot be empty. " : false;
         JSON.parse(fbuilder.formData).length == 0 ? err += " No fields added. " : false;
         if(err.length){
-            alert(err);
+            swal({  title: 'Error',type:"error",text: err});
         }else{
             var due_date = $( "#due_date" ).val().substring(0,10);
             var inspect_schedule = $("#inspect_schedule").val();
@@ -229,7 +229,7 @@ $(function() {
         (title.length == 0) ? err += " Title cannot be empty. " : false;
         JSON.parse(fbuilder.formData).length == 0 ? err += " No fields added. " : false;
         if(err.length){
-            alert(err);
+            swal({  title: 'Error',type:"error",text: err});
         }else{
             var data = {'api':'save_inspect','content':fbuilder.formData,"title":title,"due_date":due_date,"submit_after_due_date":allow_after_dd,"schedule":schedule,"team":team};
             if($("#inspect_title").attr("form_id")){
@@ -978,10 +978,20 @@ $(document).on('click','#created_cluster_trs .user_list_tr',function(){
 
     $("#save_user_access").attr("uid",uid);
 
-    $.each(access_cards, function (k1, v1) {
-        // console.log();
-        $("input[name="+v1.access_name+"]").prop('checked', true);
-    });
+    // console.log($("#updateReason").length);
+
+    if(!$("#updateReason").length){
+        var updtRes = `<div class="form-group">
+                        <label for="status">Update Description</label>
+                        <input type="text" class="form-control" id="updateReason" />
+                    </div>`;
+        $("#create_new_cluster").before(updtRes);
+    }
+
+    // $.each(access_cards, function (k1, v1) {
+    //     console.log($("input[name="+v1.access_name+"]"));
+    //     $("input[name="+v1.access_name+"]").prop('checked', true);
+    // });
 
 });
 
@@ -1090,7 +1100,7 @@ $(document).on('click','#save_profile',function(){
             swal({  title: 'Submitted.',type: "success",text: "Profile Updated Succesfully."});
         }
     }else{
-        alert(err);
+        swal({  title: 'Error',type:"error",text: err});
     }
 });
 
@@ -1138,7 +1148,7 @@ $(document).on('click','#create_new_clusadmin',function(){
             });
         }
     }else{
-        alert(err);
+        swal({  title: 'Error',type:"error",text: err});
     }
 });
 
@@ -1198,7 +1208,7 @@ $(document).on('click','#create_new_user',function(){
             });
         }
     }else{
-        alert(err);
+        swal({  title: 'Error',type:"error",text: err});
     }
 });
 
@@ -1263,7 +1273,7 @@ $(document).on('click','#create_new_nursery',function(){
         }
 
     }else{
-        alert(err);
+        swal({  title: 'Error',type:"error",text: err});
     }
 });
 
@@ -1290,6 +1300,9 @@ $(document).on('click','#create_new_cluster',function(){
         name = countryTeamNames[country]+" "+$("#countryRegion").val()+" - "+name;
     }
 
+    if($("#updateReason").length){
+        $("#updateReason").val() ? true : err += " Please specify update description. " ;
+    }
 
     var timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
@@ -1302,18 +1315,16 @@ $(document).on('click','#create_new_cluster',function(){
         if($("#created_cluster_trs .user_list_tr.active").length){
             data["id"] = $("#created_cluster_trs .user_list_tr.active").attr("uid");
             cols.push("id");
+            data["update_reason"] = $("#updateReason").val();
             var approval_data = {"initiated_by":user.email,"type":"cluster_update","data":JSON.stringify({'api':'create_new_cluster','data':data,'cols':cols}),"status":1,"country":user.country,"level":1,"added_on":timestamp};
             var approval_cols = ["initiated_by","type","data","status","country","level","added_on"];
             var approvaluser_det = JSON.parse(requester(server,"POST",{'api':'manage_approval_data','data':JSON.stringify(approval_data),'cols':JSON.stringify(approval_cols)}));
             console.log(approvaluser_det);
             if(parseInt(approvaluser_det)){
-                // alert("Approval request sent..");
-                // window.location.reload();
                 swal({  title: 'Submitted.',type: "warning",text: "Approval request sent..."}).then(function() {
                     window.location.reload();
                 });
             }
-
         }else{
             // data["password"] = "123";
             // cols.push("password");
@@ -1328,7 +1339,7 @@ $(document).on('click','#create_new_cluster',function(){
             }
         }
     }else{
-        alert(err);
+        swal({  title: 'Error',type:"error",text: err});
     }
 });
 

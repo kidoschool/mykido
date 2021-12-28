@@ -937,10 +937,20 @@ $(document).on('click','#created_nursary_trs .user_list_tr',function(){
 
     $("#save_user_access").attr("uid",uid);
 
-    $.each(access_cards, function (k1, v1) {
-        // console.log();
-        $("input[name="+v1.access_name+"]").prop('checked', true);
-    });
+
+    if(!$("#updateReason").length){
+        var updtRes = `<div class="form-group">
+                        <label for="status">Update Description</label>
+                        <input type="text" class="form-control" id="updateReason" />
+                    </div>`;
+        $("#create_new_nursery").before(updtRes);
+    }
+
+
+    // $.each(access_cards, function (k1, v1) {
+    //     // console.log();
+    //     $("input[name="+v1.access_name+"]").prop('checked', true);
+    // });
 
 });
 
@@ -1236,6 +1246,9 @@ $(document).on('click','#create_new_nursery',function(){
     lat.length ? true : err += " Please select lat. " ;
     long.length ? true : err += " Please select long. " ;
 
+    if($("#updateReason").length){
+        $("#updateReason").val() ? true : err += " Please specify update description. " ;
+    }
 
     var timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
@@ -1247,7 +1260,8 @@ $(document).on('click','#create_new_nursery',function(){
         if($("#created_nursary_trs .user_list_tr.active").length){
             data["id"] = $("#created_nursary_trs .user_list_tr.active").attr("uid");
             cols.push("id");
-            var approval_data = {"initiated_by":user.email,"type":"nursery_update","data":JSON.stringify({'api':'create_new_nursery','data':data,'cols':cols}),"status":1,"country":user.country,"level":1,"added_on":timestamp};
+            // data["update_reason"] = $("#updateReason").val();
+            var approval_data = {"initiated_by":user.email,"type":"nursery_update","data":JSON.stringify({'api':'create_new_nursery','data':data,'cols':cols,"update_reason":$("#updateReason").val()}),"status":1,"country":user.country,"level":1,"added_on":timestamp};
             var approval_cols = ["initiated_by","type","data","status","country","level","added_on"];
             var approvaluser_det = JSON.parse(requester(server,"POST",{'api':'manage_approval_data','data':JSON.stringify(approval_data),'cols':JSON.stringify(approval_cols)}));
             // console.log(approvaluser_det);
@@ -1259,13 +1273,9 @@ $(document).on('click','#create_new_nursery',function(){
                 });
             }
         }else{
-            // data["password"] = "123";
-            // cols.push("password");
             var user_det = JSON.parse(requester(server,"POST",{'api':'create_new_nursery','data':JSON.stringify(data),'cols':JSON.stringify(cols)}));
             // console.log(user_det);
             if(parseInt(user_det)){
-                // alert("New Nursary Created.");
-                // window.location.reload();
                 swal({  title: 'Submitted.',type: "success",text: "New Nursary Created."}).then(function() {
                     window.location.reload();
                 });
@@ -1315,11 +1325,11 @@ $(document).on('click','#create_new_cluster',function(){
         if($("#created_cluster_trs .user_list_tr.active").length){
             data["id"] = $("#created_cluster_trs .user_list_tr.active").attr("uid");
             cols.push("id");
-            data["update_reason"] = $("#updateReason").val();
-            var approval_data = {"initiated_by":user.email,"type":"cluster_update","data":JSON.stringify({'api':'create_new_cluster','data':data,'cols':cols}),"status":1,"country":user.country,"level":1,"added_on":timestamp};
+            // data["update_reason"] = $("#updateReason").val();
+            var approval_data = {"initiated_by":user.email,"type":"cluster_update","data":JSON.stringify({'api':'create_new_cluster','data':data,'cols':cols,"update_reason": $("#updateReason").val()}),"status":1,"country":user.country,"level":1,"added_on":timestamp};
             var approval_cols = ["initiated_by","type","data","status","country","level","added_on"];
             var approvaluser_det = JSON.parse(requester(server,"POST",{'api':'manage_approval_data','data':JSON.stringify(approval_data),'cols':JSON.stringify(approval_cols)}));
-            console.log(approvaluser_det);
+            // console.log(approvaluser_det);
             if(parseInt(approvaluser_det)){
                 swal({  title: 'Submitted.',type: "warning",text: "Approval request sent..."}).then(function() {
                     window.location.reload();
@@ -1581,12 +1591,17 @@ $(document).on('change','input.form-control[type=file]',function(){
 $(document).on('click','.view-data',function(){
     var attrmethod = $(this).attr('data-loc-subject');
     var temp = appros_dets[attrmethod];
+    var obj = JSON.parse(temp.data);
+    // console.log(obj.update_reason);
     var data_html = "";
-    $.each( (JSON.parse(temp.data)).data, function (k1, v1) {
+    $.each( obj.data, function (k1, v1) {
             data_html += "<span>"+k1+"</span> : <span>"+v1+"</span><br>";
     });
+
+    if(obj.update_reason){
+        data_html += "<span>update_reason</span> : <span>"+obj.update_reason+"</span><br>";
+    }
     modelbody.empty().append(data_html);
-    // alert(attrmethod);
 });
 
 $(document).on('click','#approve-data-btn',function(){

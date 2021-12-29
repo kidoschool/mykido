@@ -194,10 +194,11 @@ $(function() {
     });
 
     $(document).on('click','#assign_users',function(){
-        var users = [];
+        var users = {};
         var form_id = $("#inspect_title").attr("form_id");
         $("#user_trs").find("input:checked").each(function() {
-            users.push($(this).val());
+            // users.push($(this).val());
+            users[$(this).val()] = $(this).closest("tr").find(".usr_email").text();
         });
         // $( ".mail_chip" ).each(function() {
         //     users.push($(this).text());
@@ -205,11 +206,13 @@ $(function() {
         // console.log(users);
         var inspects = requester(server,"POST",{'api':'assign_users','users':users,'form_id':form_id});
         if(parseInt(inspects)){
-            alert("Saved");
-            $(".modal-content button.close").trigger("click");
+            // alert("Saved");
+            swal({  title: 'Saved',type:"success",text: "Sent"}).then(function() {
+                $(".modal-content button.close").trigger("click");
+            });
             // cust_navigate("basic-table");
         }else{
-            alert("Not saved.");
+            swal({  title: 'Error',type:"error",text: "Not saved."});
         }
     });
 
@@ -347,7 +350,7 @@ function updt_usr_tbl() {
     var user_dets = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
     var trs = "";
     $.each(user_dets, function (k, v) {
-        trs += '<tr><td>'+v.name+'</td> <td>'+v.email+'</td><td usr="'+v.id+'" >No</td><td><input type="checkbox" value="'+v.id+'"></td></tr>';
+        trs += '<tr><td>'+v.name+'</td> <td class="usr_email">'+v.email+'</td><td usr="'+v.id+'" >No</td><td><input type="checkbox" value="'+v.id+'"></td></tr>';
     });
     $("#user_trs").append(trs);
     $('#user_list').DataTable();

@@ -1011,10 +1011,12 @@ $(document).on('click','#created_cluster_trs .user_list_tr',function(){
 $(document).on('click','#manula_user_trs .user_list_tr',function(){
 
     var uid = $(this).attr("uid");
+    var email = $(this).find(".email").text();
     $(".user_list_tr.active").removeClass("active");
     $(this).addClass("active");
     $("#selected_user").text($(this).find(".name").text());
     $("#selected_user").attr("user_id",uid);
+    $("#selected_user").attr("email",email);
 
     // $("#manuals input[type='" + v.value + "']").prop('checked', false);
     $('#manuals input[type=checkbox]').prop('checked', false);
@@ -1526,16 +1528,20 @@ $(document).on('click','.save_user_detail',function(){
 $(document).on('click','#save_user_manula_links',function(){
     var user_manula_links =  local_get("user_manula_links");
     var user_id = $("#selected_user").attr("user_id");
+    var user_email = $("#selected_user").attr("email");
     var errs = "";
     !(user_id) ? errs += " Please select User. " : true;
     if(!errs.length){
-        var data = {"manula_links":user_manula_links,"id":user_id};
+        var data = {"manula_links":user_manula_links,"id":user_id,"email":user_email};
         // var filter = {"id":user.id};
-        var user_det = JSON.parse(requester(server,"POST",{'api':'update_user_manula_links','data':JSON.stringify(data)}));
+        var notifi_email = (document.location.host).indexOf("localhost") !== -1 ? 0 : 1 ;
+        var user_det = JSON.parse(requester(server,"POST",{'api':'update_user_manula_links','data':JSON.stringify(data),"notify_email":notifi_email}));
         // alert(parseInt(user_det));
         if(parseInt(user_det)){
             // alert(" Links assigned. ");
             swal({ title: 'Submitted.',type: "success",text: "Links assigned."});
+        }else{
+            swal({ title: 'Error.',type: "error",text: "Something went wrong."});
         }
         // console.log(user_det);
         // var ifrm = $("#enquireModal").find("iframe").contents();

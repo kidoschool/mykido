@@ -10,7 +10,7 @@
                                 <!-- <th class="border-top-0">Status</th> -->
                                 <th class="border-top-0">Initiated By</th>
                                 <th class="border-top-0">Type</th>
-                                <th class="border-top-0">Data</th>
+                                <!-- <th class="border-top-0">Data</th> -->
                                 <th class="border-top-0">Status</th>
                             </tr>
                         </thead>
@@ -26,7 +26,7 @@
 </div>
 
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -40,7 +40,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
 <script>
 
@@ -63,7 +63,7 @@
             case (v.status = "3"):
             stsbtn = '<span class="text-success" data-toggle="tooltip" data-placement="top" title="by '+v.action_by+'"><i class="fas fa-thumbs-up"></i>&nbsp;Approved</span>';
             }
-        trs += '<tr><td>'+v.initiated_by+'</td><td class="name">'+v.type+'</td> <td class="email"><button type="button" class="btn btn-outline-primary btn-sm view-data" data-toggle="modal" data-target="#exampleModal" data-loc-subject='+k+'>view Data</button></td><td>'+stsbtn+'</td></tr>';
+        trs += '<tr><td>'+v.initiated_by+'</td><td class="name">'+v.type+'</td><td>'+stsbtn+'</td></tr>';
     });
 
     var tbody = $('#nursy_approval_list').find("tbody");

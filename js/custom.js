@@ -803,11 +803,13 @@ $(document).on('click','#user_trs .user_list_tr',function(){
     var access_cards = JSON.parse(requester(server,"POST",{'api':'get_users_access','filter':filter}));
     // console.log(access_cards);
     $(".access_cb").prop('checked', false);
+    $(".access_uname").val("");
+    $(".access_upass").val("");
 
     $("#save_user_access").attr("uid",uid);
 
     $.each(access_cards, function (k1, v1) {
-        console.log(v1);
+        // console.log(v1);
         $("tr[access_tr='"+v1.access_name+"']").find(".access_uname").val(v1.username);
         $("tr[access_tr='"+v1.access_name+"']").find(".access_upass").val(v1.password);
         $("input[name='"+v1.access_name+"']").prop('checked', true);

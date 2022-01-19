@@ -297,7 +297,7 @@ function valid_email(tstr) {
     var spcl_chrs = /[ `!#$%^&*()+\-=\[\]{};':"\\|,<>\/?~]/;
     var atToLast = (tstr.substring(tstr.indexOf("@"),tstr.length));
     if(tstr.length){
-        ((tstr.split(".").length - 1) < 1  || (tstr.split(".").length - 1) > 2 ) ? err = true : false; //---- . COUNT ONLY 1 OR 2
+        ((tstr.split(".").length - 1) < 1  || (tstr.split(".").length - 1) > 3 ) ? err = true : false; //---- . COUNT ONLY 1 OR 2 OR 3
         ((tstr.split("@").length - 1) !== 1 ) ? err = true : false;
         (tstr[0] == "@") ? err = true : false;
         (tstr[0] == ".") ? err = true : false;

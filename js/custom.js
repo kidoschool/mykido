@@ -1102,9 +1102,9 @@ $(document).on('click','#save_profile',function(){
     // var team = $(".user_team").text();
     var err = "";
 
-    valid_email(email) ? true : err += " Please privde valid email. " ;
-    name.length ? true : err += " Please privde valid name. " ;
-    pass.length > 2 ? true : err += " Please privde password. " ;
+    valid_email(email) ? true : err += " Please provide valid email. " ;
+    name.length ? true : err += " Please provide valid name. " ;
+    pass.length > 2 ? true : err += " Please provide password. " ;
 
     if(!err.length){
         var data = JSON.stringify({"id":user.id,"name":name,"email":email,"password":pass});
@@ -1131,11 +1131,11 @@ $(document).on('click','#create_new_clusadmin',function(){
     var status = $("#status").val();
     var err = "";
 
-    valid_email(email) ? true : err += " Please privde valid email. " ;
-    name.length ? true : err += " Please privde valid name. " ;
-    // password.length > 2 ? true : err += " Please privde password. " ;
+    valid_email(email) ? true : err += " please provide valid email. " ;
+    name.length ? true : err += " please provide valid name. " ;
+    // password.length > 2 ? true : err += " please provide password. " ;
     country.length ? true : err += " Please select country. " ;
-    level.length ? true : err += " Please privde level. " ;
+    level.length ? true : err += " please provide level. " ;
     status.length ? true : err += " Please select status. " ;
 
     if(!err.length){
@@ -1189,11 +1189,11 @@ $(document).on('click','#create_new_user',function(){
         }
     });
 
-    valid_email(email) ? true : err += " Please privde valid email. " ;
-    name.length ? true : err += " Please privde valid name. " ;
-    // nursery_name.length > 2 ? true : err += " Please privde nursery_name. " ;
+    valid_email(email) ? true : err += " please provide valid email. " ;
+    name.length ? true : err += " please provide valid name. " ;
+    // nursery_name.length > 2 ? true : err += " please provide nursery_name. " ;
     country.length ? true : err += " Please select country. " ;
-    level.length ? true : err += " Please privde level. " ;
+    level.length ? true : err += " please provide level. " ;
     status.length ? true : err += " Please select status. " ;
     nursery_ids.length ? true : err += " Please select atleast one nursery"
 
@@ -1241,12 +1241,12 @@ $(document).on('click','#create_new_nursery',function(){
     var long = $("#long").val();
     var err = "";
 
-    // valid_email(email) ? true : err += " Please privde valid email. " ;
-    name.length ? true : err += " Please privde valid name. " ;
+    // valid_email(email) ? true : err += " please provide valid email. " ;
+    name.length ? true : err += " please provide valid name. " ;
     cluster.length ? true : err += " Please select cluster. " ;
-    // state.length > 2 ? true : err += " Please privde state. " ;
-    // city.length ? true : err += " Please privde city. " ;
-    pincode.length ? true : err += " Please privde pincode. " ;
+    // state.length > 2 ? true : err += " please provide state. " ;
+    // city.length ? true : err += " please provide city. " ;
+    pincode.length ? true : err += " please provide pincode. " ;
     status.length ? true : err += " Please select status. " ;
     lat.length ? true : err += " Please select lat. " ;
     long.length ? true : err += " Please select long. " ;
@@ -1303,11 +1303,11 @@ $(document).on('click','#create_new_cluster',function(){
     var region = $("#countryRegion").val() || null;
     var err = "";
 
-    // valid_email(email) ? true : err += " Please privde valid email. " ;
-    name.length ? true : err += " Please privde valid name. " ;
-    country.length ? true : err += " Please privde valid country. " ;
-    state.length ? true : err += " Please privde state. " ;
-    city.length ? true : err += " Please privde city. " ;
+    // valid_email(email) ? true : err += " please provide valid email. " ;
+    name.length ? true : err += " please provide valid name. " ;
+    country.length ? true : err += " please provide valid country. " ;
+    state.length ? true : err += " please provide state. " ;
+    city.length ? true : err += " please provide city. " ;
     status.length ? true : err += " Please select status. " ;
 
     if($("#countryRegion").length){

@@ -1569,7 +1569,16 @@ $(document).on('change','input.form-control[type=file]',function(){
     // console.log(elem[0].files.length);
     var upld = $("<span></span>");
     elem.after(upld);
+    var err_flag = 0;
+    var valid_ext = ['jpg', 'jpeg', 'bmp', 'gif', 'png', 'svg', 'pdf', 'doc', 'docx', 'xls', 'xlsx'];
+    for (let i = 0; i < elem[0].files.length; i++) {
+        var fil = elem[0].files[i];
+        var ext = fil.name.split('.').pop();
+        console.log(ext);
+        (valid_ext.indexOf(ext) == -1) ? err_flag = 1 : true;
+    }
 
+    if(err_flag == 0){
     for (let i = 0; i < elem[0].files.length; i++) {
         var fil = elem[0].files[i];
         // console.log(fil);
@@ -1595,6 +1604,10 @@ $(document).on('change','input.form-control[type=file]',function(){
             }
         };
         $.ajax(settings);
+    }
+    }else{
+        swal({ title: 'Invalid File.',type: "error",text: "Invalid file extention."});
+        // upld.empty();
     }
 });
 

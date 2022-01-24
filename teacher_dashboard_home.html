@@ -1,0 +1,83 @@
+<div class="page-wrapper">
+    <div class="page-breadcrumb bg-white">
+        <div class="row align-items-center">
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="page-title">Dashboard</h4>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-lg-4 col-md-12">
+                <div class="white-box analytics-info">
+                    <span class="navigate" link="user_inspection" >
+                        <h3>My Inspections</h3>
+                    </span>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="white-box analytics-info">
+                    <span class="navigate" link="user_manula_links" >
+                        <h3>Lesson Plans</h3>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row justify-content-center" id="access_list">
+
+            <div class="col-lg-4 col-md-12 access_card">
+                <div class="white-box analytics-info">
+                    <a href="http://gmail.com" target="_blank" rel="noopener noreferrer" class="access_link">
+                        <h3 class="box-title">
+                            <img src="images/gm_logo.png" alt="user-img" width="36" class="access_logo">&emsp;
+                             <span class="access_name">Gmail</span>
+                        </h3>
+                    </a>
+                    <span class="access_desc">Test</span>
+                </div>
+            </div>
+
+
+        </div>
+        
+    </div>
+ 
+</div>
+
+<script>
+
+    var access_card = $('.access_card:first');
+    $('#access_list').empty();
+
+    var user =  local_get("logged_user");
+
+    // console.log(user);
+    var filter = JSON.stringify({"user_id":user.id});
+    var access_cards = JSON.parse(requester(server,"POST",{'api':'get_users_access','filter':filter}));
+
+    var access_portals_list_by_name = {};
+
+    $.each(access_portals_list, function (k, i) {
+        access_portals_list_by_name[i.name] = i ;
+    });
+
+    var ignored_access = ["Manula"];
+
+    $.each(access_cards, function (k, i) {
+        // var v = i[Object.keys(i)[0]];var img_bw = "";
+        if(ignored_access.indexOf(i.access_name) == -1){
+            // console.log(i);
+            var access  = access_card.clone();
+            access.find('.access_logo').attr("src",access_portals_list_by_name[i.access_name]["logo"]);
+            access.find('.access_name').text(i.access_name);
+            access.find('.access_link').attr("href",i.link);
+            access.find('.access_desc').text(access_portals_list_by_name[i.access_name]["desc"]);
+            $('#access_list').append(access);
+        }
+    });
+
+</script>

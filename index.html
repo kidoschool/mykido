@@ -98,14 +98,14 @@
             if(user_det[0]){
                 local_set("logged_user",user_det[0]);
                 if(parseInt(user_det[0]["level"]) == 2){
-                    window.location = "dashboard.html";
+                    window.location = "country_admin.html";
                 }else if(parseInt(user_det[0]["level"]) == 3){
                     var usr = user_det[0];
                     usr["clutrs"] = JSON.parse(requester(server,"POST",{'api':'get_cluster','filter':JSON.stringify({"user_id":user_det[0]["id"]})}));
                     local_set("logged_user",usr);
                     window.location = "cluster_admin.html";
                 }else if(parseInt(user_det[0]["level"]) == 4){
-                    window.location = "user_dashboard.html";
+                    window.location = "teacher_dashboard.html";
                 }else if(parseInt(user_det[0]["level"]) == 1){
                     window.location = "kido_admin.html";
                 }else if(parseInt(user_det[0]["level"]) == 5){

@@ -91,15 +91,8 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <!-- User Profile-->
-                        <!-- <li class="sidebar-item pt-2">
-                            <span class="sidebar-link waves-effect waves-dark sidebar-link navigate" link="user_inspection"
-                                aria-expanded="false">
-                                <i class="far fa-clock" aria-hidden="true"></i>
-                                <span class="hide-menu">My Inspections</span>
-                            </span>
-                        </li> -->
                         <li class="sidebar-item">
-                            <span class="sidebar-link waves-effect waves-dark sidebar-link navigate" link="user_access"
+                            <span class="sidebar-link waves-effect waves-dark sidebar-link navigate" link="teacher_dashboard_home"
                                 aria-expanded="false">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                                 <span class="hide-menu">Dashboard</span>
@@ -112,41 +105,6 @@
                                 <span class="hide-menu">Profile</span>
                             </span>
                         </li>
-                        <!-- <li class="sidebar-item">
-                            <span class="sidebar-link waves-effect waves-dark sidebar-link navigate" link="user_manula_links"
-                                aria-expanded="false">
-                                <i class="fa fa-user" aria-hidden="true"></i>
-                                <span class="hide-menu">Manula Links</span>
-                            </span>
-                        </li> -->
-                        <!-- <li class="sidebar-item">
-                            <span class="sidebar-link waves-effect waves-dark sidebar-link navigate" link="basic-table"
-                                aria-expanded="false">
-                                <i class="fa fa-table" aria-hidden="true"></i>
-                                <span class="hide-menu">All Inspections</span>
-                            </span>
-                        </li> -->
-                        <!-- <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="fontawesome.html"
-                                aria-expanded="false">
-                                <i class="fa fa-font" aria-hidden="true"></i>
-                                <span class="hide-menu">Icon</span>
-                            </a>
-                        </li> -->
-                        <!-- <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="map-google.html"
-                                aria-expanded="false">
-                                <i class="fa fa-globe" aria-hidden="true"></i>
-                                <span class="hide-menu">Google Map</span>
-                            </a>
-                        </li> -->
-                        <!-- <li class="sidebar-item">
-                            <span class="sidebar-link waves-effect waves-dark sidebar-link navigate" link="blank"
-                                aria-expanded="false">
-                                <i class="fa fa-columns" aria-hidden="true"></i>
-                                <span class="hide-menu">New Inspection</span>
-                            </span>
-                        </li> -->
                     </ul>
                 </nav>
             </div>
@@ -192,7 +150,7 @@
                 // navto('item');
                 var link = (document.location.hash).replace(/#/g,"");
                 console.log((link != ""));
-                (link != "") ? cust_navigate(link) : cust_navigate("user_access");
+                (link != "") ? cust_navigate(link) : cust_navigate("teacher_dashboard_home");
                 // navto('home');
                 // function playAudio() {
                 // }

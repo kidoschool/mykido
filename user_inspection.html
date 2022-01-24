@@ -69,7 +69,9 @@
         </div>
     </div> -->
 
-    <footer class="footer text-center"> 2021 © Ample Admin brought to you by </footer>
+    <footer class="footer text-center"> 2022 © Kido | All rights reserved <a
+        href="https://kido.school/en/">Kido School</a>
+    </footer>
     <!-- ============================================================== -->
     <!-- End footer -->
     <!-- ============================================================== -->
@@ -90,8 +92,10 @@
         var i = 1;
         var trs = "";
         $.each(inspects, function (k, v) {
-            trs += '<tr><td>'+i+'</td> <td>'+v.title+'</td> <td>'+v.added_on+'</td> <td>'+statuses[v.status]+'</td><td> <a href="#user_form" onclick="function hi(){form_id='+v.id+'};hi()" >  view </a></td> </tr>';
-            i++;
+            if(v.status == 1 || v.status == 2){
+                trs += '<tr><td>'+i+'</td> <td>'+v.title+'</td> <td>'+v.added_on+'</td> <td>'+statuses[v.status]+'</td><td> <a href="#user_form" onclick="function hi(){form_id='+v.id+'};hi()" >  view </a></td> </tr>';
+                i++;
+            }
         });
         $("#inspect_trs").append(trs);
     }

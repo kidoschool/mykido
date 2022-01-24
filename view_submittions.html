@@ -13,7 +13,7 @@
                             <tr>
                                 <th class="border-top-0">User</th>
                                 <th class="border-top-0">Email</th>
-                                <th class="border-top-0">Team</th>
+                                <!-- <th class="border-top-0">Team</th> -->
                                 <!-- <th class="border-top-0">Sent Before</th>
                                 <th class="border-top-0">Select All</th> -->
                             </tr>
@@ -44,25 +44,62 @@
 
 // submitted_users
 // updt_usr_list_tbl("user_list");
-    var submitted_users = [];
-    var tabl_id = "user_list";
-    $.each(local_get("submitted_users"), function (k, v) {
-        submitted_users.push(v.user_id);
-    });
-    var filter = JSON.stringify({"id":submitted_users});
-    // var filter = local_get("logged_user");
-    var inspects = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
-    $("#user_trs").empty();
-    var trs = "";
-    $.each(inspects, function (k, v) {
-        // trs += '<tr><td>'+v.name+'</td> <td>'+v.email+'</td><td usr="'+v.email+'" >No</td><td><input type="checkbox" value="'+v.email+'"></td></tr>';
-        var team = (v.team).replaceAll("-"," ");
-        trs += '<tr uid="'+v.id+'" class="user_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+v.email+'</td><td>'+team+'</td></tr>';
-        // trs += '<tr class="user_list_tr"><td>'+v.name+'</td> <td>'+v.email+'</td></tr>';
-    });
-    var tbody = $('#'+tabl_id).find("tbody");
-    tbody.append(trs);
-    $('#'+tabl_id).DataTable();
+    // var submitted_users = [];
+    // var tabl_id = "user_list";
+    // $.each(local_get("submitted_users"), function (k, v) {
+    //     submitted_users.push(v.user_id);
+    // });
+    // var filter = JSON.stringify({"id":submitted_users});
+    // // var filter = local_get("logged_user");
+    // var inspects = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
+    // $("#user_trs").empty();
+    // var trs = "";
+    // $.each(inspects, function (k, v) {
+    //     // trs += '<tr><td>'+v.name+'</td> <td>'+v.email+'</td><td usr="'+v.email+'" >No</td><td><input type="checkbox" value="'+v.email+'"></td></tr>';
+    //     var team = (v.team).replaceAll("-"," ");
+    //     trs += '<tr uid="'+v.id+'" class="user_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+v.email+'</td><td>'+team+'</td></tr>';
+    //     // trs += '<tr class="user_list_tr"><td>'+v.name+'</td> <td>'+v.email+'</td></tr>';
+    // });
+    // var tbody = $('#'+tabl_id).find("tbody");
+    // tbody.append(trs);
+    // $('#'+tabl_id).DataTable();
+
+        var user = local_get("logged_user");
+        var clusters = user.clutrs;
+
+        var clus_ids = [];
+        $.each(clusters, function (k, v) {
+            clus_ids.push(v["cluster_id"]);
+        });
+        $("#team").val(user.team);
+
+        var filter = JSON.stringify({"cluster_id":clus_ids});
+        var nurseries = JSON.parse(requester(server,"POST",{'api':'get_nursery','filter':filter}));
+        var nurs = "";
+        var nrsry_ids = [];
+        $.each(nurseries, function (k, v) {
+            nurs += "<li> <input type='checkbox' class='nursery_checked' value='"+v.id+"'>  "+v.name+"</li>";
+            nrsry_ids.push(v.id);
+        });
+        $("#nurs_list").append(nurs);
+
+        var filter = JSON.stringify({"nursery_id":nrsry_ids});
+        var user_nurs = JSON.parse(requester(server,"POST",{'api':'get_user_nursery','filter':filter}));
+        var user_ids = [];
+        $.each(user_nurs, function (k, v) {
+            user_ids.push(v.user_id);
+        });
+
+        var filter = JSON.stringify({"id":user_ids});
+        var user_dets = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
+        var trs = "";
+        $.each(user_dets, function (k, v) {
+            trs += '<tr uid="'+v.id+'" class="user_list_tr"><td class="name">'+v.name+'</td> <td class="email">'+v.email+'</td></tr>';
+        });
+        $('#user_list').find("tbody").append(trs);
+        $('#user_list').DataTable();
+
+
 
 
 //------------------------------------- EDIT FORM / NEW FORM ----------------------------------

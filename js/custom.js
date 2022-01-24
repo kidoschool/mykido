@@ -1058,6 +1058,9 @@ $(document).on('click','#user_submission_trs .user_list_tr',function(){
     date_selector += "</select>";
     user_submitted = inspects;
 
+    $("#selected_date").remove();
+    $("#user_sub_dates").remove();
+
     if(sub_prev){
         var subs = JSON.parse(inspects[last_sub_dt]['submission']);
         $('#form_div').empty();
@@ -1073,8 +1076,6 @@ $(document).on('click','#user_submission_trs .user_list_tr',function(){
                 $("#"+v.name).remove();
             }
         });
-        $("#selected_date").remove();
-        $("#user_sub_dates").remove();
 
         $('#form_div').before(date_selector);
         $('#form_div').before("<span id='selected_date'>&emsp;&emsp;Submitted on : "+last_sub_dt+"</span>");

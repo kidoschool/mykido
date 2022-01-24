@@ -90,7 +90,7 @@
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="sidebar-item pt-2">
-                            <span class="sidebar-link waves-effect waves-dark sidebar-link navigate" link="home"
+                            <span class="sidebar-link waves-effect waves-dark sidebar-link navigate" link="kido_admin_home"
                                 aria-expanded="false">
                                 <i class="far fa-clock" aria-hidden="true"></i>
                                 <span class="hide-menu">Dashboard</span>
@@ -103,41 +103,6 @@
                                 <span class="hide-menu">Profile</span>
                             </span>
                         </li>
-                        <!-- <li class="sidebar-item">
-                            <span class="sidebar-link waves-effect waves-dark sidebar-link navigate" link="basic-table"
-                                aria-expanded="false">
-                                <i class="fa fa-table" aria-hidden="true"></i>
-                                <span class="hide-menu">All Inspections</span>
-                            </span>
-                        </li> -->
-                        <!-- <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="fontawesome.html"
-                                aria-expanded="false">
-                                <i class="fa fa-font" aria-hidden="true"></i>
-                                <span class="hide-menu">Icon</span>
-                            </a>
-                        </li> -->
-                        <!-- <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="map-google.html"
-                                aria-expanded="false">
-                                <i class="fa fa-globe" aria-hidden="true"></i>
-                                <span class="hide-menu">Google Map</span>
-                            </a>
-                        </li> -->
-                        <!-- <li class="sidebar-item">
-                            <span class="sidebar-link waves-effect waves-dark sidebar-link navigate" link="blank"
-                                aria-expanded="false">
-                                <i class="fas fa-plus-circle" aria-hidden="true"></i>
-                                <span class="hide-menu">New Inspection</span>
-                            </span>
-                        </li> -->
-                        <!-- <li class="sidebar-item">
-                            <span class="sidebar-link waves-effect waves-dark sidebar-link navigate" link="not-found"
-                                aria-expanded="false">
-                                <i class=" far fa-calendar-alt" aria-hidden="true"></i>
-                                <span class="hide-menu">Schedule Inspection</span>
-                            </span>
-                        </li> -->
                         <li class="sidebar-item">
                             <span class="sidebar-link waves-effect waves-dark sidebar-link navigate" link="manage_cluster_approval"
                                 aria-expanded="false">
@@ -145,52 +110,6 @@
                                 <span class="hide-menu">Manage Approvals</span>
                             </span>
                         </li>
-
-                        <!-- <li class="sidebar-item">
-                            <span class="sidebar-link waves-effect waves-dark sidebar-link navigate" link="create_clus_user"
-                                aria-expanded="false">
-                                <i class="fas fa-plus-circle" aria-hidden="true"></i>
-                                <span class="hide-menu">Create / Update User</span>
-                            </span>
-                        </li>
-
-
-                        <li class="sidebar-item">
-                            <span class="sidebar-link waves-effect waves-dark sidebar-link navigate" link="admin_manula_links"
-                                aria-expanded="false">
-                                <i class="fas fa-paperclip"></i>
-                                <span class="hide-menu">User Manula Links</span>
-                            </span>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <span class="sidebar-link waves-effect waves-dark sidebar-link navigate" link="manage_nursery"
-                                aria-expanded="false">
-                                <i class=" fas fa-plus-circle" aria-hidden="true"></i>
-                                <span class="hide-menu">Create / Update Nursery</span>
-                            </span>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <span class="sidebar-link waves-effect waves-dark sidebar-link navigate" link="nursery_assign"
-                                aria-expanded="false">
-                                <i class="fas fa-tasks"></i>
-                                <span class="hide-menu">Manage Nursery Access</span>
-                            </span>
-                        </li> -->
-
-                        <!-- <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="404.html"
-                                aria-expanded="false">
-                                <i class="fa fa-info-circle" aria-hidden="true"></i>
-                                <span class="hide-menu">Error 404</span>
-                            </a>
-                        </li> -->
-                        <!-- <li class="text-center p-20 upgrade-btn">
-                            <a href="https://www.wrappixel.com/templates/ampleadmin/"
-                                class="btn d-grid btn-danger text-white" target="_blank">
-                                Upgrade to Pro</a>
-                        </li> -->
                     </ul>
                 </nav>
             </div>
@@ -231,7 +150,7 @@
     gapi.load('auth2', initSigninV2);
     $(document).ready(function() {
         var link = (document.location.hash).replace(/#/g,"");
-        (link != "") ? cust_navigate(link) : cust_navigate("home");
+        (link != "") ? cust_navigate(link) : cust_navigate("kido_admin_home");
     });
     </script>
 

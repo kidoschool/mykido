@@ -12684,7 +12684,17 @@ html[dir=ltr] body .p-l-0 {
 .white-box {
     background: #fff;
     padding: 25px;
-    margin-bottom: 30px
+    margin-bottom: 30px;
+    border-radius: 10px;
+}
+
+.country-admin-home-box{
+    height: 90%;
+}
+
+.btn-outline-info{
+    border-color: #405a64;
+    color: #405a64;
 }
 
 .white-box .box-title {

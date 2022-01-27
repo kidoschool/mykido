@@ -256,6 +256,13 @@ $(function() {
 
 });
 
+function logou_btn() {
+    // e.preventDefault();
+    localStorage.clear();
+    window.location.href = "/mykido/";
+    // console.log("test");
+}
+
 function format_date(dt_obj) {
     var month = '' + (dt_obj.getMonth() + 1),
         day = '' + dt_obj.getDate(),

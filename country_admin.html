@@ -20,7 +20,7 @@
     <link href="plugins/bower_components/chartist/dist/chartist.min.css" rel="stylesheet">
     <link rel="stylesheet" href="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css">
     <!-- Custom CSS -->
-    <script src="https://apis.google.com/js/platform.js"  ></script>
+    <!-- <script src="https://apis.google.com/js/platform.js"  ></script> -->
     <link href="css/style.min.css" rel="stylesheet">
     <link href="css/sweetalert2.min.css" rel="stylesheet">
     <link href="css/jquery.dataTables.min.css" rel="stylesheet">
@@ -178,40 +178,24 @@
     //     gapi.load('auth2', initSigninV2);
     // };
 
-    var initSigninV2 = function() {
-        auth2 = gapi.auth2.init({
-            client_id: '370065775488-fsei8ulmvihhrutk3d77a97d3765gcft.apps.googleusercontent.com',
-            scope: 'profile'
-        }).then(function () {
-            var auth3 = gapi.auth2.getAuthInstance();
-            console.log(auth3.isSignedIn.get());
-            setInterval(function(){
-                // console.log(auth3.isSignedIn.get()); 
-                var user = local_get("logged_user");
-                if(!auth3.isSignedIn.get() && !user){
-                    window.location = "./";
-                }
-            }, 1000);
-        });
-        
-        // auth2 = gapi.auth2.getAuthInstance();
-        // if(!auth2.isSignedIn.get()){
-        //     setInterval(function(){
-        //         console.log(auth2.isSignedIn.get()); 
-        //         if(!auth2.isSignedIn.get()){
-        //             // window.location = "./";
-        //         }
-        //     }, 1000);
-        // }
-        // $(document).on('click','#logout_btn',function(){
-        //     console.log("test----");
-        //     auth2.signOut().then(function () {
-        //         auth2.disconnect();
-        //     });
-        // });
-    }
+    // var initSigninV2 = function() {
+    //     auth2 = gapi.auth2.init({
+    //         client_id: '370065775488-fsei8ulmvihhrutk3d77a97d3765gcft.apps.googleusercontent.com',
+    //         scope: 'profile'
+    //     }).then(function () {
+    //         var auth3 = gapi.auth2.getAuthInstance();
+    //         console.log(auth3.isSignedIn.get());
+    //         setInterval(function(){
+    //             // console.log(auth3.isSignedIn.get()); 
+    //             var user = local_get("logged_user");
+    //             if(!auth3.isSignedIn.get() && !user){
+    //                 window.location = "./";
+    //             }
+    //         }, 1000);
+    //     });        
+    // }
     // appStart();
-    gapi.load('auth2', initSigninV2);
+    // gapi.load('auth2', initSigninV2);
     // function signOut() {
         // var auth2 = gapi.auth2.getAuthInstance();
         // console.log(auth2);

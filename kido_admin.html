@@ -16,7 +16,7 @@
     <link href="plugins/bower_components/chartist/dist/chartist.min.css" rel="stylesheet">
     <link rel="stylesheet" href="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css">
     <!-- Custom CSS -->
-    <script src="https://apis.google.com/js/platform.js"  ></script>
+    <!-- <script src="https://apis.google.com/js/platform.js"  ></script> -->
     <link href="css/style.min.css" rel="stylesheet">
     <link href="css/sweetalert2.min.css" rel="stylesheet">
     <link href="css/jquery.dataTables.min.css" rel="stylesheet">
@@ -131,23 +131,23 @@
 
 
     <script>
-    var initSigninV2 = function() {
-        auth2 = gapi.auth2.init({
-            client_id: '370065775488-fsei8ulmvihhrutk3d77a97d3765gcft.apps.googleusercontent.com',
-            scope: 'profile'
-        }).then(function () {
-            var auth3 = gapi.auth2.getAuthInstance();
-            console.log(auth3.isSignedIn.get());
-            setInterval(function(){
-                // console.log(auth3.isSignedIn.get()); 
-                var user = local_get("logged_user");
-                if(!auth3.isSignedIn.get() && !user){
-                    window.location = "./";
-                }
-            }, 1000);
-        });
-    }
-    gapi.load('auth2', initSigninV2);
+    // var initSigninV2 = function() {
+    //     auth2 = gapi.auth2.init({
+    //         client_id: '370065775488-fsei8ulmvihhrutk3d77a97d3765gcft.apps.googleusercontent.com',
+    //         scope: 'profile'
+    //     }).then(function () {
+    //         var auth3 = gapi.auth2.getAuthInstance();
+    //         console.log(auth3.isSignedIn.get());
+    //         setInterval(function(){
+    //             // console.log(auth3.isSignedIn.get()); 
+    //             var user = local_get("logged_user");
+    //             if(!auth3.isSignedIn.get() && !user){
+    //                 window.location = "./";
+    //             }
+    //         }, 1000);
+    //     });
+    // }
+    // gapi.load('auth2', initSigninV2);
     $(document).ready(function() {
         var link = (document.location.hash).replace(/#/g,"");
         (link != "") ? cust_navigate(link) : cust_navigate("kido_admin_home");

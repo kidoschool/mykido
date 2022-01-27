@@ -12688,13 +12688,18 @@ html[dir=ltr] body .p-l-0 {
     border-radius: 10px;
 }
 
-.country-admin-home-box{
-    height: 90%;
+/* .country-admin-home-box{
+    height: 80%;
+} */
+a.close-model-btn{
+    font-size: 20px;
+    color: #405a64;
 }
 
 .btn-outline-info{
     border-color: #405a64;
     color: #405a64;
+    /* float: right; */
 }
 
 .white-box .box-title {

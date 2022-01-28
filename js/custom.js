@@ -115,7 +115,7 @@ var access_portals_list = [
     },
     {
         "name": "KidovillageBOT",
-        "link": "https://kidovillage.gyde.ai/user/login/login",
+        "link": "https://kidovillage.gyde.ai/#/login",
         "logo": "images/kv.png",
         "desc": "Login to complete child assessments and view reports.",
     },

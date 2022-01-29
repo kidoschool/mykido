@@ -115,7 +115,7 @@ var access_portals_list = [
     },
     {
         "name": "KidovillageBOT",
-        "link": "https://kidovillage.gyde.ai/user/login/login",
+        "link": "https://kidovillage.gyde.ai/#/login",
         "logo": "images/kv.png",
         "desc": "Login to complete child assessments and view reports.",
     },
@@ -255,6 +255,13 @@ $(function() {
     });
 
 });
+
+function logou_btn() {
+    // e.preventDefault();
+    localStorage.clear();
+    window.location.href = "/mykido/";
+    // console.log("test");
+}
 
 function format_date(dt_obj) {
     var month = '' + (dt_obj.getMonth() + 1),

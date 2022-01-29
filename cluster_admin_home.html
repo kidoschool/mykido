@@ -39,7 +39,7 @@
                                 <i class="fas fa-chalkboard-teacher fa-3x text-success mt-3"></i>
                             </div>
                         </li>
-                        <li class="ms-auto"><span class="counter text-success">13</span></li>
+                        <li class="ms-auto"><span class="counter text-success" id="teacher-cnt"></span></li>
                     </ul>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                                 <i class="fas fa-school fa-3x text-primary mt-3"></i>
                             </div>
                         </li>
-                        <li class="ms-auto"><span class="counter text-purple">5</span></li>
+                        <li class="ms-auto"><span class="counter text-purple" id="nurseries-cnt"></span></li>
                     </ul>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                                 <i class="fas fa-search fa-3x text-info mt-3"></i>
                             </div>
                         </li>
-                        <li class="ms-auto"><span class="counter text-info">15</span>
+                        <li class="ms-auto"><span class="counter text-info" id="inspections-cnt"></span>
                         </li>
                     </ul>
                 </div>
@@ -226,3 +226,29 @@
 <script src="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
 <script src="js/pages/dashboards/dashboard1.js"></script>
 
+<script>
+var form = new FormData();
+form.append("api", "cluster_admin_analytics");
+var cluster_data = local_get('logged_user');
+var cluster_id  = cluster_data.clutrs[0].cluster_id;
+// console.log(cluster_id);
+form.append("cluster_id", cluster_id);
+
+var settings = {
+  "url": server,
+  "method": "POST",
+  "timeout": 0,
+  "processData": false,
+  "mimeType": "multipart/form-data",
+  "contentType": false,
+  "data": form
+};
+
+$.ajax(settings).done(function (response) {
+  var resp = JSON.parse(response);
+  console.log(resp[0]);
+  $("#teacher-cnt").text(resp[0].users);
+  $("#nurseries-cnt").text(resp[0].nurseries);
+  $("#inspections-cnt").text(resp[0].inspections);
+});
+</script>

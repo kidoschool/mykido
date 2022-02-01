@@ -38,15 +38,15 @@
                     <div class="total-cnt-count">
                         <div class="total-clus-count d-flex justify-content-between mb-2">
                             <h4 class="text-primary">Total Cluster</h4>
-                            <h6>05</h6>
+                            <h6 id="north-total-cluster"></h6>
                         </div>
                         <div class="total-clus-count d-flex justify-content-between mb-2">
                             <h4 class="text-danger">Total Nurseries</h4>
-                            <h6>25</h6>
+                            <h6 id="north-total-nurseries"></h6>
                         </div>
                         <div class="total-clus-count d-flex justify-content-between mb-2">
                             <h4 class="text-success">Total Teachers</h4>
-                            <h6>80</h6>
+                            <h6 id="north-total-teachers"></h6>
                         </div>
                     </div>
                     <div class="show-more-btn mt-3 text-center">
@@ -111,15 +111,15 @@
                     <div class="total-cnt-count">
                         <div class="total-clus-count d-flex justify-content-between mb-2">
                             <h4 class="text-primary">Total Cluster</h4>
-                            <h6>03</h6>
+                            <h6 id="east-total-cluster"></h6>
                         </div>
                         <div class="total-clus-count d-flex justify-content-between mb-2">
                             <h4 class="text-danger">Total Nurseries</h4>
-                            <h6>15</h6>
+                            <h6 id="east-total-nurseries"></h6>
                         </div>
                         <div class="total-clus-count d-flex justify-content-between mb-2">
                             <h4 class="text-success">Total Teachers</h4>
-                            <h6>50</h6>
+                            <h6 id="east-total-teachers"></h6>
                         </div>
                     </div>
                     <div class="show-more-btn mt-3 text-center">
@@ -175,15 +175,15 @@
                     <div class="total-cnt-count">
                         <div class="total-clus-count d-flex justify-content-between mb-2">
                             <h4 class="text-primary">Total Cluster</h4>
-                            <h6>04</h6>
+                            <h6 id="west-total-cluster"></h6>
                         </div>
                         <div class="total-clus-count d-flex justify-content-between mb-2">
                             <h4 class="text-danger">Total Nurseries</h4>
-                            <h6>20</h6>
+                            <h6 id="west-total-nurseries"></h6>
                         </div>
                         <div class="total-clus-count d-flex justify-content-between mb-2">
                             <h4 class="text-success">Total Teachers</h4>
-                            <h6>65</h6>
+                            <h6 id="west-total-teachers"></h6>
                         </div>
                     </div>
                     <div class="show-more-btn mt-3 text-center">
@@ -247,15 +247,15 @@
                     <div class="total-cnt-count">
                         <div class="total-clus-count d-flex justify-content-between mb-2">
                             <h4 class="text-primary">Total Cluster</h4>
-                            <h6>02</h6>
+                            <h6 id="south-total-cluster"></h6>
                         </div>
                         <div class="total-clus-count d-flex justify-content-between mb-2">
                             <h4 class="text-danger">Total Nurseries</h4>
-                            <h6>10</h6>
+                            <h6 id="south-total-nurseries"></h6>
                         </div>
                         <div class="total-clus-count d-flex justify-content-between mb-2">
                             <h4 class="text-success">Total Teachers</h4>
-                            <h6>35</h6>
+                            <h6 id="south-total-teachers"></h6>
                         </div>
                     </div>
                     <div class="show-more-btn mt-3 text-center">
@@ -296,7 +296,7 @@
         <!-- ============================================================== -->
         <div class="row">
             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                <div class="white-box">
+                <div class="white-box shadow">
                     <h3 class="box-title">Inspections Status</h3>
                     <div class="d-md-flex">
                         <ul class="list-inline d-flex ms-auto">
@@ -330,10 +330,6 @@
     <!-- ============================================================== -->
 </div>
 
-<script src="plugins/bower_components/chartist/dist/chartist.min.js"></script>
-<script src="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-<script src="js/pages/dashboards/dashboard1.js"></script>
-
 <script>
     var form = new FormData();
     form.append("api", "country_admin_analytics");
@@ -352,7 +348,63 @@
 
     $.ajax(settings).done(function (response) {
         var resp = JSON.parse(response);
-        console.log(resp[0]);
+        var reg_obj = {};
+        var nurs_obj = {};
+        var usr_obj = {};
+        console.log(resp);
+        $.each( resp, function (k1, v1) {
+
+            !reg_obj[v1.region] ?  reg_obj[v1.region] = {} : true;
+            !nurs_obj[v1.region] ?  nurs_obj[v1.region] = {} : true;
+            !usr_obj[v1.region] ?  usr_obj[v1.region] = 0 : true;
+
+            !reg_obj[v1.region][v1.Cluster] ?  reg_obj[v1.region][v1.Cluster] = {} : true;
+
+            if(v1.Nursery){
+                var nurs = v1.region+v1.Cluster+v1.Nursery;
+                !nurs_obj[v1.region][nurs] ? nurs_obj[v1.region][nurs] = 0 : true;
+                nurs_obj[v1.region][nurs]++;
+            }
+
+            if(v1.user_id){
+                usr_obj[v1.region]++;
+            }
+
+        });
+        
+        var obj_fin = {};
+        $.each( reg_obj, function (k1, v1) {
+
+            !obj_fin[k1] ? obj_fin[k1] = {} : true;
+            obj_fin[k1]["Cluster"] = Object.keys(reg_obj[k1]).length;
+            obj_fin[k1]["Nurseries"] = Object.keys(nurs_obj[k1]).length;
+            obj_fin[k1]["Users"] = usr_obj[k1];
+
+        });
+
+        console.log(obj_fin);
+        $("#north-total-cluster").text(obj_fin.North.Cluster);
+        $("#north-total-nurseries").text(obj_fin.North.Nurseries);
+        $("#north-total-teachers").text(obj_fin.North.Users);
+
+        $("#east-total-cluster").text(obj_fin.East.Cluster);
+        $("#east-total-nurseries").text(obj_fin.East.Nurseries);
+        $("#east-total-teachers").text(obj_fin.East.Users);
+
+        $("#west-total-cluster").text(obj_fin.West.Cluster);
+        $("#west-total-nurseries").text(obj_fin.West.Nurseries);
+        $("#west-total-teachers").text(obj_fin.West.Users);
+
+        $("#south-total-cluster").text(obj_fin.South.Cluster);
+        $("#south-total-nurseries").text(obj_fin.South.Nurseries);
+        $("#south-total-teachers").text(obj_fin.South.Users);
+
     });
 </script>
+
+<script src="plugins/bower_components/chartist/dist/chartist.min.js"></script>
+<script src="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+<script src="js/pages/dashboards/dashboard1.js"></script>
+
+
 

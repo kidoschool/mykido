@@ -335,6 +335,24 @@
 <script src="js/pages/dashboards/dashboard1.js"></script>
 
 <script>
-   
+    var form = new FormData();
+    form.append("api", "country_admin_analytics");
+    var country_data = local_get('logged_user');
+    var country_id  = country_data.country;
+    form.append("country_id", country_id);
+    var settings = {
+    "url": server,
+    "method": "POST",
+    "timeout": 0,
+    "processData": false,
+    "mimeType": "multipart/form-data",
+    "contentType": false,
+    "data": form
+    };
+
+    $.ajax(settings).done(function (response) {
+        var resp = JSON.parse(response);
+        console.log(resp[0]);
+    });
 </script>
 

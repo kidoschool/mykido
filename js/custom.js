@@ -1075,12 +1075,22 @@ $(document).on('click','#user_submission_trs .user_list_tr',function(){
         var formRenderInstance = $('#form_div').formRender({dataType: 'json',formData: subs});
         $.each(subs, function (k, v) {
             if(v.type == "file"){
-                if(v.url){
-                  $("#"+v.name).parent().append("<a href="+dwnld_url+v.url+" download>Download</a>");
+                if(v.url.length){
+                    $.each(v.url, function (k1, v1) {
+                        var fil_url = encodeURI(dwnld_url+v1);
+                        var fileName = v1.split('/').pop();
+                        $("#"+v.name).parent().append(" <a href="+fil_url+" target='_blank'>"+fileName+"</a>  ");
+                    });
                 }else{
-                  $("#"+v.name).parent().append("<a href='#' >File Not Uploaded.</a>");
+                    $("#"+v.name).parent().append("<a href='#' >File Not Uploaded.</a>");
                 }
                 $("#"+v.name).remove();
+                // if(v.url){
+                //   $("#"+v.name).parent().append("<a href="+dwnld_url+v.url+" download>Download</a>");
+                // }else{
+                //   $("#"+v.name).parent().append("<a href='#' >File Not Uploaded.</a>");
+                // }
+                // $("#"+v.name).remove();
             }
         });
 

@@ -1079,7 +1079,7 @@ $(document).on('click','#user_submission_trs .user_list_tr',function(){
                     $.each(v.url, function (k1, v1) {
                         var fil_url = encodeURI(dwnld_url+v1);
                         var fileName = v1.split('/').pop();
-                        $("#"+v.name).parent().append(" <a href="+fil_url+" download target='_blank'>"+fileName+"</a>  ");
+                        $("#"+v.name).parent().append(" <a href="+fil_url+" target='_blank'>"+fileName+"</a>  ");
                     });
                 }else{
                     $("#"+v.name).parent().append("<a href='#' >File Not Uploaded.</a>");

@@ -14810,3 +14810,12 @@ input.form-control[type=file]{
 .bg-light {
     background-color: #2a85b133 !important;
 }
+
+
+input[type="checkbox"]:disabled + label::before{
+    background: rgb(13, 202, 28) !important;
+  }
+  input[type="checkbox"]:disabled + label:hover::before{
+    background: green !important;
+    border: 1px solid #d4d5d4;
+  }

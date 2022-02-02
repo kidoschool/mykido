@@ -688,7 +688,7 @@ $(document).on('click','#user_view_prev_submitted',function(){
         $('#form_div').before(date_selector);
         $('#form_div').before("<span id='selected_date'>&emsp;&emsp;Submitted on : "+last_sub_dt+"</span>");
         // console.log(date_selector);
-        $('#form_div').find("input").prop("disabled",true);
+        $('#form_div').find("input,select").prop("disabled",true);
         $("#user_inspect_submit").remove();
         $("#user_view_prev_submitted").remove();
     }else{
@@ -730,7 +730,7 @@ $(document).on('change','#user_sub_dates',function(){
                 }
             });
             $('#selected_date').html("&emsp;&emsp;Submitted on : "+$(this).val());
-            $('#form_div').find("input").prop("disabled",true);
+            $('#form_div').find("input,select").prop("disabled",true);
             // $('#form_div').before("<span>&emsp;&emsp;Submitted on : "+last_sub_dt+"</span>");
             // console.log(date_selector);
         }else{
@@ -1090,7 +1090,7 @@ $(document).on('click','#user_submission_trs .user_list_tr',function(){
 
         $('#form_div').before(date_selector);
         $('#form_div').before("<span id='selected_date'>&emsp;&emsp;Submitted on : "+last_sub_dt+"</span>");
-        $('#form_div').find("input").prop("disabled",true);
+        $('#form_div').find("input,select").prop("disabled",true);
         // console.log(date_selector);
         $("#user_inspect_submit").remove();
         $("#user_view_prev_submitted").remove();

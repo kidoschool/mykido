@@ -643,13 +643,17 @@ $(document).on('click','#user_inspect_submit',function(){
 });
 
 $(document).on('click','#user_view_prev_submitted',function(){
-    // var uid = $(this).attr("uid");
-    // $(".user_list_tr.active").removeClass("active");
-    // $(this).addClass("active");
-    // $("#selected_user").text($(this).find(".name").text());
-    // $("#selected_user").attr("user_id",uid);
-    // var form_id = url.searchParams.get("form_id");
-    var filter = JSON.stringify({"inspection_id":form_id,"user_id":user.id});
+
+    var sub_prev = user_submits_display(form_id,user.id);
+    if (!sub_prev) {
+        // alert("Not yet submitted.");
+        swal({  title: 'Not yet submitted..',type:"error",text: ""});
+    }
+});
+
+function user_submits_display(form_id,user_id) {
+
+    var filter = JSON.stringify({"inspection_id":form_id,"user_id":user_id});
     var out = JSON.parse(requester(server,"POST",{'api':'submitted_get_users','filter':filter,'limit':0}));
     var sub_prev = false;
 
@@ -665,15 +669,19 @@ $(document).on('click','#user_view_prev_submitted',function(){
     date_selector += "</select>";
     user_submitted = inspects;
 
+    $("#selected_date").remove();
+    $("#form_score").remove();
+    $("#user_sub_dates").remove();
+    
     if(sub_prev){
         var subs = JSON.parse(inspects[last_sub_dt]['submission']);
+        var submit_score = 0;
         $('#form_div').empty();
         // console.log(subs);
         var formRenderInstance = $('#form_div').formRender({dataType: 'json',formData: subs});
         $.each(subs, function (k, v) {
             if(v.type == "file"){
                 if(v.url.length){
-                    // console.log(v.url);
                     $.each(v.url, function (k1, v1) {
                         var fil_url = encodeURI(dwnld_url+v1);
                         var fileName = v1.split('/').pop();
@@ -684,18 +692,30 @@ $(document).on('click','#user_view_prev_submitted',function(){
                 }
                 $("#"+v.name).remove();
             }
+
+            if(v.type == "select" || v.type == "checkbox-group"){
+                $.each(v.values, function (k1, v1) {
+                    (v1.selected) ? submit_score += parseInt(v1.value) : false;
+                });
+            }
+
+            if(v.type == "radio-group"){
+                submit_score += parseInt($("input:radio[name='"+v.name+"']:checked").val());
+            }
         });
         $('#form_div').before(date_selector);
         $('#form_div').before("<span id='selected_date'>&emsp;&emsp;Submitted on : "+last_sub_dt+"</span>");
+        $('#form_div').before("<span id='form_score'>&emsp;Total Score : "+(submit_score || "Not Defined.")+"</span>");
         // console.log(date_selector);
         $('#form_div').find("input,select").prop("disabled",true);
         $("#user_inspect_submit").remove();
         $("#user_view_prev_submitted").remove();
+        return true;
     }else{
-        // alert("Not yet submitted.");
-        swal({  title: 'Not yet submitted..',type:"error",text: ""});
+        return false;
     }
-});
+}
+
 
 $(document).on('click','#manula_content_clear',function(){
     $("#target_out").attr("src","");
@@ -706,37 +726,83 @@ $(document).on('change','#user_sub_dates',function(){
     // alert($(this).val());
     // console.log(user_submitted[$(this).val()]);
     var sel_dt = $(this).val();
-    console.log(sel_dt);
-    if(sel_dt){
-        var sub_obj = user_submitted[sel_dt];
-        $('#form_div').empty();
+    // console.log(sel_dt);
+    // if(sel_dt){
+    //     var sub_obj = user_submitted[sel_dt];
+    //     $('#form_div').empty();
 
-        if(sub_obj["submission"]){
-            var subs = JSON.parse(sub_obj["submission"]);
-            // console.log(subs);
-            var formRenderInstance = $('#form_div').formRender({dataType: 'json',formData: subs});
-            $.each(subs, function (k, v) {
-                if(v.type == "file"){
-                    if(v.url.length){
-                        $.each(v.url, function (k1, v1) {
-                            var fil_url = encodeURI(dwnld_url+v1);
-                            var fileName = v1.split('/').pop();
-                            $("#"+v.name).parent().append(" <a href="+fil_url+" target='_blank'>"+fileName+"</a>  ");
-                        });
-                    }else{
-                        $("#"+v.name).parent().append("<a href='#' >File Not Uploaded.</a>");
-                    }
-                    $("#"+v.name).remove();
+    //     if(sub_obj["submission"]){
+    //         var subs = JSON.parse(sub_obj["submission"]);
+    //         // console.log(subs);
+    //         var formRenderInstance = $('#form_div').formRender({dataType: 'json',formData: subs});
+    //         $.each(subs, function (k, v) {
+    //             if(v.type == "file"){
+    //                 if(v.url.length){
+    //                     $.each(v.url, function (k1, v1) {
+    //                         var fil_url = encodeURI(dwnld_url+v1);
+    //                         var fileName = v1.split('/').pop();
+    //                         $("#"+v.name).parent().append(" <a href="+fil_url+" target='_blank'>"+fileName+"</a>  ");
+    //                     });
+    //                 }else{
+    //                     $("#"+v.name).parent().append("<a href='#' >File Not Uploaded.</a>");
+    //                 }
+    //                 $("#"+v.name).remove();
+    //             }
+    //         });
+    //         $('#selected_date').html("&emsp;&emsp;Submitted on : "+$(this).val());
+    //         $('#form_div').find("input,select").prop("disabled",true);
+    //         // $('#form_div').before("<span>&emsp;&emsp;Submitted on : "+last_sub_dt+"</span>");
+    //         // console.log(date_selector);
+    //     }else{
+    //         $('#form_div').html("<h3>Not submitted on :"+$(this).val()+".</h3>");
+    //     }
+    // }
+    // console.log(user_submitted);
+    if(user_submitted[sel_dt]){
+        var subs = JSON.parse(user_submitted[sel_dt]['submission']);
+        // var sub_obj = user_submitted[sel_dt];
+        var submit_score = 0;
+        $('#form_div').empty();
+        // console.log(subs);
+        var formRenderInstance = $('#form_div').formRender({dataType: 'json',formData: subs});
+   
+        $("#selected_date").remove();
+        $("#form_score").remove();
+
+        $.each(subs, function (k, v) {
+            if(v.type == "file"){
+                if(v.url.length){
+                    $.each(v.url, function (k1, v1) {
+                        var fil_url = encodeURI(dwnld_url+v1);
+                        var fileName = v1.split('/').pop();
+                        $("#"+v.name).parent().append(" <a href="+fil_url+" target='_blank'>"+fileName+"</a>  ");
+                    });
+                }else{
+                    $("#"+v.name).parent().append("<a href='#' >File Not Uploaded.</a>");
                 }
-            });
-            $('#selected_date').html("&emsp;&emsp;Submitted on : "+$(this).val());
-            $('#form_div').find("input,select").prop("disabled",true);
-            // $('#form_div').before("<span>&emsp;&emsp;Submitted on : "+last_sub_dt+"</span>");
-            // console.log(date_selector);
-        }else{
-            $('#form_div').html("<h3>Not submitted on :"+$(this).val()+".</h3>");
-        }
+                $("#"+v.name).remove();
+            }
+
+            if(v.type == "select" || v.type == "checkbox-group"){
+                $.each(v.values, function (k1, v1) {
+                    (v1.selected) ? submit_score += parseInt(v1.value) : false;
+                });
+            }
+
+            if(v.type == "radio-group"){
+                submit_score += parseInt($("input:radio[name='"+v.name+"']:checked").val());
+            }
+
+        });
+        // $('#form_div').before(date_selector);
+        $('#form_div').before("<span id='selected_date'>&emsp;&emsp;Submitted on : "+sel_dt+"</span>");
+        $('#form_div').before("<span id='form_score'>&emsp;Total Score : "+(submit_score || "Not Defined.")+"</span>");
+        // console.log(date_selector);
+        $('#form_div').find("input,select").prop("disabled",true);
+        $("#user_inspect_submit").remove();
+        $("#user_view_prev_submitted").remove();
     }
+
 });
 
 
@@ -1049,56 +1115,74 @@ $(document).on('click','#user_submission_trs .user_list_tr',function(){
     $("#selected_user").text($(this).find(".name").text());
     $("#selected_user").attr("user_id",uid);
     // var form_id = url.searchParams.get("form_id");
-    var filter = JSON.stringify({"inspection_id":form_id,"user_id":uid});
-    var out = JSON.parse(requester(server,"POST",{'api':'submitted_get_users','filter':filter,'limit':0}));
-    var sub_prev = false;
 
-    var inspects = {}, last_sub_dt = "", date_selector = "<select id='user_sub_dates'><option value=''>Previous submission</option>";
-    $.each(out, function (k, v) {
-        if(v.submitted_on){
-            inspects[v.submitted_on] =  v;
-            last_sub_dt = v.submitted_on;
-            date_selector += "<option value='"+v.submitted_on+"'>"+v.submitted_on+"</option>";
-            (v.submission) ? sub_prev = true : false;
-        }
-    });
-    date_selector += "</select>";
-    user_submitted = inspects;
-
-    $("#selected_date").remove();
-    $("#user_sub_dates").remove();
-
-    if(sub_prev){
-        var subs = JSON.parse(inspects[last_sub_dt]['submission']);
-        $('#form_div').empty();
-        // console.log(subs);
-        var formRenderInstance = $('#form_div').formRender({dataType: 'json',formData: subs});
-        $.each(subs, function (k, v) {
-            if(v.type == "file"){
-                if(v.url.length){
-                    $.each(v.url, function (k1, v1) {
-                        var fil_url = encodeURI(dwnld_url+v1);
-                        var fileName = v1.split('/').pop();
-                        $("#"+v.name).parent().append(" <a href="+fil_url+" target='_blank'>"+fileName+"</a>  ");
-                    });
-                }else{
-                    $("#"+v.name).parent().append("<a href='#' >File Not Uploaded.</a>");
-                }
-                $("#"+v.name).remove();
-            }
-        });
-
-        $('#form_div').before(date_selector);
-        $('#form_div').before("<span id='selected_date'>&emsp;&emsp;Submitted on : "+last_sub_dt+"</span>");
-        $('#form_div').find("input,select").prop("disabled",true);
-        // console.log(date_selector);
-        $("#user_inspect_submit").remove();
-        $("#user_view_prev_submitted").remove();
-    }else{
-        // $('#form_div').empty();
+    var sub_prev = user_submits_display(form_id,uid);
+    if (!sub_prev) {
         $('#form_div').html("<h3>Not yet submitted.</h3>");
-        // alert("Not yet submitted.");
     }
+
+    // var filter = JSON.stringify({"inspection_id":form_id,"user_id":uid});
+    // var out = JSON.parse(requester(server,"POST",{'api':'submitted_get_users','filter':filter,'limit':0}));
+    // var sub_prev = false;
+
+    // var inspects = {}, last_sub_dt = "", date_selector = "<select id='user_sub_dates'><option value=''>Previous submission</option>";
+    // $.each(out, function (k, v) {
+    //     if(v.submitted_on){
+    //         inspects[v.submitted_on] =  v;
+    //         last_sub_dt = v.submitted_on;
+    //         date_selector += "<option value='"+v.submitted_on+"'>"+v.submitted_on+"</option>";
+    //         (v.submission) ? sub_prev = true : false;
+    //     }
+    // });
+    // date_selector += "</select>";
+    // user_submitted = inspects;
+
+    // $("#selected_date").remove();
+    // $("#user_sub_dates").remove();
+
+    // if(sub_prev){
+    //     var subs = JSON.parse(inspects[last_sub_dt]['submission']);
+    //     $('#form_div').empty();
+    //     // console.log(subs);
+    //     var formRenderInstance = $('#form_div').formRender({dataType: 'json',formData: subs});
+    //     $.each(subs, function (k, v) {
+    //         if(v.type == "file"){
+    //             if(v.url.length){
+    //                 $.each(v.url, function (k1, v1) {
+    //                     var fil_url = encodeURI(dwnld_url+v1);
+    //                     var fileName = v1.split('/').pop();
+    //                     $("#"+v.name).parent().append(" <a href="+fil_url+" target='_blank'>"+fileName+"</a>  ");
+    //                 });
+    //             }else{
+    //                 $("#"+v.name).parent().append("<a href='#' >File Not Uploaded.</a>");
+    //             }
+    //             $("#"+v.name).remove();
+    //         }
+
+    //         if(v.type == "select" || v.type == "checkbox-group"){
+    //             $.each(v.values, function (k1, v1) {
+    //                 (v1.selected) ? submit_score += parseInt(v1.value) : false;
+    //             });
+    //         }
+    
+    //         if(v.type == "radio-group"){
+    //             submit_score += parseInt($("input:radio[name='"+v.name+"']:checked").val());
+    //         }
+
+    //     });
+
+    //     $('#form_div').before(date_selector);
+    //     $('#form_div').before("<span id='selected_date'>&emsp;&emsp;Submitted on : "+last_sub_dt+"</span>");
+    //     $('#form_div').before("<span id='form_score'>&emsp;Total Score : "+submit_score+"</span>");
+    //     $('#form_div').find("input,select").prop("disabled",true);
+    //     // console.log(date_selector);
+    //     $("#user_inspect_submit").remove();
+    //     $("#user_view_prev_submitted").remove();
+    // }else{
+    //     // $('#form_div').empty();
+    //     $('#form_div').html("<h3>Not yet submitted.</h3>");
+    //     // alert("Not yet submitted.");
+    // }
 
 });
 

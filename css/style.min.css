@@ -14812,10 +14812,18 @@ input.form-control[type=file]{
 }
 
 
-input[type="checkbox"]:disabled + label::before{
-    background: rgb(13, 202, 28) !important;
+/*  */
+
+  input[type="checkbox"]:checked{
+    outline: rgb(71, 245, 71) solid 2px;
+    /* border: 2px solid green; */
   }
-  input[type="checkbox"]:disabled + label:hover::before{
-    background: green !important;
-    border: 1px solid #d4d5d4;
-  }
+
+
+    /* input:disabled {
+        cursor: pointer;
+        background-color: green !important;
+        color: green !important;
+        border-color: rgba(118, 118, 118, 0.3);
+    } */
+  

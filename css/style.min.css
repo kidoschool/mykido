@@ -14814,7 +14814,12 @@ input.form-control[type=file]{
 
 /*  */
 
-  input[type="checkbox"]:checked{
+  input[type="checkbox"]:disabled:checked{
+    outline: rgb(71, 245, 71) solid 2px;
+    /* border: 2px solid green; */
+  }
+
+  input[type="radio"]:disabled:checked{
     outline: rgb(71, 245, 71) solid 2px;
     /* border: 2px solid green; */
   }

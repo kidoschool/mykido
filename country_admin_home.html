@@ -205,6 +205,49 @@
             </div>
             <!-- south region end -->
         </div>
+        <div class="row">
+            <!-- Central region start -->
+            <div class="col-lg-6 col-md-12">
+                <div class="white-box analytics-info shadow country-admin-home-box">
+                    <h4 class="text-center" style="color: #405a67; font-weight: 700;">Central Region</h4>
+                    <hr>
+                    <div class="total-cnt-count">
+                        <div class="total-clus-count d-flex justify-content-between mb-2">
+                            <h4 style="color: #00356b">Total Cluster</h4>
+                            <h6 id="central-total-cluster"></h6>
+                        </div>
+                        <div class="total-clus-count d-flex justify-content-between mb-2">
+                            <h4 style="color: #1e75cc">Total Nurseries</h4>
+                            <h6 id="central-total-nurseries"></h6>
+                        </div>
+                        <div class="total-clus-count d-flex justify-content-between mb-2">
+                            <h4 class="text-info">Total Teachers</h4>
+                            <h6 id="central-total-teachers"></h6>
+                        </div>
+                    </div>
+                    <div class="show-more-btn mt-3 text-center">
+                        <button class="btn btn-sm btn-outline-info region-btn" region="Central" type="button" data-toggle="modal" data-target="#central-region">View Details</button>
+                    </div>
+                         <!-- Modal -->
+                         <div class="modal fade" id="central-region" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h4 class="modal-title" id="exampleModalLabel">Central Region</h4>
+                                <a type="button" class="close close-model-btn" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </a>
+                                </div>
+                                <div class="modal-body Central">
+                                    
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    <!-- Modal ends -->
+                </div>
+            </div>
+        </div>
         <!-- ============================================================== -->
         <!-- RECENT SALES -->
         <!-- ============================================================== -->
@@ -312,6 +355,10 @@
         $("#south-total-cluster").text(obj_fin.South.Cluster);
         $("#south-total-nurseries").text(obj_fin.South.Nurseries);
         $("#south-total-teachers").text(obj_fin.South.Users);
+
+        $("#central-total-cluster").text(obj_fin.Central.Cluster);
+        $("#central-total-nurseries").text(obj_fin.Central.Nurseries);
+        $("#central-total-teachers").text(obj_fin.Central.Users);
     
 
             $('.region-btn').click(function() {

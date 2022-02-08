@@ -4,18 +4,17 @@ Author: Wrappixel
 Email: niravjoshi87@gmail.com
 File: js
 */
+
 $(function () {
     "use strict";
     // ============================================================== 
     // Newsletter
     // ============================================================== 
-
     //ct-visits
     new Chartist.Line('#ct-visits', {
         labels: ['24 jan', '25 jan', '26 jan', '27 jan', '28 jan', '29 jan', '30 jan'],
         series: [
-            [5, 2, 7, 4, 5, 3, 5, 2]
-             , [2, 5, 2, 6, 2, 5, 2, 4]
+            [4, 2, 4, 6, 4, 3, 4, 2]
         ]
     }, {
         top: 0,

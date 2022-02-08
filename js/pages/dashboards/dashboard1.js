@@ -5,16 +5,31 @@ Email: niravjoshi87@gmail.com
 File: js
 */
 
+let monthNames =["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
 $(function () {
     "use strict";
     // ============================================================== 
     // Newsletter
     // ============================================================== 
-    //ct-visits
-    new Chartist.Line('#ct-visits', {
-        labels: ['24 jan', '25 jan', '26 jan', '27 jan', '28 jan', '29 jan', '30 jan'],
+        
+        var goBackDays = 7;
+
+        var today = new Date();
+        var daysSorted = [];
+
+        for(var i = 0; i < goBackDays; i++) {
+        var newDate = new Date(today.setDate(today.getDate() - 1));
+        let monthIndex = newDate.getMonth();
+        let monthName = monthNames[monthIndex];
+        daysSorted.push(newDate.getDate()+" "+monthName);
+        }
+
+        //ct-visits
+        new Chartist.Line('#ct-visits', {
+        labels: daysSorted,
         series: [
-            [4, 2, 4, 6, 4, 3, 4, 2]
+            [4, 2, 4, 2, 4, 3, 4, 2]
         ]
     }, {
         top: 0,

@@ -4,18 +4,32 @@ Author: Wrappixel
 Email: niravjoshi87@gmail.com
 File: js
 */
+
+let monthNames =["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
 $(function () {
     "use strict";
     // ============================================================== 
     // Newsletter
     // ============================================================== 
+        
+        var goBackDays = 7;
 
-    //ct-visits
-    new Chartist.Line('#ct-visits', {
-        labels: ['24 jan', '25 jan', '26 jan', '27 jan', '28 jan', '29 jan', '30 jan'],
+        var today = new Date();
+        var daysSorted = [];
+
+        for(var i = 0; i < goBackDays; i++) {
+        var newDate = new Date(today.setDate(today.getDate() - 1));
+        let monthIndex = newDate.getMonth();
+        let monthName = monthNames[monthIndex];
+        daysSorted.push(newDate.getDate()+" "+monthName);
+        }
+
+        //ct-visits
+        new Chartist.Line('#ct-visits', {
+        labels: daysSorted,
         series: [
-            [5, 2, 7, 4, 5, 3, 5, 2]
-             , [2, 5, 2, 6, 2, 5, 2, 4]
+            [4, 2, 4, 2, 4, 3, 4, 2]
         ]
     }, {
         top: 0,

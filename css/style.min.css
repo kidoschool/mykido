@@ -14440,23 +14440,23 @@ html body .waves-notransition {
 
 #ct-visits .ct-series-a .ct-line,
 #ct-visits .ct-series-a .ct-point {
-    stroke: #98a6ad
-}
-
-#ct-visits .ct-series-b .ct-line,
-#ct-visits .ct-series-b .ct-point {
     stroke: #41b3f9
 }
 
-#ct-visits .ct-series-a .ct-area {
-    fill: #98a6ad;
-    fill-opacity: 0.05
-}
+/* #ct-visits .ct-series-b .ct-line,
+#ct-visits .ct-series-b .ct-point {
+    stroke: #41b3f9
+} */
 
-#ct-visits .ct-series-b .ct-area {
+#ct-visits .ct-series-a .ct-area {
     fill: #41b3f9;
     fill-opacity: 0.1
 }
+
+/* #ct-visits .ct-series-b .ct-area {
+    fill: #41b3f9;
+    fill-opacity: 0.1
+} */
 
 #ct-visits .ct-line {
     stroke-width: 2px
@@ -14814,7 +14814,12 @@ input.form-control[type=file]{
 
 /*  */
 
-  input[type="checkbox"]:checked{
+  input[type="checkbox"]:disabled:checked{
+    outline: rgb(71, 245, 71) solid 2px;
+    /* border: 2px solid green; */
+  }
+
+  input[type="radio"]:disabled:checked{
     outline: rgb(71, 245, 71) solid 2px;
     /* border: 2px solid green; */
   }

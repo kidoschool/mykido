@@ -685,7 +685,7 @@ function user_submits_display(form_id,user_id) {
                     $.each(v.url, function (k1, v1) {
                         var fil_url = encodeURI(dwnld_url+v1);
                         var fileName = v1.split('/').pop();
-                        $("#"+v.name).parent().append(" <a href="+fil_url+" target='_blank'>"+fileName+"</a>  ");
+                        $("#"+v.name).parent().append(" <a target='_blank' href="+fil_url+"><img src="+fil_url+" width='50' alt="+fileName+"/></a> ");
                     });
                 }else{
                     $("#"+v.name).parent().append("<a href='#' >File Not Uploaded.</a>");
@@ -781,7 +781,7 @@ $(document).on('change','#user_sub_dates',function(){
                     $.each(v.url, function (k1, v1) {
                         var fil_url = encodeURI(dwnld_url+v1);
                         var fileName = v1.split('/').pop();
-                        $("#"+v.name).parent().append(" <a href="+fil_url+" target='_blank'>"+fileName+"</a>  ");
+                        $("#"+v.name).parent().append(" <a target='_blank' href="+fil_url+"><img src="+fil_url+" width='50' alt="+fileName+"/></a> ");
                     });
                 }else{
                     $("#"+v.name).parent().append("<a href='#' >File Not Uploaded.</a>");

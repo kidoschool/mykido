@@ -703,6 +703,12 @@ function user_submits_display(form_id,user_id) {
                 submit_score += parseInt($("input:radio[name='"+v.name+"']:checked").val());
             }
         });
+        //------------CONDITIONAL QUESTION----------------
+        $("#form_div").find(".child").closest("div").css("display","none");
+        $("#form_div").find(".parent").each(function() {
+            $('[name="'+this.value+'"]').closest("div").css("display","initial");
+        });
+        //------------------------------------------------
         $('#form_div').before(date_selector);
         $('#form_div').before("<span id='selected_date'>&emsp;&emsp;Submitted on : "+last_sub_dt+"</span>");
         $('#form_div').before("<span id='form_score'>&emsp;Total Score : "+(submit_score || "Not Defined.")+"</span>");
@@ -794,7 +800,13 @@ $(document).on('change','#user_sub_dates',function(){
             }
 
         });
-        // $('#form_div').before(date_selector);
+        //------------CONDITIONAL QUESTION----------------
+        $("#form_div").find(".child").closest("div").css("display","none");
+        $("#form_div").find(".parent").each(function() {
+            $('[name="'+this.value+'"]').closest("div").css("display","initial");
+        });
+        //------------------------------------------------
+
         $('#form_div').before("<span id='selected_date'>&emsp;&emsp;Submitted on : "+sel_dt+"</span>");
         $('#form_div').before("<span id='form_score'>&emsp;Total Score : "+(submit_score || "Not Defined.")+"</span>");
         // console.log(date_selector);
@@ -805,6 +817,18 @@ $(document).on('change','#user_sub_dates',function(){
 
 });
 
+
+$(document).on('change','.parent',function(){
+
+    var selected_opt = $(this).val();
+
+    $(this).find("option").each(function() {
+        $('[name="'+this.value+'"]').closest("div").css("display","none");
+    });
+
+    $('[name="'+selected_opt+'"]').closest("div").css("display","initial");
+
+});
 
 $(document).on('click','#manuals .ls2',function(){
     $("#manuals").find(".ls3,.ls4,.ls5").css("display","none");

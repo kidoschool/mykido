@@ -308,23 +308,39 @@
         var reg_obj = {};
         var nurs_obj = {};
         var usr_obj = {};
-        console.log(resp);
+        // console.log(resp);
+        var clus_users = {};
+        // v1.region+v1.Cluster
         $.each( resp, function (k1, v1) {
 
             !reg_obj[v1.region] ?  reg_obj[v1.region] = {} : true;
             !nurs_obj[v1.region] ?  nurs_obj[v1.region] = {} : true;
             !usr_obj[v1.region] ?  usr_obj[v1.region] = 0 : true;
+            
 
-            !reg_obj[v1.region][v1.Cluster] ?  reg_obj[v1.region][v1.Cluster] = {} : true;
+            !reg_obj[v1.region][v1.Cluster] ?  reg_obj[v1.region][v1.Cluster] = [] : true;
 
             if(v1.Nursery){
                 var nurs = v1.region+v1.Cluster+v1.Nursery;
                 !nurs_obj[v1.region][nurs] ? nurs_obj[v1.region][nurs] = 0 : true;
                 nurs_obj[v1.region][nurs]++;
+
+                if(reg_obj[v1.region][v1.Cluster].indexOf(v1.Nursery) == -1){
+                    reg_obj[v1.region][v1.Cluster].push(v1.Nursery)
+                }
+
             }
 
             if(v1.user_id){
                 usr_obj[v1.region]++;
+
+                !clus_users[v1.region+v1.Cluster] ?  clus_users[v1.region+v1.Cluster] = 0 : true;
+
+                clus_users[v1.region+v1.Cluster]++;
+                // if(reg_obj[v1.region][v1.Cluster].indexOf(v1.user_id) == -1){
+                //     reg_obj[v1.region][v1.Cluster].push(v1.user_id)
+                // }
+
             }
 
         });
@@ -339,7 +355,7 @@
 
         });
 
-        console.log(obj_fin);
+        console.log(reg_obj);
         $("#north-total-cluster").text(obj_fin.North.Cluster);
         $("#north-total-nurseries").text(obj_fin.North.Nurseries);
         $("#north-total-teachers").text(obj_fin.North.Users);
@@ -365,13 +381,15 @@
                 var n = $(this).attr('region');      
                 $("."+n).empty();
                 $.each(Object.keys(reg_obj[n]), function(key,valueObj){
+                    // console.log(reg_obj[n][valueObj].length);
+                    
                     var clus_card = `<div class="clus-nur-details d-flex justify-content-between pt-2">
                                         <div class="clu-head">
                                             <h4 class="text-primary mb-1 north-cluster">`+valueObj+`</h4>
                                         </div>
                                         <div class="nur-count">
-                                            <span>0 Nurseries</span><br>
-                                            <span>0 Teachers</span>
+                                            <span>`+reg_obj[n][valueObj].length+` Nurseries</span><br>
+                                            <span>`+(clus_users[n+valueObj] || 0)+` Teachers</span>
                                         </div>
                                     </div>`;
                     $("."+n).append(clus_card);

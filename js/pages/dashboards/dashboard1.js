@@ -84,12 +84,12 @@ $(function () {
     //         barColor: '#f33155'
     //     });
     // }
-    var sparkResize;
-    $(window).on("resize", function (e) {
-        clearTimeout(sparkResize);
-        sparkResize = setTimeout(sparklineLogin, 500);
-    });
-    sparklineLogin();
+    // var sparkResize;
+    // $(window).on("resize", function (e) {
+    //     clearTimeout(sparkResize);
+    //     sparkResize = setTimeout(sparklineLogin, 500);
+    // });
+    // sparklineLogin();
 });
 
 

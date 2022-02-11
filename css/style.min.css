@@ -14832,3 +14832,96 @@ input.form-control[type=file]{
         border-color: rgba(118, 118, 118, 0.3);
     } */
   
+    .sidenav{
+        background-color: #f4f5f6;
+        height: 100%; /* 100% Full-height */
+        width: 0; /* 0 width - change this with JavaScript */
+        position: fixed; /* Stay in place */
+        z-index: 1099; /* Stay on top */
+        top: 0;
+        left: 0;
+        overflow-x: hidden; /* Disable horizontal scroll */
+        padding-top: 30px; /* Place content 60px from the top */
+        transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+        /* border-right: 1px solid #444; */
+      }
+      
+      /* Position and style the close button (top right corner) */
+      .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 30px;
+        margin-left: 50px;
+      }
+
+      /* .side-collapse{
+        position: fixed;
+        left: 281px;
+        z-index: inherit;
+        background-color: #fff;
+        width: 250px;
+      } */
+
+      .card{
+        background: #fff;
+        color: #000;
+        margin-bottom: 10px;
+    }
+
+    .card .card-body {
+        padding: 20px;
+        color: #263238;
+    }
+
+    .card-body{
+        height: 180px;
+        overflow: auto;
+    }
+    
+    .card-header{
+        padding: 0px 10px;
+        font-weight: 400;
+        position: relative;
+        width: 100%;
+        border: 0;
+        background-color: #fff;
+        border: 1px solid #99999940;
+    }
+    
+    .btn-link {
+        font-weight: 400;
+        color: #444;
+        text-decoration: none;
+        font-size: 14px;
+    }
+    
+    .btn-link:hover{
+        color: #444;
+        text-decoration: none;
+    }
+    
+    .btn-link.focus, .btn-link:focus {
+        text-decoration: none;
+        box-shadow: none;
+    }
+    
+    .card-header1 button:after{
+        font-family: "FontAwesome";
+        /* content: "\f068"; */
+        content:"\2212";
+        position: absolute;
+        right: 20px;
+        font-size: 25px;
+        top: 45%;
+        line-height: 1;
+        margin-top: -10px;
+        text-align: center;
+    }
+    
+    .card-header1 button.collapsed:after {
+        /* content: "\f067"; */
+        content:"\2b";
+    }
+      
+       

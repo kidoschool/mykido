@@ -41,7 +41,7 @@ $(function () {
         ],
         axisY: {
             labelInterpolationFnc: function (value) {
-                return (value) + 'inc';
+                return (value) + 'cnt';
             }
         },
         showArea: true

@@ -254,8 +254,11 @@
         <div class="row">
             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 <div class="white-box shadow">
-                    <h3 class="box-title">Inspections Status</h3>
-                    <div class="d-md-flex">
+                    <div class="d-flex justify-content-between">
+                        <h3 class="box-title">Inspections Status</h3>
+                        <a onclick="openNav()" class="btn btn-sm btn-outline-info btn-common">Apply Filter on Inspection</a>
+                    </div>
+                    <div class="d-md-flex pt-4">
                         <ul class="list-inline d-flex ms-auto">
                             <li class="ps-3">
                                 <h5><span class="text-primary">X-axis</span> - Last 7 day date of inspection</h5>
@@ -271,6 +274,176 @@
                         </div> -->
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div id="mySidenav" class="sidenav border-right">
+            <div class="p-3">
+                <h5>Filter Inspection</h5><a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <hr>
+                    <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="date" class="form-control" name="date" id="date" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                    <label for="template">Template</label>
+                    <div class="accordion" id="accordionExample">
+                        <div class="card">
+                          <div class="card-header card-header1" id="headingOne">
+                            <h2 class="mb-0">
+                              <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Apply template filter
+                              </button>
+                            </h2>
+                          </div>
+                      
+                          <div id="collapseOne" class="collapse side-collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                </div>
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                </div>
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                </div>
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                </div>
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                </div>
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                </div>
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="template">Inspection</label>
+                        <div class="accordion" id="accordionExample">
+                            <div class="card">
+                              <div class="card-header card-header1" id="headingOne">
+                                <h2 class="mb-0">
+                                  <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                    Apply inspection filter
+                                  </button>
+                                </h2>
+                              </div>
+                          
+                              <div id="collapseTwo" class="collapse side-collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <div class="form-group form-check">
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                    </div>
+                                    <div class="form-group form-check">
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                    </div>
+                                    <div class="form-group form-check">
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                    </div>
+                                    <div class="form-group form-check">
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="template">Region</label>
+                            <div class="accordion" id="accordionExample">
+                                <div class="card">
+                                  <div class="card-header card-header1" id="headingOne">
+                                    <h2 class="mb-0">
+                                      <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                        Apply region filter
+                                      </button>
+                                    </h2>
+                                  </div>
+                              
+                                  <div id="collapseThree" class="collapse side-collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="form-group form-check">
+                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                            <label class="form-check-label" for="exampleCheck1">Central</label>
+                                        </div>
+                                        <div class="form-group form-check">
+                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                            <label class="form-check-label" for="exampleCheck1">North</label>
+                                        </div>
+                                        <div class="form-group form-check">
+                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                            <label class="form-check-label" for="exampleCheck1">East</label>
+                                        </div>
+                                        <div class="form-group form-check">
+                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                            <label class="form-check-label" for="exampleCheck1">West</label>
+                                        </div>
+                                        <div class="form-group form-check">
+                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                            <label class="form-check-label" for="exampleCheck1">South</label>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="template">Area</label>
+                                <div class="accordion" id="accordionExample">
+                                    <div class="card">
+                                      <div class="card-header card-header1" id="headingOne">
+                                        <h2 class="mb-0">
+                                          <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapsefour" aria-expanded="true" aria-controls="collapsefour">
+                                            Apply area filter
+                                          </button>
+                                        </h2>
+                                      </div>
+                                  
+                                      <div id="collapsefour" class="collapse side-collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                            </div>
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                            </div>
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                            </div>
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                            </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                </div>
+                  
+                    <button type="submit" name="submit" class="btn btn-common btn-sm btn-outline-info">Submit</button>
             </div>
         </div>
     <!-- ============================================================== -->
@@ -380,6 +553,15 @@
             });
 
     });
+
+      /* Set the width of the side navigation to 300px and the left margin of the page content to 250px */
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "280px";
+        }
+        /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }      
 </script>
 
 <script src="plugins/bower_components/chartist/dist/chartist.min.js"></script>

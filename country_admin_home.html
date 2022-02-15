@@ -19,6 +19,27 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
+    <div class="tab-list bg-white border shadow">
+        <div class="row align-items-center">
+            <div class="col-lg-12 col-md-12">
+                <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Overview</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="conducted" aria-selected="false">Conducted</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="performance" aria-selected="false">Performance</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="failed-item" aria-selected="false">Failed Item</a>
+                      </li>
+                  </ul>
+            </div>
+        </div>
+    </div>
+
     <!-- ============================================================== -->
     <!-- End Bread crumb and right sidebar toggle -->
     <!-- ============================================================== -->
@@ -26,6 +47,15 @@
     <!-- Container fluid  -->
     <!-- ============================================================== -->
     <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="bg-white">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
         <!-- ============================================================== -->
         <!-- Three charts -->
         <!-- ============================================================== -->
@@ -251,11 +281,45 @@
         <!-- ============================================================== -->
         <!-- RECENT SALES -->
         <!-- ============================================================== -->
+        <div class="row mb-4">
+            <div class="col-lg-3">
+                <div class="border bg-white shadow p-2">
+                    <h4>Total Inspection count</h4>
+                    <h2 class="text-info" style="font-weight: 600;">1,230</h2>
+                    <div id="ct-sm-visits" style="height: 100px;">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="border bg-white shadow p-2">
+                    <h4>Total Inspection count</h4>
+                    <h2 class="text-info">1,230</h2>
+                    <div id="ct-sm-visits" style="height: 100px;">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="border bg-white shadow p-2">
+                    <h4>Total Inspection count</h4>
+                    <h2 class="text-info">1,230</h2>
+                    <div id="ct-sm-visits" style="height: 100px;">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="border bg-white shadow p-2">
+                    <h4>Total Inspection count</h4>
+                    <h2 class="text-info">1,230</h2>
+                    <div id="ct-sm-visits" style="height: 100px;">
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 <div class="white-box shadow">
                     <div class="d-flex justify-content-between">
-                        <h3 class="box-title">Inspections Status</h3>
+                        <h3 class="box-title">Total Inspection Count</h3>
                         <a onclick="openNav()" class="btn btn-sm btn-outline-info btn-common">Apply Filter on Inspection</a>
                     </div>
                     <div class="d-md-flex pt-4">
@@ -409,16 +473,27 @@
     <!-- ============================================================== -->
     <!-- End Container fluid  -->
     <!-- ============================================================== -->
+    </div>
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-12">
+
+            </div>
+        </div>
+    </div>
+
+    </div>
     <!-- ============================================================== -->
-    <!-- footer -->
-    <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
     <footer class="footer text-center"> 2022 © Kido | All rights reserved <a
             href="https://kido.school/en/">Kido School</a>
     </footer>
     <!-- ============================================================== -->
     <!-- End footer -->
     <!-- ============================================================== -->
-</div>
+    </div>
+
 
 <script>
     var form = new FormData();

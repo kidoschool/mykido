@@ -14924,4 +14924,20 @@ input.form-control[type=file]{
         content:"\2b";
     }
       
+    .nav-pills .nav-link{
+        color: #000;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+        color: #2cabe3;
+        background-color: #fff;
+    }
+
+    .tab-list{
+        position: sticky;
+        top: 0;
+        padding: 13px 10px;
+    }
        

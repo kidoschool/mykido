@@ -13,7 +13,8 @@ var country = {
     3 : "Dubai",
     4 : "USA",
     5 : "Hongkong",
-    6 : "China"
+    6 : "China",
+    7 : "KidoIndia"
 }
 
 var countryRegions = {

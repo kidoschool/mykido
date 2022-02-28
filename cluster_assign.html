@@ -48,7 +48,7 @@
     updt_clust_access_list_tbl("cluster_list");
 
     var user = local_get('logged_user');
-    var filter = JSON.stringify({"level":3});
+    var filter = JSON.stringify({"level":3,"country":user.country});
     var inspects = JSON.parse(requester(server,"POST",{'api':'get_users','filter':filter}));
     // console.log(clus_ids);
     var filter = JSON.stringify({"cluster_id":clus_ids});

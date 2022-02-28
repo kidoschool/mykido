@@ -239,6 +239,7 @@ var cluster_data = local_get('logged_user');
 var cluster_id  = cluster_data.clutrs[0].cluster_id;
 // console.log(cluster_id);
 form.append("cluster_id", cluster_id);
+form.append("country", cluster_data.country);
 
 var settings = {
   "url": server,
@@ -252,9 +253,15 @@ var settings = {
 
 $.ajax(settings).done(function (response) {
   var resp = JSON.parse(response);
-  console.log(resp[0]);
-  $("#teacher-cnt").text(resp[0].users);
-  $("#nurseries-cnt").text(resp[0].nurseries);
-  $("#inspections-cnt").text(resp[0].inspections);
+//   console.log(resp[0]);
+    if(resp.length){
+        $("#teacher-cnt").text(resp[0].users);
+        $("#nurseries-cnt").text(resp[0].nurseries);
+        $("#inspections-cnt").text(resp[0].inspections);
+    }else{
+        $("#teacher-cnt").text(0);
+        $("#nurseries-cnt").text(0);
+        $("#inspections-cnt").text(0);
+    }
 });
 </script>
